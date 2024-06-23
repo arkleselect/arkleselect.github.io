@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>使用 Hugo 和 GitHub Pages 搭建并部署一个静态博客网站 | 👨‍🌾 Jared Yam</title>
+<meta name="keywords" content="Hugo, GitHub Pages">
+<meta name="description" content="🔎 https://&lt;your-github-id&gt;.github.io ↩️">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/posts/build-and-deploy-a-static-blog-website-with-hugo-and-github-pages/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.addcb52bd51a3b88e8b1f8d1f406e67a8a6d138fa32ea3967d397e6983d07938.css" integrity="sha256-rdy1K9UaO4josfjR9AbmeoptE4&#43;jLqOWfTl&#43;aYPQeTg=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/build-and-deploy-a-static-blog-website-with-hugo-and-github-pages/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="👨‍🌾 Jared Yam (Alt + H)">👨‍🌾 Jared Yam</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                </ul>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archives/" title="📚 Archive">
+                    <span>📚 Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="🏷 Tags">
+                    <span>🏷 Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="🔍 Search (Alt &#43; /)" accesskey=/>
+                    <span>🔍 Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main page">
+
+<article class="post-single" autonumbering>
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      使用 Hugo 和 GitHub Pages 搭建并部署一个静态博客网站
+    </h1>
+    <div class="post-description">
+      🔎 https://&lt;your-github-id&gt;.github.io ↩️
+    </div>
+    <div class="post-meta">&lt;span title=&#39;2022-03-06 20:29:59 &#43;0800 CST&#39;&gt;最早创建于 2022 年 3 月 6 日&lt;/span&gt;
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
+
+        <div class="inner"><ul>
+                    <li>
+                        <a href="#%e6%90%ad%e5%bb%ba%e9%9d%99%e6%80%81%e7%bd%91%e7%ab%99" aria-label="搭建静态网站">搭建静态网站</a><ul>
+                            
+                    <li>
+                        <a href="#%e5%ae%89%e8%a3%85-hugo-%e6%a1%86%e6%9e%b6" aria-label="安装 Hugo 框架">安装 Hugo 框架</a></li>
+                    <li>
+                        <a href="#%e5%88%9b%e5%bb%ba%e7%bd%91%e7%ab%99%e6%a8%a1%e6%9d%bf" aria-label="创建网站模板">创建网站模板</a></li>
+                    <li>
+                        <a href="#%e9%85%8d%e7%bd%ae%e5%9f%ba%e7%a1%80%e4%b8%bb%e9%a2%98" aria-label="配置基础主题">配置基础主题</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e5%ae%9a%e5%88%b6%e5%9f%ba%e7%a1%80%e4%b8%bb%e9%a2%98" aria-label="定制基础主题">定制基础主题</a><ul>
+                            
+                    <li>
+                        <a href="#%e8%bd%ac%e7%a7%bb%e7%9b%ae%e5%bd%95%e8%87%b3%e4%be%a7%e8%be%b9%e6%a0%8f" aria-label="转移目录至侧边栏">转移目录至侧边栏</a></li>
+                    <li>
+                        <a href="#%e6%b7%bb%e5%8a%a0%e8%af%84%e8%ae%ba%e7%b3%bb%e7%bb%9f" aria-label="添加评论系统">添加评论系统</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%83%a8%e7%bd%b2%e7%bd%91%e7%ab%99%e6%9c%8d%e5%8a%a1" aria-label="部署网站服务">部署网站服务</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        
+        activeElement = elements[0];
+        const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+        document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+    }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+            const id = encodeURI(element.getAttribute('id')).toLowerCase();
+            if (element === activeElement){
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+            }
+        })
+    }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+
+  <div class="post-content"><p>最近打算将我在 <a href="https://blog.csdn.net/weixin_43958105">CSDN</a> 上发布并持续优化的部分内容同步至 GitHub，这些内容十分需要借助 Git 记录和追溯修改历史，而 GitHub 也可以作为这些内容的另一个获取平台。</p>
+<p>将文档直接丢进 GitHub 仓库好像又差点意思。<a href="https://pages.github.com/">GitHub Pages</a> 为每个 GitHub 账户免费提供一项静态网站托管服务，通过域名 <em>https://&lt;your-github-id&gt;.github.io</em> 即可访问同名仓库托管的静态网站。借助这项服务，我们可以依托 GitHub 仓库搭建一个静态博客网站，将文档以博客形式开放展阅。</p>
+<p>本文将介绍<strong>如何使用 <a href="https://gohugo.io/">Hugo</a> 搭建静态博客网站、使用和定制 <a href="https://github.com/adityatelange/hugo-PaperMod">hugo-PaperMod</a> 主题以及将网站部署在 <a href="https://pages.github.com/">GitHub Pages</a></strong>。</p>
+<hr>
+<h2 id="搭建静态网站">搭建静态网站<a hidden class="anchor" aria-hidden="true" href="#搭建静态网站">#</a></h2>
+<p>如今搭建静态网站的方法已经非常成熟，我根据<a href="https://v2ex.com/t/785625">网友讨论</a>和个人喜好选择 <a href="https://gohugo.io/">Hugo</a> 作为静态网站搭建框架，同样流行的框架还包括 <a href="https://hexo.io/zh-cn/">Hexo</a>、<a href="https://jekyllrb.com/">Jekyll</a> 等。</p>
+<h3 id="安装-hugo-框架">安装 Hugo 框架<a hidden class="anchor" aria-hidden="true" href="#安装-hugo-框架">#</a></h3>
+<p>Hugo 提供多种操作系统的<a href="https://gohugo.io/getting-started/installing">安装指引</a>。以我的 macOS 系统为例，可以通过包管理器 <code>brew</code> 快速完成安装：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install hugo
+</span></span></code></pre></div><h3 id="创建网站模板">创建网站模板<a hidden class="anchor" aria-hidden="true" href="#创建网站模板">#</a></h3>
+<p>使用 Hugo 可以快速创建一个网站模板：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew new site &lt;your-github-id&gt;.github.io -f yml
+</span></span></code></pre></div><p>其中 <code>&lt;your-github-id&gt;.github.io</code> 对应新建网站的项目文件夹（<code>&lt;your-github-id&gt;</code> 需替换为 GitHub ID），选项 <code>-f</code> 将网站配置文件设置为 <code>YAML</code> 格式，其目的是为与下文主题配置保持一致。为方便起见，下文将网站项目文件夹简称为「网站」。</p>
+<h3 id="配置基础主题">配置基础主题<a hidden class="anchor" aria-hidden="true" href="#配置基础主题">#</a></h3>
+<p>在流行框架的基础上搭建网站其实并不是一个技术活，千差万别的网站体验则主要体现在网站主题的设计上。Hugo 提供丰富多样的<a href="https://themes.gohugo.io/">主题模板</a>，我根据<a href="https://v2ex.com/t/828677">网友讨论</a>选择 <a href="https://github.com/adityatelange/hugo-PaperMod">adityatelange/hugo-PaperMod</a> 作为基础主题。<a href="https://github.com/adityatelange/hugo-PaperMod">PaperMod</a> 页面简洁，支持暗黑模式及众多<a href="https://github.com/adityatelange/hugo-PaperMod/wiki/Features#default-theme-lightdarkauto">实用特性</a>。</p>
+<p>在网站根目录执行以下命令下载主题并初始化为 Git 子模块：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git submodule--helper add https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod --depth<span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></div><!-- TODO: 子模板更新 -->
+<p>随后，我们只需将主题名称写入配置文件 <code>./config.yml</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">baseURL</span><span class="p">:</span><span class="w"> </span><span class="l">https://jaredyam.github.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">languageCode</span><span class="p">:</span><span class="w"> </span><span class="l">en-us</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">defaultContentLanguage</span><span class="p">:</span><span class="w"> </span><span class="l">zh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">👨‍🌾 Jared Yam</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 主题</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l">PaperMod</span><span class="w">
+</span></span></span></code></pre></div><p>便搭建完成了一个完整的静态博客网站。</p>
+<p>执行以下命令可以在本地预览网站：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -D
+</span></span></code></pre></div><p>其中选项 <code>-D</code> 允许在预览网站时渲染未发布的草稿文档。同时，我们还可以尝试新建一个文档：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new posts/quickstart.md
+</span></span></code></pre></div><p>刷新并点击进入该文档对应的网页视图。</p>
+<p>除此之外，你还可以跟随<a href="https://github.com/adityatelange/hugo-PaperMod/wiki/Features#default-theme-lightdarkauto">主题配置指引</a>，根据个人喜好调整主题基础设置，添加或取消部分功能。如果你没有其它定制主题的需求，可直接跳过下一节内容。</p>
+<h2 id="定制基础主题">定制基础主题<a hidden class="anchor" aria-hidden="true" href="#定制基础主题">#</a></h2>
+<p>定制主题除了修改配置文件，还可以<a href="https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#override-theme-template">重写模板和风格</a>。接下来介绍的个性化配置可能持续更新，且细节部分不做赘述。如果你对我的网站主题配置感兴趣，可以随时查看其对应的<a href="https://github.com/jaredyam/jaredyam.github.io">仓库源文件</a>。</p>
+<blockquote>
+<p><strong>❓ 如何查看我在基础主题上做过哪些调整？</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/jaredyam/jaredyam.github.io.git
+</span></span><span class="line"><span class="cl">cat ./config.yml
+</span></span><span class="line"><span class="cl">diff -ur themes/PaperMod/assets assets
+</span></span><span class="line"><span class="cl">diff -ur themes/PaperMod/layouts layouts
+</span></span></code></pre></div></blockquote>
+<h3 id="转移目录至侧边栏">转移目录至侧边栏<a hidden class="anchor" aria-hidden="true" href="#转移目录至侧边栏">#</a></h3>
+<p><a href="https://github.com/adityatelange/hugo-PaperMod/pull/675">Pull Request #675 · adityatelange/hugo-PaperMod</a> 提出将文章目录转移至侧边栏，可以轻松实现上下文跳转。截至发文这一特性还未并入主分支，我们可以让主题子模块追踪该远程 PR 分支：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> themes/PaperMod
+</span></span><span class="line"><span class="cl">git fetch origin pull/675/head:toc-on-the-side --depth<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">git checkout toc-on-the-side
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ../..
+</span></span></code></pre></div><p>除了切换到 PR 分支，我们还需要让子模块配置文件 <code>./gitmodules</code> 指向 PR 分支：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[submodule &#34;themes/PaperMod&#34;]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">path</span> <span class="o">=</span> <span class="s">&#34;themes/PaperMod&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    url = &#34;https://github.com/nielsbrakel/hugo-PaperMod.git&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">    branch = &#34;toc-on-the-side&#34;</span>
+</span></span></code></pre></div><p>然后再同步子模块 URL 到 <code>.git/config</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git submodule sync
+</span></span></code></pre></div><p>基础主题默认不显示目录栏，我们需要在主题配置文件 <code>./config.yml</code> 中启用并展开目录：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">baseURL</span><span class="p">:</span><span class="w"> </span><span class="l">https://jaredyam.github.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">languageCode</span><span class="p">:</span><span class="w"> </span><span class="l">en-us</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">defaultContentLanguage</span><span class="p">:</span><span class="w"> </span><span class="l">zh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">👨‍🌾 Jared Yam</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 主题</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l">PaperMod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ShowToc</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">TocOpen</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><p>值得注意的是，远程 PR 分支可能并不涵盖主分支的最新特性。你可以通过创建一个 fork 仓库同时追踪主分支和 PR 分支的更新。</p>
+<h3 id="添加评论系统">添加评论系统<a hidden class="anchor" aria-hidden="true" href="#添加评论系统">#</a></h3>
+<p><a href="https://giscus.app/zh-CN">giscus</a> 是一个基于 GitHub Discussions 的评论系统，包含多种主题可供选择。你应该首先跟随 <a href="https://giscus.app/zh-CN">utterances 配置方法</a>了解可选配置项，并根据个人偏好自动生成一份包含个性化配置属性的 <code>HTML</code> 代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-repo</span><span class="o">=</span><span class="s">&#34;jaredyam/jaredyam.github.io&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-repo-id</span><span class="o">=</span><span class="s">&#34;R_kgDOG9Gq_Q&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-category</span><span class="o">=</span><span class="s">&#34;Announcements&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-category-id</span><span class="o">=</span><span class="s">&#34;DIC_kwDOG9Gq_c4CO_p0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-mapping</span><span class="o">=</span><span class="s">&#34;title&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-input-position</span><span class="o">=</span><span class="s">&#34;top&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-theme</span><span class="o">=</span><span class="s">&#34;light&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-lang</span><span class="o">=</span><span class="s">&#34;zh-CN&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">async</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>官方提供的自动生成代码仅支持设置一个固定主题，而我们希望网站主题和评论系统主题的亮暗模式可以保持一致。参照 <a href="https://github.com/utterance/utterances/issues/427">utterances 讨论系统主题切换</a>的相关讨论，上述代码可以简单替换为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;comments&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">loadComment</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">theme</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;pref-theme&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;dark&#39;</span> <span class="o">?</span> <span class="s1">&#39;dark&#39;</span> <span class="o">:</span> <span class="s1">&#39;light&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;https://giscus.app/client.js&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-repo&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.repo -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-repo-id&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.repoId -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-category&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.category -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-category-id&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.categoryId -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-mapping&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.mapping -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-reactions-enabled&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.reactionsEnabled -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-emit-metadata&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.emitMetadata -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-input-position&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.inputPosition -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-lang&#39;</span><span class="p">,</span> <span class="s1">&#39;{{- site.Params.commentsParams.lang -}}&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-theme&#39;</span><span class="p">,</span> <span class="nx">theme</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;crossorigin&#39;</span><span class="p">,</span> <span class="s1">&#39;anonymous&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">s</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;async&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;div.comments&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;div.comments&#39;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">loadComment</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>从而根据当前网站主题设置讨论系统主题。将修改后的代码写入 <code>./layouts/partials/comments.html</code> 即可在博客页面插入讨论系统。</p>
+<p>不难看出，我们还需要在主题配置文件 <code>./config.yml</code> 中设置一些评论系统参数才能使讨论系统正常加载：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">baseURL</span><span class="p">:</span><span class="w"> </span><span class="l">https://jaredyam.github.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">languageCode</span><span class="p">:</span><span class="w"> </span><span class="l">en-us</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">defaultContentLanguage</span><span class="p">:</span><span class="w"> </span><span class="l">zh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">👨‍🌾 Jared Yam</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 主题</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="l">PaperMod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ShowToc</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">TocOpen</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 评论系统</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">comments</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">commentsParams</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l">jaredyam/jaredyam.github.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">repoId</span><span class="p">:</span><span class="w"> </span><span class="l">R_kgDOG9Gq_Q</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="l">Announcements</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">categoryId</span><span class="p">:</span><span class="w"> </span><span class="l">DIC_kwDOG9Gq_c4CO_p0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">mapping</span><span class="p">:</span><span class="w"> </span><span class="l">title</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">reactionsEnabled</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">emitMetadata</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">inputPosition</span><span class="p">:</span><span class="w"> </span><span class="l">top</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">lang</span><span class="p">:</span><span class="w"> </span><span class="l">zh-CN</span><span class="w">
+</span></span></span></code></pre></div><p>其中 <code>commentsParams</code> 的子属性值应当与 giscus 自动生成的代码内容保持一致。</p>
+<p>在手动切换网站主题亮暗模式时，评论系统主题应该随网站主题发生变化。在 <code>./layouts/partials/footer.html:72</code> 区域加入如下代码块：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"> {{- if (not site.Params.disableThemeToggle) }}
+</span></span><span class="line"><span class="cl"> &lt;script&gt;
+</span></span><span class="line"><span class="cl">     document.getElementById(&#34;theme-toggle&#34;).addEventListener(&#34;click&#34;, () =&gt; {
+</span></span><span class="line"><span class="cl"><span class="gi">+        let theme = &#39;light&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>         if (document.body.className.includes(&#34;dark&#34;)) {
+</span></span><span class="line"><span class="cl">             document.body.classList.remove(&#39;dark&#39;);
+</span></span><span class="line"><span class="cl"><span class="gd">-            localStorage.setItem(&#34;pref-theme&#34;, &#39;light&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span>         } else {
+</span></span><span class="line"><span class="cl">             document.body.classList.add(&#39;dark&#39;);
+</span></span><span class="line"><span class="cl"><span class="gd">-            localStorage.setItem(&#34;pref-theme&#34;, &#39;dark&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd">-        }
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+            theme = &#39;dark&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="gi">+            }
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        localStorage.setItem(&#34;pref-theme&#34;, theme);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        const message = {&#39;giscus&#39;: {&#39;setConfig&#39;: {&#39;theme&#39;: theme}}};
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        const iframe = document.querySelector(&#39;iframe.giscus-frame&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gi">+        iframe.contentWindow.postMessage(message, &#39;https://giscus.app&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>     })
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> &lt;/script&gt;
+</span></span><span class="line"><span class="cl"> {{- end }}
+</span></span></code></pre></div><p>即可实现这一目的。</p>
+<h2 id="部署网站服务">部署网站服务<a hidden class="anchor" aria-hidden="true" href="#部署网站服务">#</a></h2>
+<p>Hugo 提供非常详尽的 <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">GitHub Pages 部署指引</a>。这里对部署过程做简单梳理：</p>
+<ol>
+<li>在 <code>./.github/workflows/</code> 中放入 <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/#build-hugo-with-github-action">gh-pages.yml</a>；</li>
+<li>将本地网站同步到 GitHub 同名仓库；</li>
+<li>在仓库设置 <code>Settings -&gt; Pages</code> 中选择 <code>gh-pages</code> 作为网站资源分支。</li>
+</ol>
+<p>完成以上步骤，你便可以通过 <em>https://&lt;your-github-id&gt;.github.io</em> 访问自己的个人博客。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/hugo/">Hugo</a></li>
+      <li><a href="http://localhost:1313/tags/github-pages/">GitHub Pages</a></li>
+    </ul>
+
+  </footer><div class="comments">
+    <script>
+    function loadComment() {
+        let theme = localStorage.getItem('pref-theme') === 'dark' ? 'transparent_dark' : 'light';
+        let s = document.createElement('script');
+        s.src = 'https://giscus.app/client.js';
+        s.setAttribute('data-repo', 'jaredyam\/jaredyam.github.io');
+        s.setAttribute('data-repo-id', 'R_kgDOG9Gq_Q');
+        s.setAttribute('data-category', 'Announcements');
+        s.setAttribute('data-category-id', 'DIC_kwDOG9Gq_c4CO_p0');
+        s.setAttribute('data-mapping', 'title');
+        s.setAttribute('data-reactions-enabled', '1');
+        s.setAttribute('data-emit-metadata', '1');
+        s.setAttribute('data-input-position', 'top');
+        s.setAttribute('data-lang', 'en');
+        s.setAttribute('data-theme', theme);
+        s.setAttribute('crossorigin', 'anonymous');
+        s.setAttribute('async', '');
+        document.querySelector('div.comments').innerHTML = '';
+        document.querySelector('div.comments').appendChild(s);
+    }
+    loadComment();
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="http://localhost:1313/">👨‍🌾 Jared Yam</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        let theme = 'light';
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+        } else {
+            document.body.classList.add('dark');
+            theme = 'dark';
+            }
+        localStorage.setItem("pref-theme", theme);
+        const message = {'giscus': {'setConfig': {'theme': theme}}};
+        const iframe = document.querySelector('iframe.giscus-frame');
+        iframe.contentWindow.postMessage(message, 'https://giscus.app');
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerText = '复制';
+
+        function copyingDone() {
+            copybutton.innerText = '已复制！';
+            setTimeout(() => {
+                copybutton.innerText = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

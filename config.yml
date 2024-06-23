@@ -1,0 +1,64 @@
+baseURL: https://jaredyam.github.io
+languageCode: en-us
+defaultContentLanguage: zh
+title: 👨‍🌾 Jared Yam
+theme: PaperMod
+enableGitInfo: true
+hasCJKLanguage: true
+summaryLength: 90
+
+menu:
+  main:
+    - identifier: Archive
+      name: 📚 Archive
+      url: /archives/
+      weight: 10
+    - identifier: Tags
+      name: 🏷 Tags
+      url: /tags/
+      weight: 20
+    - identifier: Search
+      name: 🔍 Search
+      url: /search/
+      weight: 30
+
+# Search page
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
+
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+
+params:
+  defaultTheme: light
+  ShowToc: true
+  TocOpen: true
+  ShowCodeCopyButtons: true
+  ShowPostNavLinks: true
+  comments: true
+  commentsParams:
+    repo: jaredyam/jaredyam.github.io
+    repoId: R_kgDOG9Gq_Q
+    category: Announcements
+    categoryId: DIC_kwDOG9Gq_c4CO_p0
+    mapping: title
+    reactionsEnabled: 1
+    emitMetadata: 1
+    inputPosition: top
+    lang: en
+  DateFormat: 2006 年 1 月 2 日
+  autonumbering: true
+
+frontmatter:
+  lastmod:
+  - :git
+  - lastmod
+  - date
