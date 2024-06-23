@@ -1,7 +1,7 @@
 ---
 title: "使用 Hugo 和 GitHub Pages 搭建并部署一个静态博客网站"
 date: 2022-03-06T20:29:59+08:00
-Description: "🔎 https://<your-github-id>.github.io ↩️"
+Description: "🔎 https://arkleselect.github.io ↩️"
 tags: ["Hugo", "GitHub Pages"]
 draft: false
 ---
