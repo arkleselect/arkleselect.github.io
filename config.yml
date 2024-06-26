@@ -1,4 +1,4 @@
-baseURL: https://arkleselect.github.io/
+baseURL: "https://arkleselect.github.io/"
 languageCode: en-us
 defaultContentLanguage: zh
 title: Arkle
@@ -12,11 +12,11 @@ menu:
     - identifier: Archive
       name: 🌈 Archive
       url: /archives/
-      weight: 10
+      weight: 7
     - identifier: Tags
       name: 🌊 Tags
       url: /tags/
-      weight: 20
+      weight: 7
     - identifier: Search
       name: ☃️  Search
       url: /search/
