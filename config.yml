@@ -1,7 +1,7 @@
-baseURL: https://jaredyam.github.io
+baseURL: https://arkleselect.github.io/
 languageCode: en-us
 defaultContentLanguage: zh
-title: 👨‍🌾 Jared Yam
+title: Arkle
 theme: PaperMod
 enableGitInfo: true
 hasCJKLanguage: true
@@ -10,15 +10,15 @@ summaryLength: 90
 menu:
   main:
     - identifier: Archive
-      name: 📚 Archive
+      name: 🌈 Archive
       url: /archives/
       weight: 10
     - identifier: Tags
-      name: 🏷 Tags
+      name: 🌊 Tags
       url: /tags/
       weight: 20
     - identifier: Search
-      name: 🔍 Search
+      name: ☃️  Search
       url: /search/
       weight: 30
 
