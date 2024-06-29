@@ -3,7 +3,7 @@ languageCode: en-us
 defaultContentLanguage: zh
 title: Arkle
 theme: PaperMod
-enableGitInfo: true
+enableGitInfo: false
 hasCJKLanguage: true
 summaryLength: 90
 
@@ -38,7 +38,7 @@ markup:
     noClasses: false
 
 params:
-  defaultTheme: light
+  defaultTheme: dark
   ShowToc: true
   TocOpen: true
   ShowCodeCopyButtons: true
