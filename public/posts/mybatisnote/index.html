@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>MybatisNote | Arkle</title>
 <meta name="keywords" content="">
 <meta name="description" content="简介 MyBatis是一款优秀的持久层框架，使用Mybatis可以轻松的实现Java程序向数据库发送SQL语句 而且对于SQL查询回来的结果进行方便的封装 使用Mybatis案例 目的：使">
 <meta name="author" content="">
-<link rel="canonical" href="https://arkleselect.github.io/posts/mybatisnote/">
+<link rel="canonical" href="http://localhost:1313/posts/mybatisnote/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.addcb52bd51a3b88e8b1f8d1f406e67a8a6d138fa32ea3967d397e6983d07938.css" integrity="sha256-rdy1K9UaO4josfjR9AbmeoptE4&#43;jLqOWfTl&#43;aYPQeTg=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://arkleselect.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://arkleselect.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://arkleselect.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://arkleselect.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://arkleselect.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://arkleselect.github.io/posts/mybatisnote/">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/mybatisnote/">
 <noscript>
     <style>
         #theme-toggle,
@@ -30,75 +30,12 @@
 
     </style>
 </noscript>
-  
-
-<meta property="og:title" content="MybatisNote" />
-<meta property="og:description" content="简介 MyBatis是一款优秀的持久层框架，使用Mybatis可以轻松的实现Java程序向数据库发送SQL语句 而且对于SQL查询回来的结果进行方便的封装 使用Mybatis案例 目的：使" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://arkleselect.github.io/posts/mybatisnote/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-06-24T20:26:50&#43;08:00" />
-<meta property="article:modified_time" content="2024-06-26T17:54:40&#43;08:00" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="MybatisNote"/>
-<meta name="twitter:description" content="简介 MyBatis是一款优秀的持久层框架，使用Mybatis可以轻松的实现Java程序向数据库发送SQL语句 而且对于SQL查询回来的结果进行方便的封装 使用Mybatis案例 目的：使"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://arkleselect.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "MybatisNote",
-      "item": "https://arkleselect.github.io/posts/mybatisnote/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "MybatisNote",
-  "name": "MybatisNote",
-  "description": "简介 MyBatis是一款优秀的持久层框架，使用Mybatis可以轻松的实现Java程序向数据库发送SQL语句 而且对于SQL查询回来的结果进行方便的封装 使用Mybatis案例 目的：使",
-  "keywords": [
-    
-  ],
-  "articleBody": "简介 MyBatis是一款优秀的持久层框架，使用Mybatis可以轻松的实现Java程序向数据库发送SQL语句\n而且对于SQL查询回来的结果进行方便的封装\n使用Mybatis案例 目的：使用mybatis技术将一个user对象保存到数据库的user表中\n创建数据库 create database mybatis; use mybatis; create table user( id int unsigned primary key auto_increment comment 'ID', name varchar(100) comment '姓名', age tinyint unsigned comment '年龄', gender tinyint unsigned comment '性别, 1:男, 2:女', phone varchar(11) comment '手机号' ) comment '用户表'; insert into user(id, name, age, gender, phone) VALUES (null,'白眉鹰王',55,'1','18800000000'); insert into user(id, name, age, gender, phone) VALUES (null,'金毛狮王',45,'1','18800000001'); insert into user(id, name, age, gender, phone) VALUES (null,'青翼蝠王',38,'1','18800000002'); insert into user(id, name, age, gender, phone) VALUES (null,'紫衫龙王',42,'2','18800000003'); insert into user(id, name, age, gender, phone) VALUES (null,'光明左使',37,'1','18800000004'); insert into user(id, name, age, gender, phone) VALUES (null,'光明右使',48,'1','18800000005'); 更新配置文件 mysql mysql-connector-java 8.0.28 org.mybatis mybatis 3.5.9 junit junit 4.13.2 test org.projectlombok lombok 1.18.26 创建User类 main/java/com/itheima/domain/User\npackage com.itheima.domain; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; @Data @NoArgsConstructor @AllArgsConstructor public class User { // 实体类属性务必使用包装类型 private Integer id; private String name; private Integer age; private Integer gender; private String phone; } 创建Mapper接口 main/java/com/itheima/domain/UserMapper\npackage com.itheima.mapper; import com.itheima.domain.User; import org.apache.ibatis.annotations.Insert; // 接口 public interface UserMapper { // 方法：注解 sql // #{}表示占位符号，里面内容跟参数类型有关系， // 1. 如果参数是一个实体对象，#{}里面写的是对象中的属性名 @Insert(\"insert into user values(null,#{name},#{age},#{gender},#{phone})\") void save(User user); } 创建User测试类 test/java/com/itheima/test/UserMapperTest\npackage com.itheima.test; import com.itheima.domain.User; import com.itheima.mapper.UserMapper; import org.apache.ibatis.io.Resources; import org.apache.ibatis.session.SqlSession; import org.apache.ibatis.session.SqlSessionFactory; import org.apache.ibatis.session.SqlSessionFactoryBuilder; import org.junit.Test; import java.io.IOException; import java.io.InputStream; public class UserMapperTest { // 测试新增 @Test public void testSave() throws IOException { // 1. 提前准备好要保存的对象 User user = new User(); user.setName(\"贾维斯\"); user.setAge(66); user.setGender(1); user.setPhone(\"12312312345\"); // 2. 使用mybatis提供的api根据UserMapper接口创建对象 //2-1 读取配置文件,读成一个输入流 InputStream inputStream = Resources.getResourceAsStream(\"SqlMapConfig.xml\"); //2-2 创建SqlSessionFactory对象 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream); //2-3 获取SqlSession对象 SqlSession sqlSession = sqlSessionFactory.openSession(); //2-4 获取UserMapper对象,调用方法 UserMapper userMapper = sqlSession.getMapper(UserMapper.class); userMapper.save(user); //保存之后,打印出user中得id System.out.println(user); //2-5 提交事务 sqlSession.commit(); //2-6 释放资源 sqlSession.close(); } } 创建配置文件 配置文件中的主要用于声明数据库信息和接口位置\nmain/resources/SqlMapConfig.xml\n\u003c?xml version=\"1.0\" encoding=\"UTF-8\" ?\u003e \u003c!DOCTYPE configuration PUBLIC \"-//mybatis.org//DTD Config 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-config.dtd\"\u003e ",
-  "wordCount" : "9414",
-  "inLanguage": "zh",
-  "datePublished": "2024-06-24T20:26:50+08:00",
-  "dateModified": "2024-06-26T17:54:40+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://arkleselect.github.io/posts/mybatisnote/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Arkle",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://arkleselect.github.io/favicon.ico"
-    }
-  }
-}
-</script>
 </head>
 
-<body class="" id="top">
+<body class=" dark" id="top">
 <script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
     }
 
 </script>
@@ -106,7 +43,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://arkleselect.github.io/" accesskey="h" title="Arkle (Alt + H)">Arkle</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Arkle (Alt + H)">Arkle</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -134,17 +71,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://arkleselect.github.io/archives/" title="🌈 Archive">
+                <a href="http://localhost:1313/archives/" title="🌈 Archive">
                     <span>🌈 Archive</span>
                 </a>
             </li>
             <li>
-                <a href="https://arkleselect.github.io/tags/" title="🌊 Tags">
+                <a href="http://localhost:1313/tags/" title="🌊 Tags">
                     <span>🌊 Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://arkleselect.github.io/search/" title="☃️  Search (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search/" title="☃️  Search (Alt &#43; /)" accesskey=/>
                     <span>☃️  Search</span>
                 </a>
             </li>
@@ -159,7 +96,7 @@
     <h1 class="post-title">
       MybatisNote
     </h1>
-    <div class="post-meta">更新时间 2024-06-26 17:54:40 &#43;0800 CST%!(EXTRA string=2024 年 6 月 26 日)，2024 年 6 月 24 日</div>
+    <div class="post-meta">2024 年 6 月 24 日</div>
   </header> <aside id="toc-container" class="toc-container wide">
     <div class="toc">
         <details  open>
@@ -1501,7 +1438,7 @@ close = &#34;结束符&#34;
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://arkleselect.github.io/">Arkle</a></span>
+    <span>&copy; 2024 <a href="http://localhost:1313/">Arkle</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
