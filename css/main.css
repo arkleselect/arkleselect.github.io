@@ -841,6 +841,7 @@ body.day-theme .sidebar {
 
 .headcontent img {
   max-width: 90%;
+  height:auto;
   border-radius: 10px;
   display: block;
   margin: auto;
