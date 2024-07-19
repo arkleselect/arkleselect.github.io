@@ -40,6 +40,10 @@
     </div>
   </div>
 
+  <!-- 目录 -->
+  <div class="toc">
+  </div>
+
   <!-- 内容 -->
   <div class="articletrulyTitle">
     <h1>关于SpringBean的循环依赖</h1>
@@ -47,7 +51,7 @@
 
   <!-- 修改内容部分，添加id属性 -->
   <div class="articletruly">
-    <h2 class="section-title">什么是循环依赖？</h2>
+    <h2 id="section1" class="section-title">什么是循环依赖？</h2>
     <p>
       当实例化A的时候，在堆中开启内存空间，产生半成品A，然后初始化A
       初始化的过程中会设置b属性，由于b是B类型的对象，需要去Spring容器中查找B对象，
@@ -61,7 +65,7 @@
       <img class="SpringBean" style="width: 100vh;" src="../../../image/yilai1.png">
     </p>
 
-    <h2 class="section-title">解决</h2>
+    <h2 id="section2" class="section-title">解决</h2>
     <p class="black-dot">
       为解决问题，Spring提供了一个单实例对象注册器(DefaultSingletonBeanRegistry),在这个类中定义了三个集合，也就是三级缓存
       <br>
@@ -78,7 +82,7 @@
       然后把B放入一级缓存，也就是单例池中，同理，A注入B，A创建成功，放入单例池。
     </p>
 
-        <img class="SpringBean" style="width: 100vh;" src="../../../image/yilai2.png">
+    <img class="SpringBean" style="width: 100vh;" src="../../../image/yilai2.png">
 
     <h3 class="section-title">代理对象的循环依赖</h3>
     <p>
@@ -105,6 +109,44 @@
   <!-- 回到顶部按钮结束 -->
   <!-- <div class="progress-bar" id="progressBar"></div>  -->
   <script src="../../../js/main.js"></script>
+  <script>
+    function generateTOC() {
+      const toc = document.querySelector('.toc');
+      const headings = document.querySelectorAll('.articletruly h2, .articletruly h3');
+      headings.forEach((heading, index) => {
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.className = 'toc-item';
+        if (index === 0) link.className += ' active';
+        if (heading.tagName === 'H3') {
+          link.classList.add('toc-sub-item');
+        }
+        link.textContent = heading.textContent;
+        toc.appendChild(link);
+      });
+    }
+
+    function updateActiveItem() {
+      const scrollPosition = window.scrollY;
+      const headings = document.querySelectorAll('.articletruly h2, .articletruly h3');
+      const tocItems = document.querySelectorAll('.toc-item');
+
+      headings.forEach((heading, index) => {
+        const top = heading.offsetTop;
+        const height = heading.offsetHeight;
+        if (scrollPosition >= top - 50 && scrollPosition < top + height - 50) {
+          tocItems.forEach(item => item.classList.remove('active'));
+          tocItems[index].classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      generateTOC();
+      updateActiveItem();
+    });
+    window.addEventListener('scroll', updateActiveItem);
+  </script>
 </body>
 
 </html>

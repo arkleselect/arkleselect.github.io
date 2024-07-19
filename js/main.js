@@ -58,22 +58,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 处理回到顶部按钮下方百分比进度
-    document.addEventListener("scroll", function () {
-        const scrollProgress = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercentage = Math.round((scrollProgress / scrollHeight) * 100);
-        const progressElement = document.getElementById("progress");
-        if (progressElement) {
-            progressElement.innerText = `${scrollPercentage}%`;
-        }
-    });
+    // document.addEventListener("scroll", function () {
+    //     const scrollProgress = document.documentElement.scrollTop;
+    //     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    //     const scrollPercentage = Math.round((scrollProgress / scrollHeight) * 100);
+    //     const progressElement = document.getElementById("progress");
+    //     if (progressElement) {
+    //         progressElement.innerText = `${scrollPercentage}%`;
+    //     }
+    // });
 
-    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-    if (scrollToTopBtn) {
-        scrollToTopBtn.addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-    }
+    // const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    // if (scrollToTopBtn) {
+    //     scrollToTopBtn.addEventListener("click", function () {
+    //         window.scrollTo({ top: 0, behavior: "smooth" });
+    //     });
+    // }
 
     // 切换主题
     const themeSwitcher = document.getElementById('theme-switcher');
@@ -215,51 +215,3 @@ window.onclick = function (event) {
         closeModal();
     }
 }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const headings = document.querySelectorAll(".articletruly h2");
-//     const timeline = document.querySelector('.timeline');
-
-//     const observer = new IntersectionObserver((entries) => {
-//       entries.forEach(entry => {
-//         if (entry.isIntersecting) {
-//           updateTimeline(entry.target);
-//         }
-//       });
-//     }, { threshold: 0.5 });
-
-//     headings.forEach((heading, index) => {
-//       observer.observe(heading);
-
-//       const item = document.createElement('div');
-//       item.classList.add('timeline-item');
-//       item.setAttribute('data-index', index);
-//       timeline.appendChild(item);
-
-//       const content = document.createElement('div');
-//       content.classList.add('timeline-content');
-//       content.setAttribute('data-index', index);
-//       content.innerHTML = `
-//         <h2>${heading.textContent}</h2>
-//       `;
-//       timeline.appendChild(content);
-
-//       content.addEventListener('click', () => {
-//         heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
-//       });
-//     });
-
-//     function updateTimeline(visibleHeading) {
-//       const index = Array.from(headings).indexOf(visibleHeading);
-//       document.querySelectorAll('.timeline-content').forEach(content => {
-//         content.classList.toggle('active', content.getAttribute('data-index') == index);
-//       });
-
-//       document.querySelectorAll('.timeline-item').forEach(item => {
-//         item.classList.toggle('active', item.getAttribute('data-index') == index);
-//       });
-//     }
-
-//     document.querySelector('.timeline-content[data-index="0"]').classList.add('active');
-//     document.querySelector('.timeline-item[data-index="0"]').classList.add('active');
-//   });

@@ -33,6 +33,10 @@
     </div>
   </div>
 
+  <!-- 目录 -->
+  <div class="toc">
+  </div>
+
   <!-- 内容 -->
   <div class="articletrulyTitle">
     <h1>关于SpringBean的生命周期</h1>
@@ -40,13 +44,13 @@
 
   <!-- 修改内容部分，添加id属性 -->
   <div class="articletruly">
-    <h2 class="section-title">写在前面</h2>
+    <h2 id="section1" class="section-title">写在前面</h2>
     <p>
       关于SpringBean的生命周期在面试中是常问的一个问题，正好今天考了一下视频讲解，
       来总结一下，顺便加深一下理解。
     </p>
 
-    <h2 class="section-title">大体步骤</h2>
+    <h2 id="section2" class="section-title">大体步骤</h2>
     <p>
       在Bean生命周期中，首先Spring会通过BeanDefinition来获取bean的定义信息，
       然后调用构造函数来实例化Bean对象，下一步执行是bean的依赖注入，然后执行那些实现Aware接口重写的方法，
@@ -71,6 +75,44 @@
   <!-- 回到顶部按钮结束 -->
   <!-- <div class="progress-bar" id="progressBar"></div>  -->
   <script src="../../../js/main.js"></script>
+  <script>
+    function generateTOC() {
+      const toc = document.querySelector('.toc');
+      const headings = document.querySelectorAll('.articletruly h2, .articletruly h3');
+      headings.forEach((heading, index) => {
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.className = 'toc-item';
+        if (index === 0) link.className += ' active';
+        if (heading.tagName === 'H3') {
+          link.classList.add('toc-sub-item');
+        }
+        link.textContent = heading.textContent;
+        toc.appendChild(link);
+      });
+    }
+
+    function updateActiveItem() {
+      const scrollPosition = window.scrollY;
+      const headings = document.querySelectorAll('.articletruly h2, .articletruly h3');
+      const tocItems = document.querySelectorAll('.toc-item');
+
+      headings.forEach((heading, index) => {
+        const top = heading.offsetTop;
+        const height = heading.offsetHeight;
+        if (scrollPosition >= top - 50 && scrollPosition < top + height - 50) {
+          tocItems.forEach(item => item.classList.remove('active'));
+          tocItems[index].classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      generateTOC();
+      updateActiveItem();
+    });
+    window.addEventListener('scroll', updateActiveItem);
+  </script>
 </body>
 
 </html>

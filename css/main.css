@@ -175,7 +175,7 @@ body.day-theme .navbar .menu a svg {
 
 .end {
   text-align: center;
-  font-size: 17px;
+  font-size: 19px;
   margin-bottom: 3%;
 }
 
@@ -576,16 +576,79 @@ a {
   padding-left: 13%;
   padding-right: 12%;
   font-size: 18px;
-  max-width: 57%;
+  max-width: 50%;
   margin: 0 auto;
+  padding-left: 53px;
+  padding-right: 53px;
   color: var(--text-color);
+}
+
+.toc {
+  width: 250px;
+  position: fixed;
+  top: 60%;
+  left: 83%;
+  background-color: transparent;
+}
+
+.toc-item {
+  padding: 8px 0;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: #8e8787;
+  display: block;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.toc-item:not(.toc-sub-item)::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 5px;
+  border-radius: 50px;
+  background-color: #8e8787;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.toc-sub-item {
+  font-size: 13px;
+  padding-left: 2em;
+}
+
+.toc-item.active {
+  color: #323131;
+  font-size: 18px;
+
+}
+
+.toc-item.active:not(.toc-sub-item)::before {
+  background-color: #000000;
+
+}
+
+.toc-item.active::before {
+  background-color: #331a1a;
+  /* 活动项的横线颜色与字体颜色相同 */
+
+}
+
+.toc-item:hover {
+  color: #333;
+}
+
+.toc-item:hover::before {
+  background-color: #333;
+  /* 鼠标悬停时横线颜色变化 */
 }
 
 .articletruly h2 {
   text-align: left;
-  margin-top: 32px;
+  margin-top: 30px;
   margin-bottom: 10px;
-  font-size: 32px;
+  font-size: 22px;
 }
 
 .articletruly p {
