@@ -15,8 +15,9 @@
   --section-titleH2: #8a8787;
   --toc-item-active:#959494;
   --toc-item:#6f6e6e;
+  --toc-item-active-not-before:#959494;
   --toc-item-hover:#959494;
-  --toc-item-hover:#959494;
+  --toc-item-before:#959494;
 }
 
 body.day-theme {
@@ -40,6 +41,7 @@ body.day-theme {
   --toc-item:#8e8787;
   --toc-item-hover:#333;
   --toc-item-before:#333;
+  --toc-item-active-not-before:#333;
 }
 
 body {
@@ -637,14 +639,7 @@ a {
 }
 
 .toc-item.active:not(.toc-sub-item)::before {
-  background-color: #000000;
-
-}
-
-.toc-item.active::before {
-  background-color: #331a1a;
-  /* 活动项的横线颜色与字体颜色相同 */
-
+  background-color: var(--toc-item-active-not-before);
 }
 
 .toc-item:hover {
