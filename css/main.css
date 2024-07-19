@@ -12,7 +12,11 @@
   --container-background-color: transform;
   --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
   --font-family: Arial, sans-serif;
-  --section-titleH2: #757272;
+  --section-titleH2: #8a8787;
+  --toc-item-active:#959494;
+  --toc-item:#6f6e6e;
+  --toc-item-hover:#959494;
+  --toc-item-hover:#959494;
 }
 
 body.day-theme {
@@ -32,6 +36,10 @@ body.day-theme {
   --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(10%) contrast(100%);
   --font-family: 'LXGW WenKai Mono', sans-serif;
   --section-titleH2: #45728d;
+  --toc-item-active: #323131;
+  --toc-item:#8e8787;
+  --toc-item-hover:#333;
+  --toc-item-before:#333;
 }
 
 body {
@@ -175,7 +183,7 @@ body.day-theme .navbar .menu a svg {
 
 .end {
   text-align: center;
-  font-size: 19px;
+  font-size: 16px;
   margin-bottom: 3%;
 }
 
@@ -595,7 +603,7 @@ a {
   padding: 8px 0;
   cursor: pointer;
   transition: color 0.3s;
-  color: #8e8787;
+  color: var(--toc-item);
   display: block;
   align-items: center;
   text-decoration: none;
@@ -605,23 +613,27 @@ a {
 .toc-item:not(.toc-sub-item)::before {
   content: "";
   display: inline-block;
-  width: 20px;
-  height: 5px;
+  width: 16px;
+  height: 3px;
   border-radius: 50px;
   background-color: #8e8787;
   margin-right: 10px;
   transition: background-color 0.3s;
 }
 
-.toc-sub-item {
+.toc-item {
   font-size: 13px;
+}
+
+.toc-sub-item {
+  font-size: 12px;
   padding-left: 2em;
 }
 
 .toc-item.active {
-  color: #323131;
-  font-size: 18px;
-
+  color: var(--toc-item-active);
+  font-weight: bold;
+  font-size: 15px;
 }
 
 .toc-item.active:not(.toc-sub-item)::before {
@@ -636,11 +648,11 @@ a {
 }
 
 .toc-item:hover {
-  color: #333;
+  color: var(--toc-item-hover);
 }
 
 .toc-item:hover::before {
-  background-color: #333;
+  background-color: var(--toc-item-before);
   /* 鼠标悬停时横线颜色变化 */
 }
 
@@ -648,13 +660,20 @@ a {
   text-align: left;
   margin-top: 30px;
   margin-bottom: 10px;
-  font-size: 22px;
+  font-size: 20px;
+}
+
+.articletruly h3 {
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 17px;
 }
 
 .articletruly p {
   text-indent: 2em;
-  line-height: 2.5;
-  font-size: 20px;
+  line-height: 2;
+  font-size: 16px;
   /* 正文字体颜色 */
   color: #f3f3f3;
   color: var(--articletruly-p);
@@ -904,7 +923,7 @@ body.day-theme .sidebar {
 
 .headcontent img {
   max-width: 90%;
-  height:auto;
+  height: auto;
   border-radius: 10px;
   display: block;
   margin: auto;

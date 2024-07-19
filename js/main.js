@@ -1,3 +1,10 @@
+
+// 确保在全局作用域定义 toggleTopIndexContent 函数
+function toggleTopIndexContent(isDayTheme) {
+    // 实现你的函数逻辑
+    console.log("Toggle top index content, isDayTheme:", isDayTheme);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     // 设置 scrollRestoration 为 manual
     if ('scrollRestoration' in history) {
@@ -97,25 +104,56 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleTopIndexContent(isDayTheme);
 
     // 侧边栏按钮
-    document.getElementById('theme-switcher').addEventListener('click', function (e) {
-        const button = e.currentTarget;
-        const rect = button.getBoundingClientRect();
-        const ripple = document.createElement('span');
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
+    // document.getElementById('theme-switcher').addEventListener('click', function (e) {
+    //     const button = e.currentTarget;
+    //     const rect = button.getBoundingClientRect();
+    //     const ripple = document.createElement('span');
+    //     const size = Math.max(rect.width, rect.height);
+    //     const x = e.clientX - rect.left - size / 2;
+    //     const y = e.clientY - rect.top - size / 2;
 
-        ripple.style.width = ripple.style.height = `${size}px`;
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-        ripple.classList.add('ripple');
+    //     ripple.style.width = ripple.style.height = `${size}px`;
+    //     ripple.style.left = `${x}px`;
+    //     ripple.style.top = `${y}px`;
+    //     ripple.classList.add('ripple');
 
-        button.appendChild(ripple);
+    //     button.appendChild(ripple);
 
-        ripple.addEventListener('animationend', () => {
-            ripple.remove();
-        });
+    //     ripple.addEventListener('animationend', () => {
+    //         ripple.remove();
+    //     });
+    // });
+    document.addEventListener('DOMContentLoaded', function () {
+        // 获取 theme-switcher 元素
+        const themeSwitcher = document.getElementById('theme-switcher');
+
+        // 检查元素是否存在
+        if (themeSwitcher) {
+            themeSwitcher.addEventListener('click', function (e) {
+                const button = e.currentTarget;
+                const rect = button.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.classList.add('ripple');
+
+                button.appendChild(ripple);
+
+                ripple.addEventListener('animationend', () => {
+                    ripple.remove();
+                });
+            });
+        } else {
+            console.error("Element with ID 'theme-switcher' not found");
+        }
     });
+
+
 
     // 使用AJAX只刷新文章部分
     const tabs = document.querySelectorAll('.tabs a[data-page]');
@@ -204,14 +242,14 @@ function closeModal() {
     }, 300); // 等待淡出动画完成
 }
 
-// 关闭模态框
-var modal = document.getElementById("modal");
-var span = document.getElementById("modal-close");
-span.onclick = closeModal;
+// // 关闭模态框
+// var modal = document.getElementById("modal");
+// var span = document.getElementById("modal-close");
+// span.onclick = closeModal;
 
-// 点击模态框外部关闭
-window.onclick = function (event) {
-    if (event.target == modal) {
-        closeModal();
-    }
-}
+// // 点击模态框外部关闭
+// window.onclick = function (event) {
+//     if (event.target == modal) {
+//         closeModal();
+//     }
+// }
