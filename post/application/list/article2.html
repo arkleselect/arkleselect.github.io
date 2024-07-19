@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gavin</title>
+  <link rel="icon" href="/image/TopLogo.png">
+  <link rel="stylesheet" href="../../../css/main.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="menu">
+      <a href="../../../index.html"><img src="../../../image/A.svg"> Arkle</a>
+      <a href="../../../post/new/post-new.html"><img src="../../../image/gitee-fill-round.svg"> Gavin</a>
+      <a href="../../../about.html"><img src="../../../image/wodewenzhang.svg"> 关于</a>
+      <a href="../../../more.html"><img src="../../../image/more.svg"> 更多</a>
+    </div>
+  </div>
+  <div class="top">
+    <div class="bannerpost">
+      <img class="toparticle2" src="../../../image/Loop.png">
+    </div>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc">
+  </div>
+
+  <!-- 内容 -->
+  <div class="articletrulyTitle">
+    <h1>Loop | 把窗口管理做到极致</h1>
+  </div>
+
+  <!-- 添加时间轴目录 -->
+  <!-- <div class="timeline"> -->
+  <!-- <div class="timeline-item" id="timeline-marker"></div> -->
+  <!-- </div> -->
+
+  <!-- 修改内容部分，添加id属性 -->
+  <div class="articletruly">
+    <h2 id="section1" class="section-title">前言</h2>
+    <p>
+      在现代工作环境中，高效的窗口管理是提高生产力的关键。对于Mac用户来说，
+      Loop是一个卓越的窗口管理器，旨在简化和优化多任务处理。
+      本文将深入探讨Loop的功能和优势，帮助你更好地利用这个工具来提升工作效率。
+    </p>
+    <h2 id="section1" class="section-title">什么是Loop？</h2>
+    <p>
+      Loop是一款专为macOS设计的窗口管理器软件。
+      它提供了直观且强大的窗口布局和管理功能，让用户能够更加灵活和高效地组织和操作他们的应用窗口。
+      无论是开发者、设计师还是普通用户，Loop都能为他们带来极大的便利。
+    </p>
+    <h2 id="section1" class="section-title">主要功能</h2>
+    <p>
+      1. 窗口布局管理：
+      Loop允许用户通过拖放的方式轻松调整窗口大小和位置。
+      它提供了预设的窗口布局选项，让你可以快速选择适合当前任务的布局方式。
+      例如，你可以将两个窗口并排放置，方便进行对比和参考。
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. 自定义快捷键：
+      为了提高操作效率，Loop支持用户自定义快捷键。
+      你可以为常用的窗口操作设置快捷键，如最大化、最小化、左半屏、右半屏等，这样在工作过程中就无需频繁使用鼠标进行操作。
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 多显示器支持：
+      Loop完美支持多显示器环境。你可以在不同显示器之间自由移动窗口，并保持窗口的相对位置和大小。
+      这对于需要同时处理多个任务的用户来说尤为重要。
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. 窗口分组：
+      通过窗口分组功能，你可以将相关的窗口聚合在一起，方便快速切换和管理。
+      例如，开发者可以将所有与项目相关的窗口分组，设计师可以将所有设计工具分组，从而简化窗口管理。
+      <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. 智能对齐和调整：
+      Loop内置智能对齐和调整功能，可以自动识别并对齐窗口边缘，使桌面更加整洁有序。
+      这个功能特别适用于需要精确布局的场景，如设计和编程。
+    </p>
+
+    <p>
+      <a class="linkAddress" href="https://www.macappbox.com/a/loop.html">中文下载地址</a>
+    </p>
+  </div>
+
+  <div class="end">
+    Designed by Gavin © 2024
+  </div>
+
+  <!-- 回到顶部按钮 -->
+  <button id="scrollTopButton">
+    <svg viewBox="0 0 24 24">
+      <image id="chargingImage" x="0" y="0" width="24" height="24" href="../../../image/huidaodingbu.svg" />
+    </svg>
+  </button>
+  <!-- 回到顶部按钮结束 -->
+  <!-- <div class="progress-bar" id="progressBar"></div>  -->
+  <script src="../../../js/main.js"></script>
+  <script>
+    function generateTOC() {
+      const toc = document.querySelector('.toc');
+      const headings = document.querySelectorAll('.articletruly h2, .articletruly h3');
+      headings.forEach((heading, index) => {
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.className = 'toc-item';
+        if (index === 0) link.className += ' active';
+        if (heading.tagName === 'H3') {
+          link.classList.add('toc-sub-item');
+        }
+        link.textContent = heading.textContent;
+        toc.appendChild(link);
+      });
+    }
+
+    function updateActiveItem() {
+      const scrollPosition = window.scrollY;
+      const headings = document.querySelectorAll('.articletruly h2, .articletruly h3');
+      const tocItems = document.querySelectorAll('.toc-item');
+
+      headings.forEach((heading, index) => {
+        const top = heading.offsetTop;
+        const height = heading.offsetHeight;
+        if (scrollPosition >= top - 50 && scrollPosition < top + height - 50) {
+          tocItems.forEach(item => item.classList.remove('active'));
+          tocItems[index].classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      generateTOC();
+      updateActiveItem();
+    });
+    window.addEventListener('scroll', updateActiveItem);
+  </script>
+</body>
+
+</html>
