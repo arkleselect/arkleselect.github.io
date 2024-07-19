@@ -64,24 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 
-    // 处理回到顶部按钮下方百分比进度
-    // document.addEventListener("scroll", function () {
-    //     const scrollProgress = document.documentElement.scrollTop;
-    //     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    //     const scrollPercentage = Math.round((scrollProgress / scrollHeight) * 100);
-    //     const progressElement = document.getElementById("progress");
-    //     if (progressElement) {
-    //         progressElement.innerText = `${scrollPercentage}%`;
-    //     }
-    // });
-
-    // const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-    // if (scrollToTopBtn) {
-    //     scrollToTopBtn.addEventListener("click", function () {
-    //         window.scrollTo({ top: 0, behavior: "smooth" });
-    //     });
-    // }
-
     // 切换主题
     const themeSwitcher = document.getElementById('theme-switcher');
     if (themeSwitcher) {
@@ -89,7 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.classList.toggle('day-theme');
             const isDayTheme = document.body.classList.contains('day-theme');
             localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
-            toggleTopIndexContent(isDayTheme);
+            if (typeof toggleTopIndexContent === 'function') {
+                toggleTopIndexContent(isDayTheme);
+            } else {
+                console.error('toggleTopIndexContent function is not defined');
+            }
         });
     }
 
@@ -101,7 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         document.body.classList.remove('day-theme');
     }
-    toggleTopIndexContent(isDayTheme);
+    if (typeof toggleTopIndexContent === 'function') {
+        toggleTopIndexContent(isDayTheme);
+    } else {
+        console.error('toggleTopIndexContent function is not defined');
+    }
 
     // 侧边栏按钮
     // document.getElementById('theme-switcher').addEventListener('click', function (e) {
@@ -152,8 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("Element with ID 'theme-switcher' not found");
         }
     });
-
-
 
     // 使用AJAX只刷新文章部分
     const tabs = document.querySelectorAll('.tabs a[data-page]');
@@ -241,6 +229,7 @@ function closeModal() {
         document.body.style.overflow = "auto"; // 恢复背景滚动
     }, 300); // 等待淡出动画完成
 }
+
 
 // // 关闭模态框
 // var modal = document.getElementById("modal");
