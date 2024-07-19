@@ -45,34 +45,45 @@
     <!-- 内容 -->
     <div class="container">
         <div class="header">
-            <img src="/image/11.png" alt="Avatar">
+            <img src="/image/head/799ec8ee2454db49b39c2bac55978a8f.png" alt="Avatar">
             <div class="info">
+                <span class="name">做你的暮光少女</span>
                 <span class="time">2024-07-01</span>
             </div>
         </div>
         <div class="headcontent">
             <p class="indexText">
-                &nbsp;&nbsp;今天去洗了一下电瓶车，只花了一块钱，非常不错。
-                在路上遇到了👮交警，没戴头盔痛失20💰，便宜没有赚到，
+                今天去洗了一下电瓶车，只花了一块钱，非常不错。
+                在路上遇到了👮交警，没戴头盔痛失20元子，便宜没有赚到，
                 一块钱洗车变成了21元，不过洗的车子挺干净的😼
             </p>
-            <img src="/image/dianche.jpg" alt="Content Image">
+            <!-- <div class="image-block"> -->
+            <img src="/image/dianche.jpg" onclick="openModal(this.src)">
+            <!-- <div class="caption">新开启的页面之好物</div> -->
+            <!-- </div> -->
         </div>
 
+
         <div class="header">
-            <img src="/image/avatar.png" alt="Avatar">
+            <img src="/image/head/8b7c3ae4cd151d90a1bb26c05f7a9b73.png" alt="Avatar">
             <div class="info">
+                <span class="name">林深时见鹿</span>
                 <span class="time">2024-06-27</span>
             </div>
         </div>
         <div class="headcontent">
             <p class="indexText">
-                &nbsp;&nbsp;电脑的LED灯带到了！几块钱带来的快乐🚀
+                电脑的LED灯带到了！几块钱带来的快乐🚀
             </p>
             <img src="/image/LED_Light.jpg" alt="Content Image">
         </div>
     </div>
 
+
+    <div id="modal">
+        <span id="modal-close">&times;</span>
+        <img id="modal-content">
+    </div>
 
     <div class="end">
         Designed by Gavin © 2024
@@ -85,7 +96,7 @@
     </button>
 
     <!-- <div class="progress-bar" id="progressBar"></div> -->
-    <script src="/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

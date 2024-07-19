@@ -179,133 +179,87 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// 时间线目录
+// 主页图片
+function openModal(imgSrc) {
+    var modal = document.getElementById("modal");
+    var modalImg = document.getElementById("modal-content");
+    modal.style.display = "flex";
+    modal.style.alignItems = "center";
+    modal.style.justifyContent = "center";
+    modalImg.src = imgSrc;
+    document.body.style.overflow = "hidden"; // 防止背景滚动
+
+    // 添加淡入效果
+    setTimeout(() => {
+        modal.style.opacity = "1";
+    }, 10);
+}
+
+function closeModal() {
+    var modal = document.getElementById("modal");
+    modal.style.opacity = "0";
+    setTimeout(() => {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto"; // 恢复背景滚动
+    }, 300); // 等待淡出动画完成
+}
+
+// 关闭模态框
+var modal = document.getElementById("modal");
+var span = document.getElementById("modal-close");
+span.onclick = closeModal;
+
+// 点击模态框外部关闭
+window.onclick = function (event) {
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
 // document.addEventListener("DOMContentLoaded", function () {
-//     // 获取所有标题元素
 //     const headings = document.querySelectorAll(".articletruly h2");
-//     const timelineMarker = document.getElementById('timeline-marker');
 //     const timeline = document.querySelector('.timeline');
-//     const markerHeight = 20; // 请根据实际需要调整
-//     const timelineHeight = timeline.offsetHeight;
-//     const markerStep = 30; 
 
-//     // 设置 Intersection Observer 的阈值
-//     const observerThreshold = 0.5;
 //     const observer = new IntersectionObserver((entries) => {
-//         entries.forEach(entry => {
-//             if (entry.isIntersecting) {
-//                 updateTimeline(entry.target);
-//             }
-//         });
-//     }, { threshold: observerThreshold });
+//       entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//           updateTimeline(entry.target);
+//         }
+//       });
+//     }, { threshold: 0.5 });
 
-//     // 为每个标题创建时间线内容并设置观察者
 //     headings.forEach((heading, index) => {
-//         observer.observe(heading);
-        
-//         const content = document.createElement('div');
-//         content.classList.add('timeline-content');
-//         content.setAttribute('data-index', index);
-//         content.innerHTML = `<h2>${heading.textContent}</h2>`;
-//         content.style.top = `${index * markerStep}px`;
-//         timeline.appendChild(content);
+//       observer.observe(heading);
 
-//         // 点击时间线内容滚动到对应标题
-//         content.addEventListener('click', () => {
-//             heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
-//         });
+//       const item = document.createElement('div');
+//       item.classList.add('timeline-item');
+//       item.setAttribute('data-index', index);
+//       timeline.appendChild(item);
+
+//       const content = document.createElement('div');
+//       content.classList.add('timeline-content');
+//       content.setAttribute('data-index', index);
+//       content.innerHTML = `
+//         <h2>${heading.textContent}</h2>
+//       `;
+//       timeline.appendChild(content);
+
+//       content.addEventListener('click', () => {
+//         heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+//       });
 //     });
 
-//     // 更新时间线标记位置和激活状态
 //     function updateTimeline(visibleHeading) {
-//         const index = Array.from(headings).indexOf(visibleHeading);
-//         timelineMarker.style.top = `${index * markerStep}px`;
-//         document.querySelectorAll('.timeline-content').forEach(content => {
-//             content.classList.toggle('active', content.getAttribute('data-index') == index);
-//         });
+//       const index = Array.from(headings).indexOf(visibleHeading);
+//       document.querySelectorAll('.timeline-content').forEach(content => {
+//         content.classList.toggle('active', content.getAttribute('data-index') == index);
+//       });
+
+//       document.querySelectorAll('.timeline-item').forEach(item => {
+//         item.classList.toggle('active', item.getAttribute('data-index') == index);
+//       });
 //     }
 
-//     // 初始化第一个时间线内容为激活状态
 //     document.querySelector('.timeline-content[data-index="0"]').classList.add('active');
-
-//     // 更新时间线位置的函数
-//     function updateTimelinePosition() {
-//         // 计算滚动百分比，并放大其影响以加快时间线移动速度
-//         const scrollPercentage = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-//         const acceleratedScrollPercentage = Math.min(scrollPercentage * 3, 1); // 加快2倍
-
-//         // 设置起始位置（页面底部）和结束位置（页面垂直中心）
-//         const startPosition = window.innerHeight;
-//         const endPosition = window.innerHeight / 2 - timelineHeight / 2;
-//         // 计算当前位置
-//         const currentPosition = startPosition - (startPosition - endPosition) * acceleratedScrollPercentage;
-//         // 更新时间线位置
-//         timeline.style.top = `${currentPosition}px`;
-//     }
-
-//     // 设置初始位置（页面底部）
-//     timeline.style.top = `${window.innerHeight}px`;
-
-//     // 监听滚动和窗口大小变化事件，更新时间线位置
-//     window.addEventListener('scroll', updateTimelinePosition);
-//     window.addEventListener('resize', updateTimelinePosition);
-
-//     // 调整时间线内容的位置，使其与新的CSS代码匹配
-//     function adjustTimelineContentPosition() {
-//         const contents = document.querySelectorAll('.timeline-content');
-//         contents.forEach((content, index) => {
-//             content.style.top = `${index * markerStep + (markerHeight / 2)}px`;
-//         });
-//     }
-
-//     // 初始化调整位置
-//     adjustTimelineContentPosition();
-// });
-
-document.addEventListener("DOMContentLoaded", function () {
-    const headings = document.querySelectorAll(".articletruly h2");
-    const timeline = document.querySelector('.timeline');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          updateTimeline(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    headings.forEach((heading, index) => {
-      observer.observe(heading);
-
-      const item = document.createElement('div');
-      item.classList.add('timeline-item');
-      item.setAttribute('data-index', index);
-      timeline.appendChild(item);
-
-      const content = document.createElement('div');
-      content.classList.add('timeline-content');
-      content.setAttribute('data-index', index);
-      content.innerHTML = `
-        <h2>${heading.textContent}</h2>
-      `;
-      timeline.appendChild(content);
-
-      content.addEventListener('click', () => {
-        heading.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-    });
-
-    function updateTimeline(visibleHeading) {
-      const index = Array.from(headings).indexOf(visibleHeading);
-      document.querySelectorAll('.timeline-content').forEach(content => {
-        content.classList.toggle('active', content.getAttribute('data-index') == index);
-      });
-
-      document.querySelectorAll('.timeline-item').forEach(item => {
-        item.classList.toggle('active', item.getAttribute('data-index') == index);
-      });
-    }
-
-    document.querySelector('.timeline-content[data-index="0"]').classList.add('active');
-    document.querySelector('.timeline-item[data-index="0"]').classList.add('active');
-  });
+//     document.querySelector('.timeline-item[data-index="0"]').classList.add('active');
+//   });

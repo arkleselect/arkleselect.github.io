@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arkle</title>
+  <link rel="stylesheet" href="../../../css/main.css">
+  <style>
+    .SpringBean {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="menu">
+      <a href="../../../index.html"><img src="../../../image/A.svg"> Arkle</a>
+      <a href="../../../post/new/post-new.html"><img src="../../../image/gitee-fill-round.svg"> Gavin</a>
+      <a href="../../../about.html"><img src="../../../image/wodewenzhang.svg"> 关于</a>
+      <a href="../../../more.html"><img src="../../../image/more.svg"> 更多</a>
+    </div>
+  </div>
+  <div class="top">
+    <div class="bannerpost">
+      <img class="toparticle2" src="../../../image/Spring.png">
+    </div>
+  </div>
+
+  <!-- 内容 -->
+  <div class="articletrulyTitle">
+    <h1>关于SpringBean的生命周期</h1>
+  </div>
+
+  <!-- 修改内容部分，添加id属性 -->
+  <div class="articletruly">
+    <h2 class="section-title">写在前面</h2>
+    <p>
+      关于SpringBean的生命周期在面试中是常问的一个问题，正好今天考了一下视频讲解，
+      来总结一下，顺便加深一下理解。
+    </p>
+
+    <h2 class="section-title">大体步骤</h2>
+    <p>
+      在Bean生命周期中，首先Spring会通过BeanDefinition来获取bean的定义信息，
+      然后调用构造函数来实例化Bean对象，下一步执行是bean的依赖注入，然后执行那些实现Aware接口重写的方法，
+      然后是执行初始化方法之前调用的后置处理器，然后是初始化方法，这个初始化方法有两种，一个是实现接口重写方法，
+      另一个就是自定义初始化方法，然后调用初始化方法之后的后置处理器，这个后置处理器一般是对类增强的时候用的，比如一个类用AOP被增强，
+      那一般就是使用初始化方法之后执行的哪个后置处理器来增强的。最后就是销毁了，当Spring容器关闭的时候，就会执行销毁的方法，
+      以下是大致的流程图
+      <img class="SpringBean" style="width: 100vh;" src="../../../image/SpringBean.png">
+    </p>
+  </div>
+
+  <div class="end">
+    Designed by Gavin © 2024
+  </div>
+
+  <!-- 回到顶部按钮 -->
+  <button id="scrollTopButton">
+    <svg viewBox="0 0 24 24">
+      <image id="chargingImage" x="0" y="0" width="24" height="24" href="../../../image/huidaodingbu.svg" />
+    </svg>
+  </button>
+  <!-- 回到顶部按钮结束 -->
+  <!-- <div class="progress-bar" id="progressBar"></div>  -->
+  <script src="../../../js/main.js"></script>
+</body>
+
+</html>

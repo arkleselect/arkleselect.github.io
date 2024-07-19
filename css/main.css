@@ -11,11 +11,14 @@
   --article-info-color: #999999;
   --container-background-color: transform;
   --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  --font-family: Arial, sans-serif;
+  --section-titleH2: #757272;
 }
 
 body.day-theme {
   /* --background-color: #f4f6f9; */
   --background-color: #ebeff5;
+  /* --background-color: linear-gradient(135deg, #f1f4f9 0%, #e8f6f9 100%); */
   --text-color: #222222;
   --navbar-bg-color: #ffffff;
   --post-info-color: #666666;
@@ -27,6 +30,8 @@ body.day-theme {
   --articletruly-p: #3b3b3b;
   --container-background-color: rgba(255, 255, 255, 0.8);
   --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(10%) contrast(100%);
+  --font-family: 'LXGW WenKai Mono', sans-serif;
+  --section-titleH2: #45728d;
 }
 
 body {
@@ -158,6 +163,8 @@ body.day-theme .navbar .menu a svg {
 .avatar {
   /* 默认隐藏 */
   display: none;
+  position: relative;
+  z-index: 2;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -168,6 +175,8 @@ body.day-theme .navbar .menu a svg {
 
 .end {
   text-align: center;
+  font-size: 17px;
+  margin-bottom: 3%;
 }
 
 .content {
@@ -279,10 +288,14 @@ body.day-theme .navbar .menu a svg {
 
 .bannerpost {
   position: relative;
+  z-index: 1;
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   margin: 15.3% auto;
+  background-color: linear-gradient(to bottom, rgba(121, 60, 60, 0.5), rgba(39, 180, 20, 0.5)),
+    url('../image/CleanShotX.jpg') center/cover no-repeat;
 }
 
 .bannerpost img {
@@ -293,6 +306,11 @@ body.day-theme .navbar .menu a svg {
   margin: 10px auto;
   padding: 20px;
   max-width: 900px;
+}
+
+.day-theme .article-container {
+  position: relative;
+  z-index: 20;
 }
 
 .article-container .tabs {
@@ -318,8 +336,8 @@ body.day-theme .navbar .menu a svg {
 
 .article-block {
   background-color: var(--article-block-bg-color);
-  margin-bottom: 18px;
   border-radius: 5px;
+  margin-bottom: 1%;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -335,7 +353,7 @@ body.day-theme .navbar .menu a svg {
 }
 
 .article-block img {
-  width: auto;
+  width: 80%;
   height: 100%;
   object-fit: cover;
 }
@@ -475,6 +493,7 @@ body.scrolled #scrollTopButton {
 
 .day-theme .toparticle2 {
   display: block;
+  margin-top: -7%;
   margin-bottom: -10%;
 }
 
@@ -516,12 +535,41 @@ a {
   text-decoration: none;
 }
 
+/* h2标题前设置横线 */
+.section-title {
+  position: relative;
+  display: inline-block;
+  border: transparent;
+  padding: 0 15px;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: var(--section-titleH2);
+}
+
+.section-title h2 {
+  margin: 0;
+  padding: 10px 0;
+  line-height: 1;
+}
+
 .articletrulyTitle {
   padding: 3%;
   font-size: 18px;
   max-width: 57%;
   margin: 0 auto;
+  margin-bottom: 17vh;
   color: var(--text-color);
+}
+
+.articletrulyTitle h1 {
+  font-size: 45px;
 }
 
 .articletruly {
@@ -535,15 +583,15 @@ a {
 
 .articletruly h2 {
   text-align: left;
-  margin-top: 30px;
+  margin-top: 32px;
   margin-bottom: 10px;
-  font-size: 25px;
+  font-size: 32px;
 }
 
 .articletruly p {
   text-indent: 2em;
   line-height: 2.5;
-  font-size: 17px;
+  font-size: 20px;
   /* 正文字体颜色 */
   color: #f3f3f3;
   color: var(--articletruly-p);
@@ -581,6 +629,7 @@ a {
 
 .linkAddress {
   text-decoration: none;
+  color: #252525;
 }
 
 h1 {
@@ -725,9 +774,10 @@ body.day-theme .sidebar {
   margin: 20px auto;
   background-color: var(--container-background-color);
   padding: 11vh;
-  /* 边框阴影 */
+  padding-top: 3%;
+  padding-bottom: 3%;
   box-shadow: 0 0 10px rgba(36, 31, 31, 0.1);
-  border-radius: 7px;
+  border-radius: 12px;
   transition: background-color 0.3s;
   position: relative;
   z-index: 20;
@@ -746,9 +796,9 @@ body.day-theme .sidebar {
 }
 
 .header img {
-  border-radius: 50%;
-  width: 39px;
-  height: 39px;
+  border-radius: 90%;
+  width: 7%;
+  height: 7%;
   margin-right: 2vh;
 }
 
@@ -762,8 +812,14 @@ body.day-theme .sidebar {
 }
 
 .header .info .time {
-  font-size: 14px;
+  font-size: 13.7px;
+  margin-top: 3px;
   color: var(--text-color);
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .header .info .exposure {
@@ -773,18 +829,21 @@ body.day-theme .sidebar {
 
 .indexText {
   font-size: 18px;
+  line-height: 2;
+  margin-left: 5%;
+  /* 调整这个值来设置向右移动的距离 */
 }
 
 .headcontent {
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 .headcontent img {
-  max-width: 100%;
-  height: 10%;
-  width: auto;
+  max-width: 90%;
   border-radius: 10px;
+  display: block;
+  margin: auto;
 }
 
 #loading-indicator {
@@ -809,60 +868,132 @@ body.day-theme .sidebar {
 }
 
 
-/* ============================= */
-
-.timeline {
-  position: sticky;
-  top: calc(50vh + 20px);
-  margin-right: -370px;
-  width: 200px;
-  height: 155px;
-  padding-left: 10px;
-  border-left: 2px solid #cccccc;
-  transition: top 0.3s ease-out;
-  margin-top: 600px;
+/* 字体 */
+@font-face {
+  font-family: 'LXGW WenKai Mono';
+  src: url('../fonts/LXGWWenKaiMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.timeline-item {
-  position: relative;
-  display: flex;
-  left: -10.3px;
-  right: 200px;
-  width: 2px;
-  height: 15px;
-  background-color: #b7b7b7;
-  border-radius: 6px;
-  transition: top 0.3s ease-in-out, opacity 0.5s;
+@font-face {
+  font-family: 'LXGW WenKai Mono';
+  src: url('../fonts/LXGWWenKaiMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LXGW WenKai Mono';
+  src: url('../fonts/LXGWWenKaiMono-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LXGW WenKai Mono';
+  src: url('../fonts/LXGWWenKai-Bold.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LXGW WenKai Mono';
+  src: url('../fonts/LXGWWenKai-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LXGW WenKai Mono';
+  src: url('../fonts/LXGWWenKai-Regular.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* 应用字体到正文和除了 h1 和导航栏的所有标题，在非暗色主题下 */
+body,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: var(--font-family);
+}
+
+/* 设置导航栏字体 */
+.navbar,
+.navbar a {
+  font-family: Arial, sans-serif;
+}
+
+/* 主页图片 */
+.image-block {
+  width: 50%;
   margin-bottom: 20px;
-  opacity: 0;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.timeline-item.active {
-  opacity: 1;
-}
-
-.timeline-content {
-  position: absolute;
-  color: #666;
-  white-space: nowrap;
+.image-block img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.5s;
+  transition: transform 0.3s ease;
 }
 
-.timeline-content.active {
-  color: #000;
-  opacity: 1;
+.image-block img:hover {
+  transform: scale(1.05);
 }
 
-.timeline-content h2 {
-  margin: 0;
-  margin-top: -230%;
-  font-size: 12px;
+.caption {
+  text-align: center;
+  margin-top: 10px;
 }
 
-.timeline:hover .timeline-content {
-  opacity: 1;
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  /* 确保这是最高的 z-index 值 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(5px);
+  /* 添加背景模糊效果 */
+}
+
+#modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  /* 添加阴影效果 */
+}
+
+#modal-close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  z-index: 10000;
+  /* 确保关闭按钮在最上层 */
+}
+
+#modal-close:hover,
+#modal-close:focus {
+  color: #bbb;
+  text-decoration: none;
 }

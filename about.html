@@ -6,43 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gavin</title>
     <link rel="icon" href="/image/TopLogo.png">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
-    <div class="navbar">
+    <nav class="navbar">
         <div class="menu">
-            <a href="index.html"><img src="image/A.svg"> Arkle</a>
-            <a href="post/new/post-new.html"><img src="image/gitee-fill-round.svg"> Gavin</a>
-            <a href="about.html"><img src="image/wodewenzhang.svg"> 关于</a>
-            <a href="more.html"><img src="image/more.svg"> 更多</a>
+            <a href="index.html"><img src="image/A.svg" alt="Arkle Logo"> Arkle</a>
+            <a href="post/new/post-new.html"><img src="image/gitee-fill-round.svg" alt="Gavin Icon"> Gavin</a>
+            <a href="about.html"><img src="image/wodewenzhang.svg" alt="About Icon"> 关于</a>
+            <a href="more.html"><img src="image/more.svg" alt="More Icon"> 更多</a>
         </div>
+    </nav>
+    <div class="top">
+        <div class="bannerindex"></div>
+        <div class="avatar"></div>
+        <p class="toptext">
+            Time waits for no one.
+        </p>
     </div>
-    
-    <!-- 顶部图片 -->
-    <!-- <div class="top">
-        <div class="bannerpost">
-        </div>
-    </div> -->
-    <!-- 顶部图片结束 -->
-     
-    <div class="end">
+
+
+    <div id="modal">
+        <span id="modal-close">&times;</span>
+        <img id="modal-content">
+    </div>
+
+    <!-- <div class="end">
         Designed by Gavin © 2024
-    </div>
+    </div> -->
 
-    <div class="topabout">
-        <div class="bannerabout">
-            <span class="aboutText">
-                装修中......
-            </span>
-        </div>
-    </div>
-
-    <!-- 切换主题按钮 -->
-    
-    <!-- 切换主题按钮按钮 -->
-
-    <script src="progressBar.js"></script>
+    <!-- <div class="progress-bar" id="progressBar"></div> -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>
