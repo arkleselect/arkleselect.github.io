@@ -1,4 +1,5 @@
 :root {
+  font-family: "Helvetica", "Arial", sans-serif;
   --background-color: #252525;
   --text-color: #e6e6e6;
   --navbar-bg-color: #212121;
@@ -11,18 +12,20 @@
   --article-info-color: #999999;
   --container-background-color: transform;
   --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-  --font-family: Arial, sans-serif;
   --section-titleH2: #8a8787;
   --toc-item-active: #959494;
   --toc-item: #6f6e6e;
   --toc-item-active-not-before: #959494;
   --toc-item-hover: #959494;
   --toc-item-before: #959494;
+  --articletruly-p: #e2e2e2;
 }
 
 body.day-theme {
+  font-family: "Helvetica", "Arial", sans-serif;
   /* --background-color: #f4f6f9; */
-  --background-color: #ebeff5;
+  /* --background-color: #ebeff5; */
+  --background-color: #fff;
   /* --background-color: linear-gradient(135deg, #f1f4f9 0%, #e8f6f9 100%); */
   --text-color: #222222;
   --navbar-bg-color: #ffffff;
@@ -35,7 +38,6 @@ body.day-theme {
   --articletruly-p: #3b3b3b;
   --container-background-color: rgba(255, 255, 255, 0.8);
   --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(10%) contrast(100%);
-  --font-family: 'LXGW WenKai Mono', sans-serif;
   --section-titleH2: #45728d;
   --toc-item-active: #323131;
   --toc-item: #8e8787;
@@ -46,7 +48,7 @@ body.day-theme {
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif !important;
   background-color: var(--background-color);
   color: var(--text-color);
   position: relative;
@@ -570,11 +572,12 @@ a {
 }
 
 .articletrulyTitle {
-  padding: 3%;
+  padding: 1%;
+  padding-top: 0;
   font-size: 18px;
   max-width: 57%;
   margin: 0 auto;
-  margin-bottom: 17vh;
+  margin-bottom: 1vh;
   color: var(--text-color);
 }
 
@@ -668,9 +671,8 @@ a {
 .articletruly p {
   text-indent: 2em;
   line-height: 2;
-  font-size: 16px;
+  font-size: 17.5px;
   /* 正文字体颜色 */
-  color: #f3f3f3;
   color: var(--articletruly-p);
 }
 
@@ -947,62 +949,41 @@ body.day-theme .sidebar {
 
 /* 字体 */
 @font-face {
-  font-family: 'LXGW WenKai Mono';
-  src: url('../fonts/LXGWWenKaiMono-Regular.ttf') format('truetype');
+  font-family: 'CustomFont';
+  src: url('../fonts/woff2/PingFangSC-Medium.woff2') format('woff2'),
+    url('../fonts/ttf/PingFangSC-Medium.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'LXGW WenKai Mono';
-  src: url('../fonts/LXGWWenKaiMono-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'LXGW WenKai Mono';
-  src: url('../fonts/LXGWWenKaiMono-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'LXGW WenKai Mono';
-  src: url('../fonts/LXGWWenKai-Bold.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'LXGW WenKai Mono';
-  src: url('../fonts/LXGWWenKai-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'LXGW WenKai Mono';
-  src: url('../fonts/LXGWWenKai-Regular.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-/* 应用字体到正文和除了 h1 和导航栏的所有标题，在非暗色主题下 */
+/* 设置全局字体 */
 body,
+h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-p {
-  font-family: var(--font-family);
+p,
+a,
+span,
+div,
+li,
+ul,
+ol,
+table,
+th,
+td,
+input,
+textarea,
+button {
+  font-family: 'CustomFont', 'PingFang SC', 'Helvetica', 'Arial', sans-serif !important;
 }
 
 /* 设置导航栏字体 */
 .navbar,
 .navbar a {
-  font-family: Arial, sans-serif;
+  font-family: 'CustomFont', 'PingFang SC', 'Helvetica', 'Arial', sans-serif;
 }
 
 /* 主页图片 */
@@ -1078,8 +1059,7 @@ p {
 .footer {
   text-align: center;
   padding: 20px;
-  background-color: #ebeff5;
-  border-top: 1px solid #eaeaea;
+  background-color: #fbfbfb;
 }
 
 .footer .links {
@@ -1096,3 +1076,48 @@ p {
   margin: 10px 0;
   color: #666;
 }
+
+/* #img-button {
+  padding: 10px;
+  border-radius: 50px;
+  border: 1px solid #f5f3f3;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 90px;
+  bottom: 33%;
+  height: auto;
+  width: 50px;
+  overflow: hidden;
+  background: transparent;
+}
+
+#img-button img {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.water {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: #007bff;
+  border-radius: 40%;
+  animation: wave 5s infinite linear;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+} */
