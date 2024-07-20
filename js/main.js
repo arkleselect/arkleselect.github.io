@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.removeItem('scrollPosition');
     }
 
-    // 处理回到顶部按钮和水位效果
+    // 处理回到顶部按钮
     const scrollTopButton = document.getElementById("scrollTopButton");
 
     function updateScroll() {
