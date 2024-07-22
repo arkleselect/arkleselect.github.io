@@ -42,13 +42,13 @@
 
   <!-- 修改内容部分，添加id属性 -->
   <div class="articletruly">
-    <h2 id="section1" class="section-title">写在前面</h2>
+    <h2>写在前面</h2>
     <p>
       关于SpringBean的生命周期在面试中是常问的一个问题，正好今天考了一下视频讲解，
       来总结一下，顺便加深一下理解。
     </p>
 
-    <h2 id="section2" class="section-title">大体步骤</h2>
+    <h2>大体步骤</h2>
     <p>
       在Bean生命周期中，首先Spring会通过BeanDefinition来获取bean的定义信息，
       然后调用构造函数来实例化Bean对象，下一步执行是bean的依赖注入，然后执行那些实现Aware接口重写的方法，
@@ -61,12 +61,24 @@
   </div>
 
   <div id="article-container" class="article-container-about">
-    <h2 id="section2" class="section-title">相关</h2>
+    <h2>相关</h2>
     <a href="../list/SpringBean循环依赖.html">
       <div class="article-block" id="article2">
         <img src="../../../image/Spring.png">
         <div class="article-content">
           <div class="article-title">SpringBean循环依赖</div>
+          <div class="article-info">
+            <span>2024-07-18</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="../list/SpringMVC执行流程.html">
+      <div class="article-block" id="article2">
+        <img src="../../../image/Spring.png">
+        <div class="article-content">
+          <div class="article-title">关于SpringMVC执行流程</div>
           <div class="article-info">
             <span>2024-07-18</span>
           </div>
