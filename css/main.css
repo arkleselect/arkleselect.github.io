@@ -320,6 +320,12 @@ body.day-theme .navbar .menu a svg {
   max-width: 900px;
 }
 
+.article-container-about {
+  margin: 10px auto;
+  padding: 20px;
+  max-width: 800px;
+}
+
 .day-theme .article-container {
   position: relative;
   z-index: 20;
@@ -1062,6 +1068,7 @@ button {
   text-align: center;
   padding: 20px;
   background-color: #fbfbfb;
+  border-top: 2px solid #e3e9ed;
 }
 
 .footer .links {
@@ -1076,6 +1083,31 @@ button {
 
 .footer .powered-by {
   margin: 10px 0;
+  color: #666;
+}
+
+.powered-by-down {
+  margin: 10px 0;
+  color: #666;
+  font-size: 14.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.powered-by-down>div {
+  /* 只在需要的一侧设置margin，具体取决于你的布局和间距需求 */
+  margin-right: 10px;
+  /* 在每个div的右侧添加间距 */
+}
+
+.powered-by-down>div:last-child {
+  margin-right: 0;
+  /* 移除最后一个div的右侧间距 */
+}
+
+.contact a {
   color: #666;
 }
 
