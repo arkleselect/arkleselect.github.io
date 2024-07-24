@@ -46,33 +46,81 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 切换主题
-    const themeSwitcher = document.getElementById('theme-switcher');
-    if (themeSwitcher) {
-        themeSwitcher.addEventListener('click', function () {
-            document.body.classList.toggle('day-theme');
-            const isDayTheme = document.body.classList.contains('day-theme');
-            localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
-            if (typeof toggleTopIndexContent === 'function') {
-                toggleTopIndexContent(isDayTheme);
-            } else {
-                console.error('toggleTopIndexContent function is not defined');
-            }
-        });
-    }
+    // const themeSwitcher = document.getElementById('theme-switcher');
+    // if (themeSwitcher) {
+    //     themeSwitcher.addEventListener('click', function () {
+    //         document.body.classList.toggle('day-theme');
+    //         const isDayTheme = document.body.classList.contains('day-theme');
+    //         localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
+    //         if (typeof toggleTopIndexContent === 'function') {
+    //             toggleTopIndexContent(isDayTheme);
+    //         } else {
+    //             console.error('toggleTopIndexContent function is not defined');
+    //         }
+    //     });
+    // }
 
     // 页面加载时读取主题状态
-    const savedTheme = localStorage.getItem('theme');
-    const isDayTheme = savedTheme === 'day';
-    if (isDayTheme) {
-        document.body.classList.add('day-theme');
-    } else {
-        document.body.classList.remove('day-theme');
-    }
+    // const savedTheme = localStorage.getItem('theme');
+    // const isDayTheme = savedTheme === 'day';
+    // if (isDayTheme) {
+    //     document.body.classList.add('day-theme');
+    // } else {
+    //     document.body.classList.remove('day-theme');
+    // }
+    // if (typeof toggleTopIndexContent === 'function') {
+    //     toggleTopIndexContent(isDayTheme);
+    // } else {
+    //     console.error('toggleTopIndexContent function is not defined');
+    // }
+
+
+    // 切换主题
+const themeSwitcher = document.getElementById('theme-switcher');
+if (themeSwitcher) {
+    themeSwitcher.addEventListener('click', function () {
+        document.body.classList.toggle('day-theme');
+        const isDayTheme = document.body.classList.contains('day-theme');
+        localStorage.setItem('theme', isDayTheme ? 'day' : 'night');
+        if (typeof toggleTopIndexContent === 'function') {
+            toggleTopIndexContent(isDayTheme);
+        } else {
+            console.error('toggleTopIndexContent function is not defined');
+        }
+    });
+}
+
+// 根据当前时间自动切换主题
+function autoSwitchTheme() {
+    const hour = new Date().getHours();
+    const isDayTime = hour >= 6 && hour < 18; // 早上6点到晚上18点是亮色主题
+    document.body.classList.toggle('day-theme', isDayTime);
+    localStorage.setItem('theme', isDayTime ? 'day' : 'night');
     if (typeof toggleTopIndexContent === 'function') {
-        toggleTopIndexContent(isDayTheme);
+        toggleTopIndexContent(isDayTime);
     } else {
         console.error('toggleTopIndexContent function is not defined');
     }
+}
+
+// 页面加载时读取主题状态或根据当前时间自动设置主题
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        const isDayTheme = savedTheme === 'day';
+        document.body.classList.toggle('day-theme', isDayTheme);
+        if (typeof toggleTopIndexContent === 'function') {
+            toggleTopIndexContent(isDayTheme);
+        } else {
+            console.error('toggleTopIndexContent function is not defined');
+        }
+    } else {
+        autoSwitchTheme(); // 调用根据时间切换主题的函数
+    }
+}
+
+// 页面加载时初始化主题
+document.addEventListener('DOMContentLoaded', initializeTheme);
 
     // 侧边栏按钮涟漪效果
     const themeSwitcherRipple = document.getElementById('theme-switcher');
