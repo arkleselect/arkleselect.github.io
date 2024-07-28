@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于微信小程序的登录功能</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <img src="../image/head" alt="Logo" class="logo-img">
+        </div>
+        <nav class="nav">
+            <a href="../index.html">文章</a>
+            <a href="../friends.html">识友</a>
+            <a href="https://mastodon.social/@wpprqi" target="_blank">Mastodon</a>
+            <a href="../about.html">关于</a>
+            <a href="../more.html">更多</a>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>A super minimal & lightweight theme with Premium Membership and fully Ghost-compatible.</h1>
+        </div>
+    </section>
+
+    <div class="post-container">
+        <h1>实体类</h1>
+        <h3>LoginVo，用于返回数据</h3>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Data  
+      @ApiModel(value = "登录对象")  
+      public class LoginVo {  
+      
+          @ApiModelProperty(value = "JWT token")  
+          private String token;  
+      
+          @ApiModelProperty(value = "昵称")  
+          private String nickName;  
+      }
+              </code>
+        </details>
+        <h3>Member，用于记录用户账号信息</h3>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Data  
+      @Builder  
+      public class Member extends BaseEntity {  
+          private String phone;// 手机号  
+          private String name;// 姓名  
+          private String avatar;// 头像  
+          private String openId;// openID  
+          private Integer gender;// 性别  
+      }
+              </code>
+        </details>
+        <h3>UserLoginRequestDto，用于登录的时候发请求</h3>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Data  
+      public class UserLoginRequestDto {  
+      
+          @ApiModelProperty("昵称")  
+          private String nickName;  
+      
+          @ApiModelProperty("登录临时凭证")  
+          private String code;  
+      
+          @ApiModelProperty("手机号临时凭证")  
+          private String phoneCode;  
+      }
+              </code>
+        </details>
+        <h1>表示层</h1>
+        <p>在controller下的customer下加了一个login的接口</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @RestController  
+      @RequestMapping("/customer/user")  
+      @Api(tags = "小程序端用户相关接口")  
+      public class CustomerUserTypeController {  
+      
+          @Autowired  
+          private CustomerUserService customerUserService;  
+      
+          @PostMapping("/login")  
+          public ResponseResult<LoginVo> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {  
+              LoginVo loginVo = customerUserService.login(userLoginRequestDto);  
+              return ResponseResult.success(loginVo);  
+          }  
+      }
+              </code>
+        </details>
+        <h1>业务层</h1>
+        <p>CustomerUserService写了一个login方法，返回Vo对象</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      public interface CustomerUserService {  
+      
+          LoginVo login(UserLoginRequestDto userLoginRequestDto);  
+      }
+              </code>
+        </details>
+        <h3>他的实现类CustomerUserServiceImpl</h3>
+        <p>这里数组是用来登陆后选择默认的名称+手机号后四位，登录的方法一共分为了六步：</p>
+        <p>1.通过用户的code 请求微信 获取openId
+            <br>
+            2.根据openId 查询客户信息<br>
+            3.判断客户信息是否为空，如果为空 重新构建（赋值openId）<br>
+            4.通过phoneCode 请求微信 获取真正的手机号码<br>
+            5.新增或者修改用户<br>
+            6.生成token（包含用户的ID 和昵称）
+        </p>
+        <p>（与上步骤对不起来就看着图）</p>
+        <p>用login获取用户的code，通过request发送code到开发者服务器，开发者服务器拿到code后，拿着code加上appid和密钥请求微信服务器，微信服务器返回key和openId，这里openId就是用户的唯一凭证
+            拿到openId后根据这个id查询用户信息
+            如果没有的话就注册一个，并把openId存储进去(这里引出了Builder注解)，通过phoneCode 请求微信 获取真正的手机号码，然后就是携带登录状态新增或者修改用户，并生成token（包含用户的ID
+            和昵称)存入storage，phondeCode可以理解为开发者服务器内部的额外操作</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Service  
+      public class CustomerUserServiceImpl implements CustomerUserService {  
+      
+          @Autowired  
+          private WeChatService weChatService;  
+      
+          @Autowired  
+          private MemberMapper memberMapper;  
+      
+          @Autowired  
+          private JwtTokenManagerProperties jwtTokenManagerProperties;  
+      
+          static ArrayList DEFAULT_NICKNAME_PREFIX = Lists.newArrayList(  
+                  "生活更美好",  
+                  "大桔大利",  
+                  "日富一日",  
+                  "好柿开花",  
+                  "柿柿如意",  
+                  "一椰暴富",  
+                  "大柚所为",  
+                  "杨梅吐气",  
+                  "天生荔枝"  
+          );  
+      
+          @Override  
+          public LoginVo login(UserLoginRequestDto userLoginRequestDto) {  
+              // 1. 通过用户的code 请求微信 获取openId  
+              String openId = weChatService.getOpenId(userLoginRequestDto.getCode());  
+      
+              // 2. 根据openId 查询客户信息  
+              Member member = memberMapper.findByOpenId(openId);  
+      
+              // 3. 判断客户信息是否为空，如果为空 重新构建（赋值openId）  
+              if (ObjectUtil.isEmpty(member)) {  
+                  /* Member member1 = new Member();  
+                  member1.setOpenId(openId); */            // 第二种方法 需实体类加@Builder  
+                  member = Member.builder().openId(openId).build();  
+              }  
+      
+              // 4. 通过phoneCode 请求微信 获取真正的手机号码  
+              String phone = weChatService.getPhone(userLoginRequestDto.getPhoneCode());  
+      
+              // 5. 新增或者修改用户  
+              saveOrUpdate(member, phone);  
+      
+              // 6. 生成token（包含用户的ID 和昵称  
+              HashMap<String, Object> claims = new HashMap<>();  
+              claims.put(Constants.JWT_USERID, member.getId());  
+              claims.put(Constants.JWT_USERNAME, member.getName());  
+      
+              String token = JwtUtil.createJWT(  
+                      jwtTokenManagerProperties.getBase64EncodedSecretKey(),  
+                      jwtTokenManagerProperties.getTtl(),  
+                      claims);  
+              LoginVo loginVo = new LoginVo();  
+              loginVo.setToken(token);  
+              loginVo.setNickName(member.getName());  
+              return loginVo;  
+          }  
+      
+          public void saveOrUpdate(Member member, String phone) {  
+              // 判断手机号是否需要更换  
+              if (!phone.equals(member.getPhone())) {  
+                  member.setPhone(phone);  
+              }  
+      
+              // 判断是否需要更新  
+              if (ObjectUtil.isNotEmpty(member.getId())) {  
+                  memberMapper.update(member);  
+              }  
+      
+              // 昵称 随机成语 + 手机号后四位  
+              Random random = new Random();  
+              int index = random.nextInt(DEFAULT_NICKNAME_PREFIX.size());  
+      
+              String nickName = DEFAULT_NICKNAME_PREFIX.get(index) + phone.substring(phone.length() - 4);  
+              member.setName(nickName);  
+      
+              // 新增  
+              memberMapper.insert(member);  
+      
+          }  
+      }
+              </code>
+        </details>
+        <p>这里实现类中进行的操作，使用到的方法，是单独写了一个WeChatServiceImpl实现类来进行统一操作</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Service  
+      public class WeChatServiceImpl implements WeChatService {  
+      
+          // 登录  
+          private static final String REQUEST_URL = "https://api.weixin.qq.com/sns/jscode2session?grant_type=authorization_code";  
+      
+          // 获取token  
+          private static final String TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";  
+      
+          // 获取手机号  
+          private static final String PHONE_REQUEST_URL = "https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=";  
+      
+          @Override  
+          public String getOpenId(String code) {  
+              Map<String, Object> map = getAppConfig();  
+              map.put("js_code", code);  
+              map.put("grant_type", "authorization_code");  
+              String result = HttpUtil.get(REQUEST_URL, map);  
+              JSONObject jsonObject = JSONUtil.parseObj(result);  
+              if (ObjectUtil.isNotEmpty(jsonObject.getInt("errcode"))) {  
+                throw new RuntimeException(jsonObject.getStr("errmsg"));  
+            }  
+      
+            String openid = jsonObject.getStr("openid");  
+            return openid;  
+        }  
+      
+        @Value("${zzyl.wechat.appId}")  
+        private String appId;  
+      
+        @Value("${zzyl.wechat.appSecret}")  
+        private String appSecret;  
+      
+        public Map<String, Object> getAppConfig() {  
+            Map<String, Object> map = new HashMap<>();  
+            map.put("appid", appId);  
+            map.put("secret", appSecret);  
+            return map;  
+        }  
+      
+        @Override  
+        public String getPhone(String phone) {  
+            // 1. 获取token  
+            String token = getToken();  
+            String url = PHONE_REQUEST_URL + token;  
+      
+            // 2. 存放参数  
+            HashMap<String, Object> map = new HashMap<>();  
+            map.put("code", phone);  
+      
+            // 3. 发送请求  
+            String result = HttpUtil.post(url, JSONUtil.toJsonStr(map));  
+            JSONObject jsObject = JSONUtil.parseObj(result);  
+            if (jsObject.getInt("errcode") != 0) {  
+                throw new RuntimeException(jsObject.getStr("errmsg"));  
+            }  
+            return jsObject.getJSONObject("phone_info").getStr("phoneNumber");  
+        }  
+      
+        private String getToken() {  
+            Map<String, Object> map = getAppConfig();  
+            String result = HttpUtil.get(TOKEN_URL, map);  
+            JSONObject jsonObject = JSONUtil.parseObj(result);  
+            if(ObjectUtil.isNotEmpty(jsonObject.getInt("errcode"))){  
+                throw new RuntimeException(jsonObject.getStr("errmsg"));  
+            }  
+            return jsonObject.getStr("access_token");  
+        }  
+      }
+            </code>
+        </details>
+        <h1>持久层</h1>
+        <p>这里只用到了插入更新和根据id查找，插入和更新使用了xml映射</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Mapper  
+      public interface MemberMapper {  
+        void insert(Member member);  
+      
+        void update(Member member);  
+      
+        @Select("select * from member where open_id = #{openId}")  
+        Member findByOpenId(String openId);  
+      }
+            </code>
+        </details>
+        <h3>MemberMapper.xml</h3>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      <mapper namespace="com.zzyl.mapper.MemberMapper">  
+      
+        <resultMap id="MemberResultMap" type="com.zzyl.entity.Member">  
+            <id property="id" column="id"/>  
+            <result property="phone" column="phone"/>  
+            <result property="name" column="name"/>  
+            <result property="avatar" column="avatar"/>  
+            <result property="openId" column="open_id"/>  
+            <result property="gender" column="gender"/>  
+            <result property="createTime" column="create_time"/>  
+            <result property="updateTime" column="update_time"/>  
+            <result property="createBy" column="create_by"/>  
+            <result property="updateBy" column="update_by"/>  
+            <result property="remark" column="remark"/>  
+        </resultMap>  
+      
+        <insert id="insert" useGeneratedKeys="true" keyProperty="id">  
+            INSERT INTO member (phone, name, avatar, open_id, gender, create_by, update_by, remark)     
+           VALUES (#{phone}, #{name}, #{avatar}, #{openId}, #{gender}, #{createBy}, #{updateBy}, #{remark})   
+         </insert>  
+      
+        <update id="update">  
+            UPDATE member        
+               SET phone = #{phone},   
+                name = #{name},  
+                avatar = #{avatar},            
+                open_id = #{openId},           
+                gender = #{gender},           
+                update_time = NOW(),         
+                update_by = #{updateBy},     
+                remark = #{remark}    
+            WHERE id = #{id}   
+         </update>  
+      </mapper>
+            </code>
+        </details>
+        <h1>Properties</h1>
+        <p>添加了JwtTokenManagerProperties来生成令牌</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      @Data  
+      @Configuration  
+      @ConfigurationProperties(prefix = "zzyl.framework.jwt")  
+      public class JwtTokenManagerProperties {  
+      
+        private String base64EncodedSecretKey;  
+      
+        private Integer ttl;  
+      }
+            </code>
+        </details>
+        <h1>appid和密钥</h1>
+        <p>再application.yml中标识</p>
+        <details>
+            <summary>展开代码</summary>
+            <code>
+      zzyl:  
+      framework:  
+        wechat:  
+          appId: wx681f700645e271d4  
+          appSecret: 50069b538a6a4d92d438256cc912c6fb
+            </code>
+        </details>
+        <script src="../js/main.js"></script>
+</body>
+
+</html>
