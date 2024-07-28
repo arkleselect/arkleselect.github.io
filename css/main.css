@@ -13,6 +13,7 @@
     --sidebar-category-text-color: #dddada;
     --product-card-bg-color: #f7f7f7;
     --summary-color:#000;
+    --post-container-p-color:#4a4a4a;
 }
 
 body.dark-theme {
@@ -30,6 +31,7 @@ body.dark-theme {
     --sidebar-category-text-color: #fff;
     --product-card-bg-color: #353131;
     --summary-color:#fff;
+    --post-container-p-color:#fdfdfd;
 }
 
 body {
@@ -377,7 +379,7 @@ button {
 
 /* 每篇文章的css控制 */
 .post-container {
-    width: 80%;
+    width: 70%;
     max-width: 950px;
     padding: 20px;
     background-color: #fff;
@@ -385,13 +387,14 @@ button {
 }
 
 .post-container p {
-    font-size: 18px;
+    font-size: 23px;
     line-height: 2;
     margin-bottom: 30px;
+    color: var(--post-container-p-color);
 }
 
 .post-container h1 {
-    font-size: 260 px;
+    font-size: 37px;
 }
 
 
