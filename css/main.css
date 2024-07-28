@@ -14,6 +14,7 @@
     --product-card-bg-color: #f7f7f7;
     --summary-color:#000;
     --post-container-p-color:#4a4a4a;
+    --main-content-bg-color:#fff;
 }
 
 body.dark-theme {
@@ -21,7 +22,7 @@ body.dark-theme {
     --text-color: #ffffff;
     --header-bg-color: #18181b;
     --hero-bg-color: #1f1f20;
-    --nav-text-color: #bbb;
+    --nav-text-color: #fafafa;
     --nav-text-hover-color: #ffffff;
     --button-bg-color: #343435;
     --button-text-color: #ffffff;
@@ -32,6 +33,7 @@ body.dark-theme {
     --product-card-bg-color: #353131;
     --summary-color:#fff;
     --post-container-p-color:#fdfdfd;
+    --main-content-bg-color:#1a1a1d;
 }
 
 body {
@@ -131,6 +133,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--main-content-bg-color);
 }
 
 .featured-post {
@@ -195,9 +198,9 @@ body {
     min-height: 100vh;
     width: 100%;
     overflow: auto;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     align-items: flex-start;
+    background-color: transparent;
 }
 
 .latest-post img {
@@ -233,10 +236,10 @@ body {
     border-radius: 30px;
     transition: all 0.4s ease;
 }
-
+/* 
 .latest-post:hover {
     box-shadow: 0 0 15px rgba(194, 193, 193, 0.5);
-}
+} */
 
 
 .latest-post h2 {
