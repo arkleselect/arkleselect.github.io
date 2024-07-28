@@ -12,14 +12,16 @@
     --h1-h2-color: #000000;
     --sidebar-category-text-color: #dddada;
     --product-card-bg-color: #f7f7f7;
-    --summary-color:#000;
-    --post-container-p-color:#4a4a4a;
-    --main-content-bg-color:#fff;
+    --summary-color: #000;
+    --post-container-p-color: #4a4a4a;
+    --main-content-bg-color: #fff;
+    --post-container-info-color: #4a4a4a;
+    --post-container-bg-color: #fff;
 }
 
 body.dark-theme {
-    --bg-color: #09090b;
-    --text-color: #ffffff;
+    --bg-color: #151516;
+    --text-color: #dad5d5;
     --header-bg-color: #18181b;
     --hero-bg-color: #1f1f20;
     --nav-text-color: #fafafa;
@@ -31,9 +33,11 @@ body.dark-theme {
     --h1-h2-color: #fafafa;
     --sidebar-category-text-color: #fff;
     --product-card-bg-color: #353131;
-    --summary-color:#fff;
-    --post-container-p-color:#fdfdfd;
-    --main-content-bg-color:#1a1a1d;
+    --summary-color: #fff;
+    --post-container-p-color: #fdfdfd;
+    --main-content-bg-color: #1a1a1d;
+    --post-container-info-color: #fafafa;
+    --post-container-bg-color: transform;
 }
 
 body {
@@ -236,6 +240,7 @@ body {
     border-radius: 30px;
     transition: all 0.4s ease;
 }
+
 /* 
 .latest-post:hover {
     box-shadow: 0 0 15px rgba(194, 193, 193, 0.5);
@@ -270,7 +275,7 @@ body {
 }
 
 .sidebar {
-    margin-right: 18%;
+    margin-right: 332px;
     border-radius: 8px;
     position: sticky;
     z-index: 100;
@@ -381,11 +386,30 @@ button {
 
 
 /* 每篇文章的css控制 */
+.post-container .info {
+    color: var(--post-container-info-color);
+    margin-top: -20px;
+    margin-bottom: 60px;
+    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-container .info-top {
+    font-size: 39px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .post-container {
     width: 70%;
     max-width: 950px;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--post-container-bg-color);
     margin: 60px auto;
 }
 
@@ -397,7 +421,7 @@ button {
 }
 
 .post-container h1 {
-    font-size: 37px;
+    font-size: 28px;
     color: var(--post-container-p-color);
 }
 
@@ -473,4 +497,5 @@ code {
     white-space: pre-wrap;
     margin-top: 10px;
 }
+
 /* END */
