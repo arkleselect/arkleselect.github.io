@@ -24,11 +24,16 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>A super minimal & lightweight theme with Premium Membership and fully Ghost-compatible.</h1>
+            <!-- <h1>A super minimal & lightweight theme with Premium Membership and fully Ghost-compatible.</h1> -->
+            <img src="../image/TTT.jpg" style="margin-top: 60px;">
         </div>
     </section>
-    
+
     <div class="post-container">
+        <p style="font-size: 50px;">
+            关于SpringMVC执行流程
+        </p>
+
         <h1>写在前面</h1>
         <p>
             掌握SpringMVC的执行流程是当前这个框架最核心的内容，可以分为两个阶段来说，第一阶段是视图阶段，但由于现在基本是前后端分离，
@@ -51,31 +56,15 @@
             解析完后通过处理器执行链返回到前端控制器，处理执行链又是什么？
             比如有一个拦截器，那处理器映射器就会把这个拦截器和方法一起封装到这个执行链中，然后返回给前端控制器
         </p>
-        <br>
-        <h2>为什么会有处理器适配器？</h2>
-        <ul class="black-dot">
-            <li>1. 它可以处理参数</li>
-            控制器中有很多方法，每个方法都有可能会有参数，处理器适配器有类型转换器，所以你的方法才能正常接收参数与运行
-            <li>2. 它可以处理返回值</li>
-            方法有多种返回值，返回值最终是通过处理器适配器来处理来返回到前端
-        </ul>
-
-        <h2>处理器适配器的作用</h2>
-        <ul class="black-dot">
-            <li>要去找到Handler去执行</li>
-            <li>处理当前Handler中方法上所对应的参数转换</li>
-            <li>处理返回值</li>
-            <li> 最后接收处理器Handler的响应后返回前端控制器</li>
-        </ul>
-
         <h1>总结</h1>
-        1. 前端控制器：接收所有的请求
-        <br>
-        2. 处理器映射器：处理路径和方法（放到Map中）
-        <br>
-        3. 处理器适配器：执行Handler，处理Handler中的参数与返回值
-        <br>
-        4. 视图解析器：将处理器适配器返回回去的一些逻辑视图解析为真正的视图，最终渲染给页面
+        <p>1. 前端控制器：接收所有的请求
+            <br>
+            2. 处理器映射器：处理路径和方法（放到Map中）
+            <br>
+            3. 处理器适配器：执行Handler，处理Handler中的参数与返回值
+            <br>
+            4. 视图解析器：将处理器适配器返回回去的一些逻辑视图解析为真正的视图，最终渲染给页面
+        </p>
         <p>
             <img style="width: 100vh;" src="../image/9c2d2ce2eaf214f4eb8e9c1b3faf991.png">
         </p>
