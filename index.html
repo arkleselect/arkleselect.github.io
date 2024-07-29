@@ -2,86 +2,89 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WPPRQI</title>
-    <link rel="icon" href="./image/TopLogo.png">
-    <link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WPPRQI</title>
+  <link rel="icon" href="./image/TopLogo.png">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body class="no-transition">
-    <div class="header">
-        <div class="logo-container">
-            <img src="image/head" alt="Logo" class="logo-img">
-        </div>
-        <nav class="nav">
-            <a href="index.html">文章</a>
-            <a href="friends.html">识友</a>
-            <a href="https://mastodon.social/@wpprqi" target="_blank">Mastodon</a>
-            <a href="about.html">关于</a>
-            <a href="more.html">更多</a>
-        </nav>
+  <div class="header">
+    <div class="logo-container">
+      <img src="image/head" alt="Logo" class="logo-img">
     </div>
+    <nav class="nav">
+      <a href="index.html">文章</a>
+      <a href="friends.html">识友</a>
+      <a href="https://mastodon.social/@wpprqi" target="_blank">Mastodon</a>
+      <a href="about.html">关于</a>
+      <a href="more.html">更多</a>
+    </nav>
+  </div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>
-                WPPRQI
-            </h1>
-            <h3>
-                Embrace the glorious mess that you are,
-                <br>
-                for within the chaos lies the beauty of your unique journey.
-            </h3>
-        </div>
-    </section>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>
+        WPPRQI
+      </h1>
+      <h3>
+        Embrace the glorious mess that you are,
+        <br>
+        for within the chaos lies the beauty of your unique journey.
+      </h3>
+    </div>
+  </section>
 
-    <main class="main-content">
-        <div class="latest-post-and-sidebar">
-            <div class="latest-posts">
-                <a href="post/关于SpringMVC执行流程.html">
-                    <section class="latest-post">
-                        <div class="latest-post-image-container">
-                            <img src="image/person.png" class="latest-post-image">
-                        </div>
-                        <div class="post-content">
-                            <h1>关于SpringMVC的执行流程</h1>
-                            <p class="authors">笔记</p>
-                            <p style="font-size: 14px;">2024-7-27</p>
-                        </div>
-                    </section>
-                </a>
-                <a href="post/关于微信小程序的登录功能.html">
-                    <section class="latest-post">
-                        <div class="latest-post-image-container">
-                            <img src="image/person.png" class="latest-post-image">
-                        </div>
-                        <div class="post-content">
-                            <h1>关于微信小程序的登录功能</h1>
-                            <p class="authors">笔记</p>
-                            <p style="font-size: 14px;">2024-7-27</p>
-                        </div>
-                    </section>
-                </a>
+  <main class="main-content">
+    <div class="latest-post-and-sidebar">
+      <!-- <div class="leftDiv"></div> -->
+      <div class="cardManager">
+        <!-- 目录 -->
+        <a href="post/关于SpringMVC执行流程.html">
+          <div class="card">
+            <img src="image/person.png">
+            <div class="footWhiter">
+              <h2>关于SpringMVC的执行流程</h2>
+              <div class="footer">
+                <p>笔记</p>
+                <p>2024-7-27</p>
+              </div>
             </div>
-            <div class="spacer"></div>
-            <aside class="sidebar">
-                <!-- <h2>Categories</h2> -->
-                <h2>区块</h2>
-                <div class="categories">
-                    <a href="" class="category"><img src="image/head">流水账</a>
-                    <a href="" class="category"><img src="image/image.png">笔记</a>
-                    <a href="" class="category"><img src="image/monkey.png">手账</a>
-                    <a href="" class="category"><img src="image/image1.png">摄影</a>
-                    <a href="" class="category"><img src="image/image2.png">Matrix</a>
-                </div>
-                <div class="theme">
-                    <button class="switchTheme">切换主题</button>
-                </div>
-            </aside>
+          </div>
+        </a>
+        <a href="post/关于微信小程序的登录功能.html">
+          <div class="card">
+            <img src="image/person.png">
+            <div class="footWhiter">
+              <h2>关于微信小程序的登录功能</h2>
+              <div class="footer">
+                <p>笔记</p>
+                <p>2024 7-27</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <!-- END -->
+      <div class="spacer"></div>
+      <aside class="sidebar">
+        <!-- <h2>Categories</h2> -->
+        <h2>区块</h2>
+        <div class="categories">
+          <a href="" class="category"><img src="image/head">流水账</a>
+          <a href="" class="category"><img src="image/image.png">笔记</a>
+          <a href="" class="category"><img src="image/monkey.png">手账</a>
+          <a href="" class="category"><img src="image/image1.png">摄影</a>
+          <a href="" class="category"><img src="image/image2.png">Matrix</a>
         </div>
-    </main>
-    <script src="js/main.js"></script>
+        <div class="theme">
+          <button class="switchTheme">切换主题</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
