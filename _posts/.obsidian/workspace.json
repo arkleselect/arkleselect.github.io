@@ -1,0 +1,159 @@
+{
+  "main": {
+    "id": "e7c1683dcd84212b",
+    "type": "split",
+    "children": [
+      {
+        "id": "10ada30af713cd2f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f778f06ebde3c6d9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "2010-01-01-welcome-to-the-desert-of-the-real.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ae0f459d9dfe9b2f",
+    "type": "split",
+    "children": [
+      {
+        "id": "5251f92e830ae1c6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a55c01b64fe27360",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "750f140cd1c670df",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "cb099c17f3dfe62e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 285.5
+  },
+  "right": {
+    "id": "3df83ca7c2b4549e",
+    "type": "split",
+    "children": [
+      {
+        "id": "95a85fb753a0b685",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3a282b3c85d4ceeb",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "2010-01-01-welcome-to-the-desert-of-the-real.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "eda6002a009e6435",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "2010-01-01-welcome-to-the-desert-of-the-real.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ac682a44d7631ad9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "c0f1145ab80a03b0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "2010-01-01-welcome-to-the-desert-of-the-real.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "f778f06ebde3c6d9",
+  "lastOpenFiles": [
+    "2019-09-09-birds-can-fly-but-this-you-knew-already.md",
+    "2019-09-09-birds-can-fly-but-this-you-knew-already_副本.md",
+    "2010-01-01-welcome-to-the-desert-of-the-real.md",
+    "2024-08-08-test2.md",
+    "2024-08-08-test.md",
+    "2019-09-09-birds-can-fly-but-this-you-knew-already~.md",
+    "2024-09-09-birds-can-fly-but-this-you-knew-already.md"
+  ]
+}
