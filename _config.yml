@@ -1,3 +1,6 @@
+# 允许发布未来日期的文章
+future: true
+
 # Site Settings
 name: Wpprqi
 title: Wpprqi | 你所热爱的

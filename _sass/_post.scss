@@ -7,31 +7,10 @@
   }
 }
 
-.post.two-columns {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: rem(40px);
-
-  @include media(">=sm") {
-    max-width: rem(1100px);
-    flex-direction: row;
-    margin: 0 auto;
-    padding: rem(40px) 0;
-  }
-
-  .post-content {
-    padding-bottom: rem(10px);
-
-    @include media(">=sm") {
-      flex-basis: 70%;
-      padding: 0 rem(30px) 0 rem(10px);
-    }
-  }
-}
-
 .post-content {
   overflow-x: auto;
   padding: rem(40px) 0;
+  margin: 0 auto; // 水平居中显示
 
   &.fullwidth {
     padding: rem(60px) rem(10px) 0;
@@ -56,6 +35,10 @@
     @include mainFont(300);
   }
 
+  h1{
+  font-size: 23px;
+  }
+  
   p,
   h1,
   h2,
@@ -66,17 +49,18 @@
   ul,
   ol,
   iframe {
-    @include center(rem(800px));
+    @include center(rem(900px));
     @include mainFont(400);
     font-size: rem(17px);
-    line-height: rem(30px);
+    line-height: rem(10px);
     letter-spacing: 0.025rem;
     padding: 0 rem(20px);
     margin: rem(20px) auto 0;
+    max-width: 900px; // 添加了最大宽度，居中
 
     @include media(">=sm") {
       font-size: rem(20px);
-      line-height: rem(40px);
+      line-height: rem(27px);
       margin: rem(29px) auto 0;
     }
   }
@@ -91,7 +75,7 @@
     color: darken($lightGray, 30%);
     font-size: rem(17px);
     margin: rem(10px) auto;
-    line-height: 1.6;
+    line-height: 1.3;
 
     @include media(">=sm") {
       font-size: rem(20px);
@@ -387,104 +371,103 @@
 
 /* Progress bar */
 
-.progress-bar {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 38px;
-  padding: rem(30px) 0;
-  border-bottom: 1px solid $themeColor;
-  background-color: #fff;
-  transition: bottom 0.5s;
+// .progress-bar {
+//   display: flex;
+//   align-items: center;
+//   width: 100%;
+//   height: 38px;
+//   padding: rem(30px) 0;
+//   border-bottom: 1px solid $themeColor;
+//   background-color: #fff;
+//   transition: bottom 0.5s;
 
-  .bar {
-    position: relative;
-    flex: 1;
-    height: rem(10px);
-    background-color: $themeColor;
-    opacity: 0.2;
-  }
+//   .bar {
+//     position: relative;
+//     flex: 1;
+//     height: rem(10px);
+//     background-color: $themeColor;
+//     opacity: 0.2;
+//   }
+//   .completed {
+//     opacity: 1;
 
-  .completed {
-    opacity: 1;
+//     &:last-child {
+//       border-right: 1px solid #fff;
+//     }
+//   }
 
-    &:last-child {
-      border-right: 1px solid #fff;
-    }
-  }
+//   .star {
+//     position: relative;
+//     width: rem(40px);
+//     height: rem(40px);
+//     animation: 1s pulse cubic-bezier(0.36, 0.07, 0.19, 0.97) alternate infinite;
+//   }
 
-  .star {
-    position: relative;
-    width: rem(40px);
-    height: rem(40px);
-    animation: 1s pulse cubic-bezier(0.36, 0.07, 0.19, 0.97) alternate infinite;
-  }
-
-  &.finished {
-    .star {
-      animation: none;
-      transform: scale(1.3);
-    }
-  }
-}
+//   &.finished {
+//     .star {
+//       animation: none;
+//       transform: scale(1.3);
+//     }
+//   }
+// }
 
 /* Time bar */
 
-.time-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: -100%;
-  display: block;
-  width: 100%;
-  padding: rem(10px) rem(20px) rem(5px);
-  transition: bottom 0.5s;
-  background-color: rgba(0, 0, 0, 0.85);
+// .time-bar {
+//   position: fixed;
+//   left: 0;
+//   right: 0;
+//   bottom: -100%;
+//   display: block;
+//   width: 100%;
+//   padding: rem(10px) rem(20px) rem(5px);
+//   transition: bottom 0.5s;
+//   background-color: rgba(0, 0, 0, 0.85);
 
-  @include media(">=sm") {
-    padding: rem(16px) rem(20px) rem(9px);
-  }
+//   @include media(">=sm") {
+//     padding: rem(16px) rem(20px) rem(9px);
+//   }
 
-  .bar {
-    display: block;
-    width: 100%;
-    padding: rem(8px) rem(60px);
-    &:after {
-      clear: both;
-      display: block;
-      content: "";
-    }
-  }
+  // .bar {
+  //   display: block;
+  //   width: 100%;
+  //   padding: rem(8px) rem(60px);
+  //   &:after {
+  //     clear: both;
+  //     display: block;
+  //     content: "";
+  //   }
+  // }
 
-  .completed {
-    float: left;
-    display: block;
-    height: rem(5px);
-    background-color: $themeColor;
-  }
+  // .completed {
+  //   float: left;
+  //   display: block;
+  //   height: rem(5px);
+  //   background-color: $themeColor;
+  // }
 
-  .remaining {
-    float: left;
-    display: block;
-    height: rem(5px);
-    background-color: #ccc;
-  }
+  // .remaining {
+  //   float: left;
+  //   display: block;
+  //   height: rem(5px);
+  //   background-color: #ccc;
+  // }
 
-  .time-completed,
-  .time-remaining {
-    @include mainFont(400);
-    font-size: rem(18px);
-    color: #fff;
-  }
+  // .time-completed,
+  // .time-remaining {
+  //   @include mainFont(400);
+  //   font-size: rem(18px);
+  //   color: #fff;
+  // }
 
-  .time-completed {
-    float: left;
-  }
+  // .time-completed {
+  //   float: left;
+  // }
 
-  .time-remaining {
-    float: right;
-  }
-}
+//   .time-remaining {
+//     float: right;
+//   }
+// }
 
 /* Recommendation */
 
