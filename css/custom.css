@@ -35,36 +35,16 @@ tr:hover {
 }
 
 /* 代码块样式 */
-pre {
-  position: relative;
-  background-color: #f4f4f4 !important;
-  padding: 13px;
-  padding-left: 27px;
-  border-radius: 5px;
-  overflow-x: auto;
+body pre code.hljs {
+  font-size: 16px;
+    background-color: #f4f4f4 !important; /* 设置代码块背景颜色 */
+    padding: 10px !important;
+    border-radius: 5px !important;
 }
 
-pre::before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 10px;
-  height: 10px;
-  background-color: #d54646;
-  border-radius: 50%;
-}
-
-.highlight {
-  background-color: #ffeb3b; /* 这是高亮背景色，移除这类样式 */
-  color: #000; /* 这是高亮文本颜色 */
-}
-
-.token {
-  /* 删除高亮样式相关的规则 */
-}
-
-pre, code {
-  background-color: #f8f8f8; /* 恢复为普通代码块背景色 */
-  color: #333; /* 恢复为默认文本颜色 */
+/* 如果你希望整个 <pre> 元素也使用相同的背景色，可以添加这段代码 */
+body pre {
+    background-color: #f4f4f4 !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
 }
