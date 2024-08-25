@@ -52,6 +52,7 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* 阴影 */
   padding: 3px;
+  padding-left: 399px;
   position: relative;
 }
 
@@ -309,7 +310,8 @@ main {
 
 .content-wrapper {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center; 
   width: 100%;
 }
 
