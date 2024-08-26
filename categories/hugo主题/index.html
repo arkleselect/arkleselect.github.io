@@ -11,72 +11,153 @@
 <script>hljs.highlightAll();</script>
 </head>
 <body>
+  <head>
+  
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
   <header>
-  <nav class="navbar">
     
-    <ul class="nav-links">
-      <li><a href="/">首页</a></li>
-      <li><a href="/friends">识友</a></li>
-      <li><a href="https://mastodon.social/@wpprqi" target="_blank" rel="noopener noreferrer">Mastodon</a></li>
-      <li><a href="/about">关于</a></li>
-      <li><a href="/more">更多</a></li>
-    </ul>
-    <div class="burger">
-      <div class="line1"></div>
-      <div class="line2"></div>
-      <div class="line3"></div>
-    </div>
-  </nav>
-</header>
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/friends">识友</a></li>
+        <li><a href="/categories">分组</a></li>
+        <li><a href="https://mastodon.social/@wpprqi" target="_blank" rel="noopener noreferrer">Mastodon</a></li>
+        <li><a href="/about">关于</a></li>
+        <li><a href="/more">更多</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <button id="theme-toggle" class="theme-toggle-button">
+        <img src="/icons/light-theme-icon.svg" id="light-icon" class="theme-icon" alt="Light Theme Icon">
+        <img src="/icons/dark-theme-icon.svg" id="dark-icon" class="theme-icon" alt="Dark Theme Icon">
+      </button>
+    </nav>
+  </header>
+  
+  
+  <script src="/js/nav.js"></script>
+</body>
 
   
-<section class="article-list">
-  
-    <a href="https://arkleselect.github.io/hugo/">
-  <article class="article-block">
-    <div class="article-image-container">
-      
-        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E5%A4%A9%E7%A9%BA%E3%80%912024-08-17%2022_30_58.png" alt="如何在Hugo中创建和定制你的博客主题" class="article-image">
-      
-    </div>
-    <div class="article-content">
-      <h1 class="article-title">如何在Hugo中创建和定制你的博客主题</h1>
-      <div class="article-info">
-        <p class="article-cate">
-          
+<div class="categories-content-container">
+    <aside class="sidebar">
+        <div class="sidebar">
+    
+        <ul class="sidebar-categories">
             
-            Hugo主题
-          
-        </p>
-        <p class="article-meta">2024-08-17</p>
-      </div>
-    </div>
-  </article>
-</a>
-  
-    <a href="https://arkleselect.github.io/test/">
-  <article class="article-block">
-    <div class="article-image-container">
-      
-        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/MyPhoto.jpg" alt="镜花水月 | 观" class="article-image">
-      
-    </div>
-    <div class="article-content">
-      <h1 class="article-title">镜花水月 | 观</h1>
-      <div class="article-info">
-        <p class="article-cate">
-          
+                <li class="sidebar-category">
+                    
+                    <a href="#hugo%e4%b8%bb%e9%a2%98">hugo主题</a>
+                </li>
             
-            Hugo主题
-          
-        </p>
-        <p class="article-meta">2024-08-12</p>
-      </div>
-    </div>
-  </article>
-</a>
-  
-</section>
+                <li class="sidebar-category">
+                    
+                    <a href="#%e5%b7%a5%e5%85%b7%e6%b5%81">工具流</a>
+                </li>
+            
+                <li class="sidebar-category">
+                    
+                    <a href="#%e6%b5%81%e6%b0%b4%e8%b4%a6">流水账</a>
+                </li>
+            
+        </ul>
+    
+</div>
+
+    </aside>
+    <main class="categories-content">
+        
+            <section id="hugo主题" class="category-section">
+                <h2 class="categories-title">hugo主题</h2>
+                
+                
+                    
+                        <article class="post-item">
+                            <div class="post-info">
+                                <h3 class="post-title"><a href="/hugo/">如何在Hugo中创建和定制你的博客主题</a></h3>
+                                <div class="post-meta">
+                                    
+                                    <span class="post-date">2024-08-17</span>
+                                </div>
+                            </div>
+                            
+                                <div class="post-image">
+                                    <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E5%A4%A9%E7%A9%BA%E3%80%912024-08-17%2022_30_58.png" alt="如何在Hugo中创建和定制你的博客主题">
+                                </div>
+                            
+                        </article>
+                    
+                        <article class="post-item">
+                            <div class="post-info">
+                                <h3 class="post-title"><a href="/test/">镜花水月 | 观</a></h3>
+                                <div class="post-meta">
+                                    
+                                    <span class="post-date">2024-08-12</span>
+                                </div>
+                            </div>
+                            
+                                <div class="post-image">
+                                    <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/MyPhoto.jpg" alt="镜花水月 | 观">
+                                </div>
+                            
+                        </article>
+                    
+                
+            </section>
+        
+            <section id="工具流" class="category-section">
+                <h2 class="categories-title">工具流</h2>
+                
+                
+                    
+                        <article class="post-item">
+                            <div class="post-info">
+                                <h3 class="post-title"><a href="/20240826/">Notion Web Clipper | 将任何网络页面保存到 Notion</a></h3>
+                                <div class="post-meta">
+                                    
+                                    <span class="post-date">2024-08-26</span>
+                                </div>
+                            </div>
+                            
+                                <div class="post-image">
+                                    <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/627f358b49cdc5d8dd6402fd561f23d.jpg" alt="Notion Web Clipper | 将任何网络页面保存到 Notion">
+                                </div>
+                            
+                        </article>
+                    
+                
+            </section>
+        
+            <section id="流水账" class="category-section">
+                <h2 class="categories-title">流水账</h2>
+                
+                
+                    
+                        <article class="post-item">
+                            <div class="post-info">
+                                <h3 class="post-title"><a href="/yandex/">追寻网络图文 | 从Yandex到午夜求助</a></h3>
+                                <div class="post-meta">
+                                    
+                                    <span class="post-date">2024-08-18</span>
+                                </div>
+                            </div>
+                            
+                                <div class="post-image">
+                                    <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E7%B2%89%E7%BA%A2%E8%89%B2%E7%9A%84%E5%A4%B4%E5%8F%91%E3%80%912024-08-06%2012_59_11.png" alt="追寻网络图文 | 从Yandex到午夜求助">
+                                </div>
+                            
+                        </article>
+                    
+                
+            </section>
+        
+    </main>
+</div>
 
   <footer>
   <img class="footer-images" src="/images/footer-image.png">

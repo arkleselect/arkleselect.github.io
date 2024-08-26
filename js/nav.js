@@ -1,36 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav-links');
-  const navLinks = document.querySelectorAll('.nav-links li');
-
-  burger.addEventListener('click', () => {
-    // Toggle Nav
-    nav.classList.toggle('nav-active');
-
-    // Animate Links
-    navLinks.forEach((link, index) => {
-      if (link.style.animation) {
-        link.style.animation = '';
-      } else {
-        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-      }
-    });
-
-    // Burger Animation
-    burger.classList.toggle('toggle');
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener('click', (event) => {
-    const isClickInsideNav = nav.contains(event.target);
-    const isClickOnBurger = burger.contains(event.target);
-    
-    if (!isClickInsideNav && !isClickOnBurger && nav.classList.contains('nav-active')) {
-      nav.classList.remove('nav-active');
-      burger.classList.remove('toggle');
-      navLinks.forEach((link) => {
-        link.style.animation = '';
-      });
-    }
-  });
+document.addEventListener('DOMContentLoaded', function () {
+  const themeToggleButton = document.getElementById('theme-toggle');
+  
+  // 移除之前绑定的点击事件，防止重复
+  themeToggleButton.removeEventListener('click', themeToggleHandler);
+  themeToggleButton.addEventListener('click', themeToggleHandler);
 });
+
+function themeToggleHandler() {
+  console.log("Theme toggle button clicked");
+
+  document.body.classList.toggle('dark-theme');
+
+  if (document.body.classList.contains('dark-theme')) {
+    localStorage.setItem('theme', 'dark-theme');
+  } else {
+    localStorage.setItem('theme', 'light-theme');
+  }
+}

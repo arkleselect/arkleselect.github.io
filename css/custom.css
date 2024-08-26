@@ -37,14 +37,14 @@ tr:hover {
 /* 代码块样式 */
 body pre code.hljs {
   font-size: 16px;
-    background-color: #f4f4f4 !important; /* 设置代码块背景颜色 */
+    background-color: #efefef !important; /* 设置代码块背景颜色 */
     padding: 10px !important;
     border-radius: 5px !important;
 }
 
 /* 如果你希望整个 <pre> 元素也使用相同的背景色，可以添加这段代码 */
 body pre {
-    background-color: #f4f4f4 !important;
+    background-color: #efefef !important;
     padding: 10px !important;
     border-radius: 5px !important;
 }
