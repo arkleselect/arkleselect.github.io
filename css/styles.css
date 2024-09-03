@@ -1,14 +1,32 @@
-::root {
+:root {
   --article-block-bg-color: #fff;
   --secondary-color: #666;
   --spacing: 15px;
   --body-bg-color: #fff;
+  --content-wrapper-bg-color:#fff;
+  --main-wrapper-bg-color:#fff;
+  --article-title-color:#000000;
+  --top-name-color:#000000;
+  --article-block-border:#ddd;
+  --navbar-bg-color:rgba(255, 255, 255, 0.8);
+  --navbar-a-color:#333;
+  --body-p-bg-color:#000;
+  --heading-color:#000;
 }
 
 /* 暗色主题变量 */
 body.dark-theme {
   --article-block-bg-color: #333;
-  --body-bg-color: #121212;
+  --body-bg-color: #2a2a2a;
+  --content-wrapper-bg-color:#2a2a2a;
+  --main-wrapper-bg-color:#2a2a2a;
+  --article-title-color:#e0e0e0;
+  --top-name-color:#fafafa;
+  --article-block-border:#4a4a4a;
+  --navbar-bg-color:rgba(0, 0, 0, 0.6);
+  --navbar-a-color:#f9f9f9;
+  --body-p-bg-color:#e0e0e0;
+  --heading-color:#e0e0e0;
 }
 
 .theme-icon {
@@ -38,7 +56,51 @@ body.dark-theme #dark-icon {
   border: none;
   cursor: pointer;
   padding: 0;
+  margin-right: 30px;
 }
+
+/* 搜索表单样式 */
+.search-form {
+  display: flex;
+  align-items: center;
+  position: relative; /* 为了定位展开的输入框 */
+}
+
+.search-input {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  width: 0; /* 初始宽度为 0 */
+  opacity: 0; /* 初始不可见 */
+  transition: width 0.3s ease, opacity 0.3s ease; /* 添加过渡效果 */
+  position: absolute; /* 绝对定位 */
+  right: 40px; /* 调整位置 */
+}
+
+.search-input.expanded {
+  width: 200px; /* 展开后的宽度 */
+  opacity: 1; /* 展开时可见 */
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  z-index: 1; /* 确保按钮在输入框上方 */
+  margin-left: 530px;
+}
+
+.search-button:hover {
+  color: #555;
+}
+
+
+
+
+
 
 
 
@@ -69,8 +131,12 @@ body h1 {
   font-size: 33px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+}
 body p {
   font-weight: Regular;
+  color: var(--body-p-bg-color);
 }
 
 /*Header*/
@@ -84,9 +150,9 @@ header {
 
 .navbar {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--navbar-bg-color);
   /* 白色磨砂透明 */
   backdrop-filter: blur(10px);
   /* 磨砂效果 */
@@ -148,7 +214,7 @@ header {
 
 .navbar a {
   text-decoration: none;
-  color: #333;
+  color:var(--navbar-a-color);
   padding: 10px 15px;
 }
 
@@ -242,7 +308,7 @@ main {
 }
 
 .article-block {
-  border: 1px solid #ddd;
+  border: 1px solid var(--article-block-border);
   border-radius: 8px;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
@@ -280,6 +346,7 @@ main {
   font-size: 16px;
   text-align: left;
   margin: 0;
+  color: var(--article-title-color);
 }
 
 .article-info {
@@ -354,6 +421,7 @@ main {
   justify-content: center;
   align-items: center; 
   width: 100%;
+  background-color: var(--content-wrapper-bg-color);
 }
 
 .image-wrapper {
@@ -750,7 +818,7 @@ footer {
 
 /*文章页面目录*/
 .main-wrapper {
-  background-color: #ffffff;
+  background-color: var(--main-wrapper-bg-color);
   /* 文章页面背景颜色 */
   padding: 20px;
   /* 可选：为内容增加一些间距 */
@@ -802,7 +870,7 @@ footer {
 
 .top-name {
   font-size: 19px;
-  color: #000000;
+  color: var(--top-name-color);
   margin-bottom: 0;
   font-weight: bold;
 }

@@ -1,8 +1,16 @@
+:root {
+--blockquote-bg-color:#fafafa;
+}
+
+/* 暗色主题变量 */
+body.dark-theme {
+--blockquote-bg-color:#000;
+}
+
 /*引入的样式*/
 blockquote {
   border-left-width: 3px !important;
   border-left-color: #ec5959 !important;
-  background-color: #fafafa;
   border-left: 5px solid #ccc;
   margin: 1.5em 10px;
   padding: 0.5em 10px;
