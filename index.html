@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.128.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/idea.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body>
+  <head>
+  
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+      
+      const themeToggleButton = document.getElementById('theme-toggle');
+      const searchButton = document.getElementById('search-toggle');
+      const searchInput = document.querySelector('.search-input');
+
+      
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.body.classList.add(savedTheme);
+      }
+
+      
+      if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', themeToggleHandler);
+      }
+
+      if (searchButton) {
+        searchButton.addEventListener('click', function () {
+          searchInput.classList.toggle('expanded');
+          searchInput.focus(); 
+        });
+      }
+
+      
+      document.addEventListener('click', function (event) {
+        if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+          searchInput.classList.remove('expanded');
+        }
+      });
+    });
+
+    function themeToggleHandler() {
+      console.log("Theme toggle button clicked");
+
+      
+      if (document.body.classList.contains('dark-theme')) {
+        document.body.classList.remove('dark-theme');
+        localStorage.removeItem('theme'); 
+      } else {
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark-theme');
+      }
+    }
+
+  </script>
+</head>
+<body>
+  <header>
+    
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/friends">识友</a></li>
+        <li><a href="/categories">分组</a></li>
+        <li><a href="https://mastodon.social/@wpprqi" target="_blank" rel="noopener noreferrer">Mastodon</a></li>
+        <li><a href="/about">关于</a></li>
+        <li><a href="/more">更多</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <form id="search-form" class="search-form" action="/search" method="get">
+        <input type="text" name="q" placeholder="搜索文章..." class="search-input">
+        <button type="button" id="search-toggle" class="search-button">🔍</button>
+      </form>
+      <button id="theme-toggle" class="theme-toggle-button">
+        <img src="/icons/light-theme-icon.svg" id="light-icon" class="theme-icon" alt="Light Theme Icon">
+        <img src="/icons/dark-theme-icon.svg" id="dark-icon" class="theme-icon" alt="Dark Theme Icon">
+      </button>
+    </nav>
+  </header>
+</body>
+
+  
+<div class="hero-image" style="background-image: url('/images/cloud_light.png');">
+    <div class="hero-content" style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+    </div>
+</div>
+
+
+
+<div class="content-container">
+
+
+
+<div class="top-container">
+<img src="/images/avatar.jpg" class="top-head" alt="Avatar">
+<p class="top-name">
+    听不见不想看
+</p>
+<p class="top-message">
+    The darkness is boundless, yet humans vainly imagine light
+</p>
+<button class="top-theme-button">按钮</button>
+</div>
+
+
+    <main class="content">
+        <section class="article-list">
+            
+            <a href="http://localhost:1313/20240903/" class="article-link">
+                <article class="article-block">
+                    <div class="article-image-container">
+                        
+                        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%912024-08-17%2022_31_02.png" alt="为Hugo博客添加评论系统 | utterances" class="article-image">
+                        
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">为Hugo博客添加评论系统 | utterances</h2>
+                        <div class="article-info">
+                            <p class="article-cate">
+                                
+                                
+                                转载
+                                
+                            </p>
+                            <p class="article-meta">2024-09-03</p>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="http://localhost:1313/freevps/" class="article-link">
+                <article class="article-block">
+                    <div class="article-image-container">
+                        
+                        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/imageVPS.png" alt="免费VPS | 白嫖党福利" class="article-image">
+                        
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">免费VPS | 白嫖党福利</h2>
+                        <div class="article-info">
+                            <p class="article-cate">
+                                
+                                
+                                转载
+                                
+                            </p>
+                            <p class="article-meta">2024-09-01</p>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="http://localhost:1313/20240826/" class="article-link">
+                <article class="article-block">
+                    <div class="article-image-container">
+                        
+                        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/627f358b49cdc5d8dd6402fd561f23d.jpg" alt="Notion Web Clipper | 将任何网络页面保存到 Notion" class="article-image">
+                        
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">Notion Web Clipper | 将任何网络页面保存到 Notion</h2>
+                        <div class="article-info">
+                            <p class="article-cate">
+                                
+                                
+                                工具流
+                                
+                            </p>
+                            <p class="article-meta">2024-08-26</p>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="http://localhost:1313/yandex/" class="article-link">
+                <article class="article-block">
+                    <div class="article-image-container">
+                        
+                        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E7%B2%89%E7%BA%A2%E8%89%B2%E7%9A%84%E5%A4%B4%E5%8F%91%E3%80%912024-08-06%2012_59_11.png" alt="追寻网络图文 | 从Yandex到午夜求助" class="article-image">
+                        
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">追寻网络图文 | 从Yandex到午夜求助</h2>
+                        <div class="article-info">
+                            <p class="article-cate">
+                                
+                                
+                                流水账
+                                
+                            </p>
+                            <p class="article-meta">2024-08-18</p>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="http://localhost:1313/hugo/" class="article-link">
+                <article class="article-block">
+                    <div class="article-image-container">
+                        
+                        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E5%A4%A9%E7%A9%BA%E3%80%912024-08-17%2022_30_58.png" alt="如何在Hugo中创建和定制你的博客主题" class="article-image">
+                        
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">如何在Hugo中创建和定制你的博客主题</h2>
+                        <div class="article-info">
+                            <p class="article-cate">
+                                
+                                
+                                Hugo主题
+                                
+                            </p>
+                            <p class="article-meta">2024-08-17</p>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            
+            <a href="http://localhost:1313/test/" class="article-link">
+                <article class="article-block">
+                    <div class="article-image-container">
+                        
+                        <img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/MyPhoto.jpg" alt="镜花水月 | 观" class="article-image">
+                        
+                    </div>
+                    <div class="article-content">
+                        <h2 class="article-title">镜花水月 | 观</h2>
+                        <div class="article-info">
+                            <p class="article-cate">
+                                
+                                
+                                Hugo主题
+                                
+                            </p>
+                            <p class="article-meta">2024-08-12</p>
+                        </div>
+                    </div>
+                </article>
+            </a>
+            
+        </section>
+    </main>
+</div>
+
+  <footer>
+  <img class="footer-images" src="/images/footer-image.png">
+  <p class="footer-word">Designed by 你所热爱的 | 听不见不想看 &copy; 2024
+  </p>
+  <a class="footer-link" href="https://t.me/crthbi">
+    Telegram
+  </a>
+  <a class="footer-link" href="mailto:wpprqi@duck.com">
+    Gmail
+  </a>
+  <a class="footer-link" href="https://mastodon.social/@wpprqi">
+    Mastodon
+  </a>
+  <a class="footer-link" href="https://github.com/arkleselect">
+    Github
+  </a>
+  <a class="footer-link" href="">
+    Rss
+  </a>
+
+</footer>
+
+
+  <script src="/js/nav.js"></script>
+</body>
+</html>

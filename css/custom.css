@@ -1,0 +1,58 @@
+:root {
+--blockquote-bg-color:#fafafa;
+}
+
+/* 暗色主题变量 */
+body.dark-theme {
+--blockquote-bg-color:#000;
+}
+
+/*引入的样式*/
+blockquote {
+  border-left-width: 3px !important;
+  border-left-color: #ec5959 !important;
+  border-left: 5px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+}
+
+/* 表格样式 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* 代码块样式 */
+body pre code.hljs {
+  font-size: 16px;
+    background-color: #efefef !important; /* 设置代码块背景颜色 */
+    padding: 10px !important;
+    border-radius: 5px !important;
+}
+
+/* 如果你希望整个 <pre> 元素也使用相同的背景色，可以添加这段代码 */
+body pre {
+    background-color: #efefef !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
+}

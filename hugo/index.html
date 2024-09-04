@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>如何在Hugo中创建和定制你的博客主题</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/idea.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body>
+  <head>
+  
+  <link rel="stylesheet" href="/css/styles.css">
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+      
+      const themeToggleButton = document.getElementById('theme-toggle');
+      const searchButton = document.getElementById('search-toggle');
+      const searchInput = document.querySelector('.search-input');
+
+      
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.body.classList.add(savedTheme);
+      }
+
+      
+      if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', themeToggleHandler);
+      }
+
+      if (searchButton) {
+        searchButton.addEventListener('click', function () {
+          searchInput.classList.toggle('expanded');
+          searchInput.focus(); 
+        });
+      }
+
+      
+      document.addEventListener('click', function (event) {
+        if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+          searchInput.classList.remove('expanded');
+        }
+      });
+    });
+
+    function themeToggleHandler() {
+      console.log("Theme toggle button clicked");
+
+      
+      if (document.body.classList.contains('dark-theme')) {
+        document.body.classList.remove('dark-theme');
+        localStorage.removeItem('theme'); 
+      } else {
+        document.body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark-theme');
+      }
+    }
+
+  </script>
+</head>
+<body>
+  <header>
+    
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="/">首页</a></li>
+        <li><a href="/friends">识友</a></li>
+        <li><a href="/categories">分组</a></li>
+        <li><a href="https://mastodon.social/@wpprqi" target="_blank" rel="noopener noreferrer">Mastodon</a></li>
+        <li><a href="/about">关于</a></li>
+        <li><a href="/more">更多</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <form id="search-form" class="search-form" action="/search" method="get">
+        <input type="text" name="q" placeholder="搜索文章..." class="search-input">
+        <button type="button" id="search-toggle" class="search-button">🔍</button>
+      </form>
+      <button id="theme-toggle" class="theme-toggle-button">
+        <img src="/icons/light-theme-icon.svg" id="light-icon" class="theme-icon" alt="Light Theme Icon">
+        <img src="/icons/dark-theme-icon.svg" id="dark-icon" class="theme-icon" alt="Dark Theme Icon">
+      </button>
+    </nav>
+  </header>
+</body>
+
+  
+  <div class="image-wrapper">
+    <div class="image" style="background-image: url('https://raw.githubusercontent.com/arkleselect/blog/main/img/%E3%80%90%E5%A4%A9%E7%A9%BA%E3%80%912024-08-17%2022_30_58.png')"></div>
+  </div>
+  <div class="main-wrapper"> 
+    <div class="content-wrapper">
+      <main class="content">
+        <h1 class="h1-single">如何在Hugo中创建和定制你的博客主题</h1>
+        <p class="article-cate-single">Hugo主题</p>
+        
+          <p class="article-meta-single">2024-08-17</p>
+        
+
+        
+        <article class="article-body">
+          
+          
+          
+          <p>不知道什么时候迷上了看博客和社区的习惯，同样都是字，对于小说来讲我却丝毫提不起兴趣，看了好多别人的博客后，便萌生了搭建一个自己的博客大想法，当时的我殊不知是折腾的开始。</p>
+<p>打开ChatGPT：告诉我几个静态网站生成器,接着开始了搜索主题，尝试过hexo、hugo、Jekyll、gridsome等，在众多主题中，选中了安知鱼，本想在此基础上再修改一下，结果部署好了后越看越不顺眼，不知道当时怎么说服了自己选择了与自己自己喜欢的背道而驰的风格。
+于是又萌生了另一个想法，我能不能自己写一个主题，询问了GPT后，选择了对小白相对友好的Hugo，于是便开始了面向GPT开发。</p>
+<p>既然说到了自定义Hugo主题，正好记录一下。并不是专业的开发人员，本文仅供参考，当然你如果遇到了什么困难，我很乐意帮忙。Hugo不像Hexo一样有自带的主题，下载好了后需要定义主题才能看到效果。
+以下是Hugo的目录结构</p>
+<pre tabindex="0"><code>my-hugo-theme/
+├── layouts/           # 布局文件夹
+│   ├── _default/      # 默认布局
+│   ├── partials/      # 部分布局（可重用的部分）
+│   ├── index.html     # 首页布局
+│   └── ...            # 其他布局文件
+├── static/           # 静态文件夹
+│   ├── css/           # CSS 文件
+│   ├── js/            # JavaScript 文件
+│   ├── images/        # 图片文件
+│   └── ...            # 其他静态资源
+├── themes.toml       # 主题配置文件
+├── README.md         # 主题说明文档
+</code></pre><h1 id="layouts">layouts</h1>
+<p>layouts是来管理布局的，再这个目录下可以控制网页的元素排版，创建index.html文件便是首页的排版。</p>
+<p>另外还有两个文件夹，_default和partials，前者是默认的布局，比如baseof.html、category.html、list.html、single.html，由于是面向GPT开发，写完了后我都忘记了具体是怎样的了，开始这个single.html我以为是定义当目录中只有一个文章的时候元素排版方式，因为当时使用paper这个主题，第一个的呈现方式与其他的不一样，后来我才知道这是控制文章内容页面的，现在想当时可真蠢🤦‍♂️，这都不知道。</p>
+<p>baseof.html是控制页面的基本排版，比如我的这个代码</p>
+<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+&lt;head&gt;
+  &lt;meta charset=&#34;UTF-8&#34;&gt;
+  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+  &lt;title&gt;{{ .Title }}&lt;/title&gt;
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;{{ &#34;css/styles.css&#34; | relURL }}&#34;&gt;
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;/css/custom.css&#34;&gt;
+  &lt;link rel=&#34;stylesheet&#34; href=&#34;/css/fonts.css&#34;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  {{ partial &#34;header.html&#34; . }}
+  {{ block &#34;main&#34; . }}{{ end }}
+  {{ partial &#34;footer.html&#34; . }}
+
+  &lt;script src=&#34;{{ &#34;js/nav.js&#34; | relURL }}&#34;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>body中上方是header区域，中间是main区域，下面是footer区域，即上中下。category.html是控制文章列表如何显示，就像首页的中间呈现第一篇文章，第二篇文章等。这里我把article-block抽取了出来，在这个文件中引用。list.html好像也是这个效果，我也是引用了article-block(我都不知道我在干什么)，反正改的时候基本都是在改css，js只使用了少部分。</p>
+<p>接下来是partials文件夹,这里面我理解的是页面的部分元素，上面我在category.html中引用的article-block.html，即可复用的代码，目的是降低耦合，提高开发效率，另外我在这里还写了footer、header、reading_time、sidebar等，前两个就是整体布局中其中的两个「上 下」，剩下的read_time和sidebar顾名思义就是预计阅读时间和侧边栏了。</p>
+<h1 id="static">static</h1>
+<p>这里是静态资源，存放图片、字体等，我创建了四个文件夹css、fonts、images、js。这里字体引用的时候我将ttf和woff2两种文件分别使用文件夹区分开来，结果编译的时候老是找不到，我干脆全拆开都放到了fonts里，就可以了&ndash;迷惑</p>
+<h1 id="content">content</h1>
+<p>另外还有一个content文件夹，这里面我只存放了一个_index.md文件，指定了首页的顶部图片，主题基本就只有这些文件了。</p>
+<h1 id="根目录">根目录</h1>
+<p>写文章可以使用hugo命令<code>hugo new content/test.md</code>来生成一个名为test的markdown文件，对了，这里要注意一下，根目录中需要在archetypes这个文件夹中写一个default.md，用于指定使用hugo命令的时候默认生成的md文件中Front Matter内容，例如我的这个</p>
+<pre tabindex="0"><code>+++
+title = &#34;{{ replace .Name &#34;-&#34; &#34; &#34; | title }}&#34; #标题
+date = {{ .Date }} #日期
+categories = [&#34;&#34;] #目录分类
+type = &#34;post&#34; #文章类型
+image = &#34;&#34; #文章的顶部图片
+draft = true #是否是草稿
++++
+</code></pre><p>这里中需要注意的是这个draft，默认是true，如果不设置成false的话，渲染站点的时候是不会生成这篇文章的，我的categories使用了数组，当时没想用数组，想着我的类型只有一种，但GPT给我生成了数组，说不定以后我会改变想法，数组也能放一个不是，所以就没再改，type是用来渲染文章和别的页面的，比如本篇文章是post类型，hugo会渲染到文章列表，如果是page类型的话就不会渲染到文章列表，比如我想要在&quot;关于&quot;这个页面介绍一下我的个人，这不属于文章，就会用到page类型。</p>
+<h1 id="配置文件">配置文件</h1>
+<p>这里可以开启和关闭一些功能，也是我们使用别人开发的主题时，需要花费时间来整理的，比如开启文章页面的目录、header中只显示首页选项等。</p>
+<p>还有一些要开发的地方，做完了基本的功能便草草上线，以后再慢慢修改，现在总有一些地方看起来不顺眼🐱‍🐉</p>
+
+        </article>
+
+        
+        
+<div>    
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">评论</span>
+        <br/>
+    </div>
+    <div id="tcomment"></div>
+    <script src="https://utteranc.es/client.js"
+            repo="arkleselect/comments" 
+            issue-term="title"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+      </main>
+    </div>
+  </div>
+
+  <footer>
+  <img class="footer-images" src="/images/footer-image.png">
+  <p class="footer-word">Designed by 你所热爱的 | 听不见不想看 &copy; 2024
+  </p>
+  <a class="footer-link" href="https://t.me/crthbi">
+    Telegram
+  </a>
+  <a class="footer-link" href="mailto:wpprqi@duck.com">
+    Gmail
+  </a>
+  <a class="footer-link" href="https://mastodon.social/@wpprqi">
+    Mastodon
+  </a>
+  <a class="footer-link" href="https://github.com/arkleselect">
+    Github
+  </a>
+  <a class="footer-link" href="">
+    Rss
+  </a>
+
+</footer>
+
+
+  <script src="/js/nav.js"></script>
+</body>
+</html>
