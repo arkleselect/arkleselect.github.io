@@ -12,6 +12,7 @@
   --navbar-a-color:#333;
   --body-p-bg-color:#000;
   --heading-color:#000;
+  --image-wrapper-bg-color:#f4f4f4;
 }
 
 /* 暗色主题变量 */
@@ -27,6 +28,7 @@ body.dark-theme {
   --navbar-a-color:#f9f9f9;
   --body-p-bg-color:#e0e0e0;
   --heading-color:#e0e0e0;
+  --image-wrapper-bg-color:#333333;
 }
 
 .theme-icon {
@@ -229,7 +231,7 @@ header {
 
 .hero-image {
   width: 100%;
-  height: 400px;
+  height: 370px;
   position: relative;
   overflow: hidden;
   margin-top: 60px;
@@ -320,8 +322,11 @@ main {
 }
 
 .article-block:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow:
+0 5px 15px rgba(0, 0, 0, 0.1),
+0 10px 30px rgba(0, 0, 0, 0.05);
 }
+
 
 .article-image-container {
   height: auto;
@@ -425,7 +430,7 @@ main {
 }
 
 .image-wrapper {
-  background-color: #f4f4f4;
+  background-color: var(--image-wrapper-bg-color);
   position: relative;
   display: flex;
   justify-content: center; /* 水平居中 */
@@ -433,6 +438,18 @@ main {
   height: 47vh;
   overflow: visible;
 }
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 1;
+  width: 80%; 
+  font-size: 27px;
+}
+
 
 .image {
   width: 700px;
@@ -865,7 +882,7 @@ footer {
   width: 100px;
   height: 100px;
   border-radius: 12px;
-  margin-top: -39px;
+  margin-top: -70px;
 }
 
 .top-name {
@@ -888,7 +905,12 @@ footer {
   font-size: 16px;
   font-weight: bold;
 }
-
+.top-message-down{
+   margin-top: 7px;
+  color: #4B4949;
+  font-size: 17px;
+  font-weight: bold;
+}
 .top-theme-button {
   background-color: #000;
   color: white;
@@ -1004,3 +1026,40 @@ footer {
 
 
 
+/*更多页面*/
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.device-image{
+  max-width: 70%;
+  max-height: 70%;
+  display: block;
+  margin: 0 auto; 
+}
+.device-item {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  height: 237px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.device-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+
+.device-item p {
+  font-size: 0.9em;
+  color: #6c757d;
+}
+.device-top{
+  font-size: 27px;
+  text-align: center;
+}
