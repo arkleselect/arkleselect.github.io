@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>记录 on 你所热爱的 | 听不见不想看</title>
-    <link>http://localhost:1313/categories/%E8%AE%B0%E5%BD%95/</link>
+    <link>https://arkleselect.github.io/categories/%E8%AE%B0%E5%BD%95/</link>
     <description>Recent content in 记录 on 你所热爱的 | 听不见不想看</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 07 Sep 2024 17:07:43 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arkleselect.github.io/categories/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java面试宝典</title>
-      <link>http://localhost:1313/java/</link>
+      <link>https://arkleselect.github.io/java/</link>
       <pubDate>Sat, 07 Sep 2024 17:07:43 +0800</pubDate>
-      <guid>http://localhost:1313/java/</guid>
+      <guid>https://arkleselect.github.io/java/</guid>
       <description>一 Java 基础 1.Java 基础 知识 1.1 面向对象的特征（了解） 面向对象的特征：封装、继承、多态。 封装：就是把一个对象的属性和行为封装成一个整体，别人使用我提供的功能来实现他们想要的需求，但是不能查看我的源码，增加了安全性. 继承：子类继承父类的数据属性和行为，可以使用父类的功能，也可以自己拓展，提高了代码的复用性。 多态：同一个方法或对象可以根据不同的上下文表现出不同的行为。（主要通过方法重载和方法重写来实现的）重载（方法名相同，参数不同）重写（方法名相同，参数类型、返回类型必须相同）&#xA;1.2 Java 的基本数据类型有哪些（了解） 数据类型 字节数 位数 整形 byte 1 8 整形 short 2 16 整形 int 4 32 整形 long 8 64 浮点型 float 4 32 浮点型 double 8 64 布尔型 boolean 1 8 字符型 char 2 16 1.3JDK JRE JVM 的区别 （必会） JDK（Java Development Kit）是java的核心，一个开发工具包，包括JRE、Java 工具和 Java 基础类库。 JRE（Java Runtime Environment）是运行 JAVA 程序所必须的环境，包含 java 虚拟机和 java 的一些核心类库。 JVM 是 Java Virtual Machine（Java 虚拟机）的缩写，是整个 java 实现跨平台的最核心的部分，能够运行以 Java 语言写作的软件程序。</description>
     </item>
   </channel>
