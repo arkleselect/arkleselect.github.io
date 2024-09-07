@@ -279,15 +279,14 @@ main {
 .article-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  width: 900px;
+  margin: -15px 0 -15px -39px;
   /* 负margin来抵消子元素的margin */
 }
 
 .article-link {
-/*  flex:1 1 270px;*/
-flex:1 1 calc(33.33% - 16px);
-max-width: calc(33.33% - 16px);
-/*  max-width: 270px;*/
+  width: calc(33% - 28px);
+  margin: 15px 0 15px 28px;
   text-decoration: none;
   color: inherit;
 }
@@ -298,8 +297,7 @@ max-width: calc(33.33% - 16px);
   overflow: hidden;
   transition: box-shadow 0.3s ease;
   height: auto;
-  width: 100%;
-  max-width: 270px;
+  width: 270px;
   /* 确保所有块高度一致 */
   display: flex;
   flex-direction: column;
@@ -1067,30 +1065,20 @@ footer {
 
 /*文章块断点*/
 /* 每行两个块 */
-@media (max-width: 700px) {
+@media (max-width: 930px) {
   .article-link {
-    flex: 1 1 calc(50% - 30px); /* 每个块的宽度是父容器的1/2减去间隔 */
-    max-width: calc(50% - 30px); /* 最大宽度确保在中屏幕上每行显示两个块 */
-
+        width: calc(39% - 16px);
+        margin: 15px 8px;
+    }
+  .article-list {
+    justify-content: center;
   }
 }
 /* 每行一个块 */
-@media (max-width: 550px) {
-  .article-list {
-    padding: 0 10px; /* 确保块与页面边距有10px的间隔 */
-    box-sizing: border-box; /* 确保padding不影响整体宽度 */
-  }
-  
-  .article-link {
-    flex: 1 1 calc(100% - 20px); /* 填满父容器宽度，减去间隔 */
-    max-width: calc(100% - 20px); /* 最大宽度填满父容器宽度 */
-    margin: 15px 10px; /* 上下间隔15px，左右间隔10px */
-  }
-
-  .article-block {
-    width: 100%; /* 使块宽度适应容器宽度 */
-    max-width: none; /* 移除最大宽度限制，以适应容器 */
-  }
+@media (max-width: 600px) {
+    .article-link {
+        width: calc(100% - 28px); /* 每行一个块 */
+    }
 }
 
 
