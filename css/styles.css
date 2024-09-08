@@ -1095,5 +1095,31 @@ footer {
   }
 }
 
+/* 滚动条样式 */
+/* 定义滚动条的宽度和颜色 */
+::-webkit-scrollbar {
+  width: 12px; /* 滚动条宽度 */
+  background-color: transparent; /* 滚动条背景色 */
+}
 
+/* 定义滚动条滑块的样式 */
+::-webkit-scrollbar-thumb {
+  background-color: #555; /* 滚动条滑块颜色 */
+  border-radius: 6px; /* 滑块圆角 */
+  border: 3px solid transparent; /* 滑块边框与背景色 */
+}
 
+/* 滚动条滑块在 hover 状态时的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* 滑块在 hover 时的颜色 */
+}
+
+/* 滚动条轨道（即背景）的样式 */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* 滚动条轨道背景色 */
+}
+
+::-webkit-scrollbar {
+  width: 7px; /* 滚动条宽度 */
+  height: 12px; /* 对于水平滚动条，设置其高度 */
+}
