@@ -984,12 +984,15 @@ footer {
   display: block;
   padding: 10px;
   text-decoration: none;
+  border: 2px solid transparent; 
+  transition: all 0.2s ease;
 }
 
 .sidebar-category a:hover {
-    background: #f1f1f1;
     border-radius: 7px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  border-left-color: black;
+  border-left-width: 3px;
+  transform: translate(3px, 0);
 }
 
 
