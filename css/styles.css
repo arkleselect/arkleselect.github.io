@@ -807,7 +807,6 @@ footer {
 .main-wrapper {
   background-color: var(--main-wrapper-bg-color);
   /* 文章页面背景颜色 */
-  padding: 20px;
   /* 可选：为内容增加一些间距 */
   margin: 0 auto;
   height: auto;
