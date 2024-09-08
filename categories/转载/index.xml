@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>转载 on 你所热爱的 | 听不见不想看</title>
-    <link>http://localhost:1313/categories/%E8%BD%AC%E8%BD%BD/</link>
+    <link>https://arkleselect.github.io/categories/%E8%BD%AC%E8%BD%BD/</link>
     <description>Recent content in 转载 on 你所热爱的 | 听不见不想看</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 03 Sep 2024 20:10:04 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/%E8%BD%AC%E8%BD%BD/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arkleselect.github.io/categories/%E8%BD%AC%E8%BD%BD/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>为Hugo博客添加评论系统 | utterances</title>
-      <link>http://localhost:1313/20240903/</link>
+      <link>https://arkleselect.github.io/20240903/</link>
       <pubDate>Tue, 03 Sep 2024 20:10:04 +0800</pubDate>
-      <guid>http://localhost:1313/20240903/</guid>
+      <guid>https://arkleselect.github.io/20240903/</guid>
       <description>参考官方文档：utterances&#xA;1. 创建一个存储评论系统的仓库 先创建一个仓库，一定要是公开的，比如我的是comments&#xA;2. 授权评论系统 点击链接，选择你刚才创建的仓库，例如我的comments，utterances app&#xA;3. 在hugo主题中新建一个模块comments 路径：themes/mytheme/layouts/partials/comments.html，粘贴代码&#xA;&amp;lt;div&amp;gt; &amp;lt;div class=&amp;#34;pagination__title&amp;#34;&amp;gt; &amp;lt;span class=&amp;#34;pagination__title-h&amp;#34; style=&amp;#34;font-size: 20px;&amp;#34;&amp;gt;评论&amp;lt;/span&amp;gt; &amp;lt;br/&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div id=&amp;#34;tcomment&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;#34;https://utteranc.es/client.js&amp;#34; repo=&amp;#34;你的github用户名/你创建的仓库名&amp;#34; issue-term=&amp;#34;title&amp;#34; theme=&amp;#34;github-light&amp;#34; crossorigin=&amp;#34;anonymous&amp;#34; async&amp;gt; &amp;lt;/script&amp;gt; &amp;lt;/div&amp;gt; 修改repo=&amp;ldquo;你的github用户名/你创建的仓库名&amp;rdquo; ，例如我的repo=&amp;ldquo;arkleselect/comments&amp;rdquo; 然后在你的hugo中控制文章页面的代码中引用comments 我的是在single.html&#xA;{{ partial &amp;#34;comments.html&amp;#34; . }} 4. 修改配置文件 在hugo的根目录配置文件中添加参数 💡注意不是主题文件夹的配置文件 如果配置文件是yaml结尾的文件（config.yaml）则粘贴如下代码&#xA;utteranc: enable: true repo: &amp;#34;你的GitHub用户名/你创建的仓库名&amp;#34; issueTerm: &amp;#34;title&amp;#34; theme: &amp;#34;github-light&amp;#34; 修改repo: &amp;ldquo;你的GitHub用户名/你创建的仓库名&amp;rdquo; ，例如我的repo=&amp;ldquo;arkleselect/comments&amp;rdquo; 如果你是toml结尾的文件（hugo.toml），选择这个&#xA;[params.utterances] enable = true repo: &amp;#34;你的GitHub用户名/你创建的仓库名&amp;#34; issueTerm = &amp;#34;title&amp;#34; theme = &amp;#34;github-light&amp;#34; 参考 https://www.</description>
     </item>
     <item>
       <title>免费VPS | 白嫖党福利</title>
-      <link>http://localhost:1313/freevps/</link>
+      <link>https://arkleselect.github.io/freevps/</link>
       <pubDate>Sun, 01 Sep 2024 19:12:05 +0800</pubDate>
-      <guid>http://localhost:1313/freevps/</guid>
+      <guid>https://arkleselect.github.io/freevps/</guid>
       <description>1.免费提供 3GB 的存储空间&#xA;2.内存：512MB&#xA;3.流量：不限流量 （可以搭建IP节点）&#xA;4.支持PHP、MySQL等网站开发语言和数据库&#xA;5.可以同时搭建100个网站&#xA;6.可自定义开放端口&#xA;7.支持SSH远程访问&#xA;8.免费提供的二级域名，可以自定义绑定&#xA;9.官方要求至少每隔3个月登入一次&#xA;网址：Serv00.com&#xA;注册 进入首页面后点击图中的Register an account注册账号&#xA;注册过程中有一个选项是What is the cost of hosting on serv00.com,这里写0就可以 如果注册的过程中Username那一项提示服务器正在维护，大概率的使用的代理IP不太纯净，换一个就可以了。 如果不知道怎么查看自己使用的IP污染情况，可以使用以下方法检查&#xA;第一步：查看IP https://www.myip.com/&#xA;第二步：https://scamalytics.com/ 输入第一把查看的IP地址，如果检测出来是红色的，说明污染严重，需要更换。 注册完了之后查看邮件，在这个地方会有服务器的基本信息 开放限制 接下来需要解除限制，然后才可以使用SSH登录 https://www.serv00.com/ip_unban/ 查看邮件中的SSH地址，我这里显示的是s10.serv00.com，然后再上面网址中就选择对应的选项，再点击解除限制 SSH连接 接下来可以使用任意一个工具登录，比如WindTerm或者FinalShell，连接的时候主机地址写刚才解除限制时选择的那个，比如我的是s10.serv00.com，然后输入邮件中的用户名和密码就可以登陆成功了 参考 免费白嫖10年VPS服务器！先到先得，搭建ip节点，网站等！ – 零度解说 (freedidi.com)</description>
     </item>
   </channel>
