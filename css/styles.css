@@ -63,6 +63,7 @@ body.dark-theme #dark-icon {
   border: none;
   cursor: pointer;
   padding: 0;
+  right: 0;
   margin-right: 30px;
 }
 /* 搜索表单样式 */
@@ -167,37 +168,9 @@ header {
   /* 磨砂效果 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* 阴影 */
-  padding: 3px;
-  padding-left: 399px;
-  position: relative;
+  padding: 10px;
 }
 
-.burger {
-  display: none;
-  /* 默认情况下隐藏 */
-  cursor: pointer;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 2rem;
-  height: 2rem;
-  background: transparent;
-  border: none;
-  position: absolute;
-  /* 绝对定位 */
-  right: 10px;
-  /* 靠右侧对齐 */
-  z-index: 10;
-}
-
-.burger div {
-  width: 2rem;
-  height: 0.25rem;
-  background: #333;
-  border-radius: 10px;
-  transition: all 0.3s linear;
-  position: relative;
-  transform-origin: 1px;
-}
 
 .nav-active {
   transform: translateX(0);
@@ -214,7 +187,7 @@ header {
 .navbar ul {
   display: flex;
   list-style: none;
-  margin-left: 0;
+  margin-left: 370px;
 }
 
 .navbar li {
@@ -280,7 +253,6 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  /* 负margin来抵消子元素的margin */
 }
 
 .article-link {
@@ -396,6 +368,8 @@ max-width: calc(33.33% - 16px);
   justify-content: center;
   align-items: center; 
   width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
   background-color: var(--content-wrapper-bg-color);
 }
 
@@ -803,17 +777,14 @@ footer {
 }
 
 
-/*文章页面目录*/
+/*/*/*文章页面目录*/
 .main-wrapper {
   background-color: var(--main-wrapper-bg-color);
-  /* 文章页面背景颜色 */
-  padding: 20px;
-  /* 可选：为内容增加一些间距 */
   margin: 0 auto;
   height: auto;
   /* 可选：增加阴影效果 */
   width: 100%;
-}
+}*/*/
 
 /*.toc {
   position: sticky;
@@ -984,12 +955,15 @@ footer {
   display: block;
   padding: 10px;
   text-decoration: none;
+  border: 2px solid transparent; 
+  transition: all 0.2s ease;
 }
 
 .sidebar-category a:hover {
-    background: #f1f1f1;
-    border-radius: 7px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  border-radius: 7px;
+  border-left-color: black;
+  border-left-width: 3px;
+  transform: translate(3px, 0);
 }
 
 
@@ -1035,35 +1009,75 @@ footer {
 }
 
 
+/* 基础样式 */
+.profile-toggle-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: none; /* 默认隐藏 */
+}
+
+.profile-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.profile-fullscreen {
+  display: none; /* 默认隐藏 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  z-index: 2000; /* 确保在 header 之上 */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.close-profile-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+
+
+
+
+
+
 
 
 /*所有断点*/
-/*宽度不够时的导航栏*/
-@media screen and (max-width: 1050px) {
-  .burger {
-    display: flex;
-    /* 小屏幕上显示 */
-  }
-
+@media (max-width: 1230px) {
   .navbar ul {
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.9);
-    align-items: center;
+  margin-left: 0;
     justify-content: center;
     width: 100%;
-    max-width: 300px;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in;
-  }
-
-  .navbar ul.nav-active {
-    transform: translateX(0);
   }
 }
+@media screen and (max-width: 530px) {
+  .nav-links a {
+    width: 20px; /* 宽度足够显示一个字 */
+  }
+}
+
+
+/* 默认样式，确保 timeline 元素在宽度大于 700px 时可见 */
+.timeline {
+  display: block; /* 或者其他默认显示方式，例如 `flex`, `grid`, `inline-block` */
+}
+
 
 /*文章块断点*/
 /* 每行两个块 */
@@ -1071,27 +1085,74 @@ footer {
   .article-link {
     flex: 1 1 calc(50% - 30px); /* 每个块的宽度是父容器的1/2减去间隔 */
     max-width: calc(50% - 30px); /* 最大宽度确保在中屏幕上每行显示两个块 */
-
+  }
+  .image {
+    width: 100%; /* 自适应宽度 */
+    height: auto; /* 高度自适应 */
+    bottom: 0; /* 调整底部位置以适应新布局 */
+  }
+.timeline {
+    display: none; /* 隐藏 timeline 元素 */
   }
 }
 /* 每行一个块 */
 @media (max-width: 550px) {
-  .article-list {
-    padding: 0 10px; /* 确保块与页面边距有10px的间隔 */
-    box-sizing: border-box; /* 确保padding不影响整体宽度 */
-  }
-  
   .article-link {
     flex: 1 1 calc(100% - 20px); /* 填满父容器宽度，减去间隔 */
     max-width: calc(100% - 20px); /* 最大宽度填满父容器宽度 */
     margin: 15px 10px; /* 上下间隔15px，左右间隔10px */
   }
+.content-container {
+  padding: 0;
+}
+.article-title {
+  font-size: 20px;
+}
 
+.article-info {
+  font-size: 15px;
+}
   .article-block {
-    width: 100%; /* 使块宽度适应容器宽度 */
-    max-width: none; /* 移除最大宽度限制，以适应容器 */
+    width: auto; /* 使块宽度适应容器宽度 */
+    max-width: none;
+    height: auto;
+  }
+  .article-image{
+height: 260px;
   }
 }
 
+@media (max-width: 1550px) {
+  .sidebar-category a {
+    display: none; /* 隐藏元素 */
+  }
+}
 
+/* 滚动条样式 */
+/* 定义滚动条的宽度和颜色 */
+::-webkit-scrollbar {
+  width: 12px; /* 滚动条宽度 */
+  background-color: transparent; /* 滚动条背景色 */
+}
 
+/* 定义滚动条滑块的样式 */
+::-webkit-scrollbar-thumb {
+  background-color: #555; /* 滚动条滑块颜色 */
+  border-radius: 6px; /* 滑块圆角 */
+  border: 3px solid transparent; /* 滑块边框与背景色 */
+}
+
+/* 滚动条滑块在 hover 状态时的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* 滑块在 hover 时的颜色 */
+}
+
+/* 滚动条轨道（即背景）的样式 */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* 滚动条轨道背景色 */
+}
+
+::-webkit-scrollbar {
+  width: 7px; /* 滚动条宽度 */
+  height: 12px; /* 对于水平滚动条，设置其高度 */
+}

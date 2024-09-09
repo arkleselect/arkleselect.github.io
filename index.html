@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.128.0">
+	<meta name="generator" content="Hugo 0.128.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>首页</title>
@@ -21,51 +21,63 @@
   <link rel="stylesheet" href="./css/styles.css">
   <script>
 document.addEventListener('DOMContentLoaded', function () {
-      
-      const themeToggleButton = document.getElementById('theme-toggle');
-      const searchButton = document.getElementById('search-toggle');
-      const searchInput = document.querySelector('.search-input');
+  
+  const themeToggleButton = document.getElementById('theme-toggle');
+  const profileToggleButton = document.getElementById('profile-toggle');
+  const profileOverlay = document.getElementById('profile-overlay');
+  const searchButton = document.getElementById('search-toggle');
+  const searchInput = document.querySelector('.search-input');
 
-      
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        document.body.classList.add(savedTheme);
-      }
+  
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.body.classList.add(savedTheme);
+  }
 
-      
-      if (themeToggleButton) {
-        themeToggleButton.addEventListener('click', themeToggleHandler);
-      }
+  
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', themeToggleHandler);
+  }
 
-      if (searchButton) {
-        searchButton.addEventListener('click', function () {
-          searchInput.classList.toggle('expanded');
-          searchInput.focus(); 
-        });
-      }
-
-      
-      document.addEventListener('click', function (event) {
-        if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
-          searchInput.classList.remove('expanded');
-        }
-      });
+  if (profileToggleButton) {
+    profileToggleButton.addEventListener('click', function () {
+      profileOverlay.classList.toggle('active');
     });
+  }
 
-    function themeToggleHandler() {
-      console.log("Theme toggle button clicked");
+  if (searchButton) {
+    searchButton.addEventListener('click', function () {
+      searchInput.classList.toggle('expanded');
+      searchInput.focus(); 
+    });
+  }
 
-      
-      if (document.body.classList.contains('dark-theme')) {
-        document.body.classList.remove('dark-theme');
-        localStorage.removeItem('theme'); 
-      } else {
-        document.body.classList.add('dark-theme');
-        localStorage.setItem('theme', 'dark-theme');
-      }
+  
+  document.addEventListener('click', function (event) {
+    if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+      searchInput.classList.remove('expanded');
     }
+    
+    if (!profileToggleButton.contains(event.target) && !profileOverlay.contains(event.target)) {
+      profileOverlay.classList.remove('active');
+    }
+  });
+});
 
-  </script>
+function themeToggleHandler() {
+  console.log("Theme toggle button clicked");
+
+  
+  if (document.body.classList.contains('dark-theme')) {
+    document.body.classList.remove('dark-theme');
+    localStorage.removeItem('theme'); 
+  } else {
+    document.body.classList.add('dark-theme');
+    localStorage.setItem('theme', 'dark-theme');
+  }
+}
+</script>
+
 </head>
 <body>
   <header>
@@ -78,16 +90,10 @@ document.addEventListener('DOMContentLoaded', function () {
         <li><a href="./about">关于</a></li>
         <li><a href="./more">更多</a></li>
       </ul>
-      <div class="searchAndTheme">
-      <form id="search-form" class="search-form" action="./search" method="get">
-        <input type="text" name="q" placeholder="搜索文章..." class="search-input">
-        <button type="button" id="search-toggle" class="search-button">🔍</button>
-      </form>
       <button id="theme-toggle" class="theme-toggle-button">
         <img src="./icons/light-theme-icon.svg" id="light-icon" class="theme-icon" alt="Light Theme Icon">
         <img src="./icons/dark-theme-icon.svg" id="dark-icon" class="theme-icon" alt="Dark Theme Icon">
       </button>
-      </div>
     </nav>
   </header>
 </body>
@@ -120,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <main class="content">
         <section class="article-list">
             
-            <a href="https://arkleselect.github.io/java/" class="article-link">
+            <a href="http://localhost:1313/java/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -142,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </article>
             </a>
             
-            <a href="https://arkleselect.github.io/20240903/" class="article-link">
+            <a href="http://localhost:1313/20240903/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -164,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </article>
             </a>
             
-            <a href="https://arkleselect.github.io/freevps/" class="article-link">
+            <a href="http://localhost:1313/freevps/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -186,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </article>
             </a>
             
-            <a href="https://arkleselect.github.io/20240826/" class="article-link">
+            <a href="http://localhost:1313/20240826/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -208,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </article>
             </a>
             
-            <a href="https://arkleselect.github.io/yandex/" class="article-link">
+            <a href="http://localhost:1313/yandex/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -230,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </article>
             </a>
             
-            <a href="https://arkleselect.github.io/hugo/" class="article-link">
+            <a href="http://localhost:1313/hugo/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -252,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </article>
             </a>
             
-            <a href="https://arkleselect.github.io/test/" class="article-link">
+            <a href="http://localhost:1313/test/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
