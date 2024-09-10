@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=65399&amp;path=livereload" data-no-instant defer></script>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>为Hugo博客添加评论系统 | utterances</title>
@@ -19,7 +19,7 @@
   <head>
   
   <link rel="stylesheet" href="../css/styles.css">
-  <script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
   
   const themeToggleButton = document.getElementById('theme-toggle');
@@ -33,6 +33,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savedTheme) {
     document.body.classList.add(savedTheme);
   }
+
+  
+  
+  var tcommentContainer = document.getElementById('tcomment');
+  if (tcommentContainer) {
+    
+    const initialTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    loadUtterances(initialTheme === 'dark' ? 'github-dark' : 'github-light');
+
+    
+    document.addEventListener('themeChange', function (event) {
+      const newTheme = event.detail.theme;
+      console.log("Theme changed to: " + newTheme);
+      loadUtterances(newTheme === 'dark' ? 'github-dark' : 'github-light');
+    });
+  }
+  
 
   
   if (themeToggleButton) {
@@ -57,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
       searchInput.classList.remove('expanded');
     }
-    
     if (!profileToggleButton.contains(event.target) && !profileOverlay.contains(event.target)) {
       profileOverlay.classList.remove('active');
     }
@@ -71,12 +87,45 @@ function themeToggleHandler() {
   if (document.body.classList.contains('dark-theme')) {
     document.body.classList.remove('dark-theme');
     localStorage.removeItem('theme'); 
+
+    
+    const event = new CustomEvent('themeChange', { detail: { theme: 'light' } });
+    document.dispatchEvent(event);
   } else {
     document.body.classList.add('dark-theme');
     localStorage.setItem('theme', 'dark-theme');
+
+    
+    const event = new CustomEvent('themeChange', { detail: { theme: 'dark' } });
+    document.dispatchEvent(event);
   }
 }
+
+
+function loadUtterances(theme) {
+  var script = document.createElement("script");
+  script.src = "https://utteranc.es/client.js";
+  script.setAttribute("repo", "arkleselect/comments");
+  script.setAttribute("issue-term", "title");
+  script.setAttribute("theme", theme);
+  script.setAttribute("crossorigin", "anonymous");
+  script.async = true;
+
+  
+  var container = document.getElementById("tcomment");
+  if (!container) {
+    console.warn("Utterances container not found on this page.");
+    return;
+  }
+
+  
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  container.appendChild(script);
+}
 </script>
+
 
 </head>
 <body>
@@ -119,11 +168,11 @@ function themeToggleHandler() {
           
           
           
-          <p>参考官方文档：<a href="https://utteranc.es/"><strong>utterances</strong></a></p>
+          <p>参考官方文档:<a href="https://utteranc.es/"><strong>utterances</strong></a></p>
 <h2 id="1-创建一个存储评论系统的仓库">1. 创建一个存储评论系统的仓库</h2>
 <p>先创建一个仓库，一定要是公开的，比如我的是comments</p>
 <h2 id="2-授权评论系统">2. 授权评论系统</h2>
-<p>点击链接，选择你刚才创建的仓库，例如我的comments，<a href="https://github.com/apps/utterances"><strong>utterances app</strong></a></p>
+<p>点击链接，选择你刚才创建的仓库。</p>
 <h2 id="3-在hugo主题中新建一个模块comments">3. 在hugo主题中新建一个模块comments</h2>
 <p>路径：themes/mytheme/layouts/partials/comments.html，粘贴代码</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span>&gt;    
@@ -175,12 +224,35 @@ function themeToggleHandler() {
         <br/>
     </div>
     <div id="tcomment"></div>
-    <script src="https://utteranc.es/client.js"
-            repo="arkleselect/comments" 
-            issue-term="title"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
+    
+    <script>
+        
+        function loadUtterances(theme) {
+            var script = document.createElement("script");
+            script.src = "https://utteranc.es/client.js";
+            script.setAttribute("repo", "arkleselect/comments");
+            script.setAttribute("issue-term", "title");
+            script.setAttribute("theme", theme);
+            script.setAttribute("crossorigin", "anonymous");
+            script.async = true;
+
+            
+            var container = document.getElementById("tcomment");
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            container.appendChild(script);
+        }
+
+        
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+        loadUtterances(currentTheme === "dark" ? "github-dark" : "github-light");
+
+        
+        document.addEventListener("themeChange", function(event) {
+            const newTheme = event.detail.theme;
+            loadUtterances(newTheme === "dark" ? "github-dark" : "github-light");
+        });
     </script>
 </div>
 
@@ -190,7 +262,7 @@ function themeToggleHandler() {
 
   <footer>
   <img class="footer-images" src="../images/footer-image.png">
-  <p class="footer-word">Designed by 你所热爱的 | 听不见不想看 &copy; 2024
+  <p class="footer-word">Designed by 打破第四面墙 &copy; 2024
   </p>
   <a class="footer-link" href="https://t.me/crthbi">
     Telegram

@@ -17,14 +17,24 @@
   --body-p-bg-color:#000;
   --heading-color:#3c3c43;
   --image-wrapper-bg-color:#f4f4f4;
+  --footer-bg-color:#f4f4f4;
+  --article-meta-cate-single:#666;
+  --pagination-title-h:#1e1e1e;
+  --footer-link-color:#0c0c0c;
+  --top-messageAndDown-color:#4B4949;
+  --sidebar-categories-color:#0c0c0c;
+  --post-date-color:#838383;
+  --device-item-bg-color:#f8f9fa;
+  --device-item-p-color: #6c757d;
+  --device-item-hover-bg-color:0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* 暗色主题变量 */
 body.dark-theme {
   --article-block-bg-color: #333;
-  --body-bg-color: #2a2a2a;
-  --content-wrapper-bg-color:#2a2a2a;
-  --main-wrapper-bg-color:#2a2a2a;
+  --body-bg-color: #101011;
+  --content-wrapper-bg-color:#101011;
+  --main-wrapper-bg-color:#101011;
   --article-title-color:#e0e0e0;
   --top-name-color:#fafafa;
   --article-block-border:#4a4a4a;
@@ -32,7 +42,17 @@ body.dark-theme {
   --navbar-a-color:#f9f9f9;
   --body-p-bg-color:#e0e0e0;
   --heading-color:#e0e0e0;
-  --image-wrapper-bg-color:#333333;
+  --image-wrapper-bg-color:#141515;
+  --footer-bg-color:#141515;
+  --article-meta-cate-single:#8f8a82;
+  --pagination-title-h:#e0e0e0;
+  --footer-link-color:#bdb9b1;
+  --top-messageAndDown-color:#bdb9b1;
+  --sidebar-categories-color:#bdb9b1;
+  --post-date-color:#bdb9b1;
+  --device-item-bg-color:#3A3A3A;
+  --device-item-p-color: #c2c4c5;
+  --device-item-hover-bg-color:0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
 .theme-icon {
@@ -140,7 +160,7 @@ body.article-page {
 }
 
 body h1 {
-  font-family: 'PingFang SC';
+  font-family: 'LXGWWenKaiScreen';
   font-weight: 700;
   font-size: 33px;
 }
@@ -339,7 +359,7 @@ max-width: calc(33.33% - 16px);
   margin-right: 13px;
   /* 设置右侧间距 */
   font-size: 16px;
-  color: #666;
+  color: var(--article-meta-cate-single);
   font-weight: normal;
 }
 
@@ -658,7 +678,7 @@ max-width: calc(33.33% - 16px);
 footer {
   margin-top: 200px;
   color: #454545;
-  background: #f4f4f4;
+  background-color: var(--footer-bg-color);
   height: 300px;
   text-align: center;
   padding: 0.5rem;
@@ -675,8 +695,7 @@ footer {
 .footer-link {
   font-size: 13px;
   text-decoration: none;
-  color: inherit;
-  font-weight: bold;
+  color: var(--footer-link-color);
   margin-right: 37px;
 }
 .footer-link:hover {
@@ -845,15 +864,13 @@ footer {
 
 .top-message {
   margin-top: 7px;
-  color: #4B4949;
   font-size: 13.7px;
-  font-weight: bold;
+  color: var(--top-messageAndDown-color);
 }
 .top-message-down{
-   margin-top: 7px;
-  color: #4B4949;
+  margin-top: 7px;
+  color: var(--top-messageAndDown-color);
   font-size: 16px;
-  font-weight: bold;
 }
 .top-theme-button {
   background-color: #000;
@@ -900,9 +917,10 @@ footer {
     border-bottom: 1px solid #eee;
 }
 
-.post-info {
+.post-info .post-date{
     flex: 1;
     font-size: 14px;
+    color: var(--post-date-color);
 }
 .categories-title{
   font-size: 23px;
@@ -917,7 +935,7 @@ footer {
   text-decoration: none;
 }
 
-.post-meta {
+.post-met{
     font-size: 0.9em;
     color: #666;
 }
@@ -954,7 +972,7 @@ footer {
 }
 
 .sidebar-category a {
-  color: inherit; !important;
+  color:var(--sidebar-categories-color);
   display: block;
   padding: 10px;
   text-decoration: none;
@@ -964,7 +982,7 @@ footer {
 
 .sidebar-category a:hover {
   border-radius: 7px;
-  border-left-color: black;
+  border-left-color: var(--sidebar-categories-color);
   border-left-width: 3px;
   transform: translate(3px, 0);
 }
@@ -986,26 +1004,41 @@ footer {
   max-height: 70%;
   display: block;
   margin: 0 auto; 
+  flex-grow: 1;
+  object-fit: contain;
 }
 .device-item {
   border-radius: 10px;
   padding: 20px;
   height: 237px;
   text-align: center;
-  background-color: #f8f9fa;
+  background-color: var(--device-item-bg-color);
   transition: transform 0.3s ease;
+  position: relative; 
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between; 
 }
 
 .device-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  /* box-shadow: 0 5px 15px rgba(0,0,0,0.1); */
+  box-shadow:var(--device-item-hover-bg-color);
 }
 
 
-.device-item p {
+.device-name {
   font-size: 0.9em;
-  color: #6c757d;
+  color: var(--device-item-p-color);
+  margin: 0;
+  padding-top: 10px;
+  position: relative;
+  bottom: auto; 
+  left: auto;
+  right: auto; 
+  text-align: center;
 }
+
 .device-top{
   font-size: 23px;
   text-align: center;
@@ -1159,3 +1192,10 @@ height: 260px;
   width: 7px; /* 滚动条宽度 */
   height: 12px; /* 对于水平滚动条，设置其高度 */
 }
+
+/* 评论系统 */
+.pagination__title{
+  color: var(--pagination-title-h)!important;
+}
+
+

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.128.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=65399&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.128.0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>首页</title>
@@ -20,7 +20,7 @@
   <head>
   
   <link rel="stylesheet" href="./css/styles.css">
-  <script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
   
   const themeToggleButton = document.getElementById('theme-toggle');
@@ -34,6 +34,23 @@ document.addEventListener('DOMContentLoaded', function () {
   if (savedTheme) {
     document.body.classList.add(savedTheme);
   }
+
+  
+  
+  var tcommentContainer = document.getElementById('tcomment');
+  if (tcommentContainer) {
+    
+    const initialTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    loadUtterances(initialTheme === 'dark' ? 'github-dark' : 'github-light');
+
+    
+    document.addEventListener('themeChange', function (event) {
+      const newTheme = event.detail.theme;
+      console.log("Theme changed to: " + newTheme);
+      loadUtterances(newTheme === 'dark' ? 'github-dark' : 'github-light');
+    });
+  }
+  
 
   
   if (themeToggleButton) {
@@ -58,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
       searchInput.classList.remove('expanded');
     }
-    
     if (!profileToggleButton.contains(event.target) && !profileOverlay.contains(event.target)) {
       profileOverlay.classList.remove('active');
     }
@@ -72,12 +88,45 @@ function themeToggleHandler() {
   if (document.body.classList.contains('dark-theme')) {
     document.body.classList.remove('dark-theme');
     localStorage.removeItem('theme'); 
+
+    
+    const event = new CustomEvent('themeChange', { detail: { theme: 'light' } });
+    document.dispatchEvent(event);
   } else {
     document.body.classList.add('dark-theme');
     localStorage.setItem('theme', 'dark-theme');
+
+    
+    const event = new CustomEvent('themeChange', { detail: { theme: 'dark' } });
+    document.dispatchEvent(event);
   }
 }
+
+
+function loadUtterances(theme) {
+  var script = document.createElement("script");
+  script.src = "https://utteranc.es/client.js";
+  script.setAttribute("repo", "arkleselect/comments");
+  script.setAttribute("issue-term", "title");
+  script.setAttribute("theme", theme);
+  script.setAttribute("crossorigin", "anonymous");
+  script.async = true;
+
+  
+  var container = document.getElementById("tcomment");
+  if (!container) {
+    console.warn("Utterances container not found on this page.");
+    return;
+  }
+
+  
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  container.appendChild(script);
+}
 </script>
+
 
 </head>
 <body>
@@ -126,7 +175,7 @@ function themeToggleHandler() {
     <main class="content">
         <section class="article-list">
             
-            <a href="http://localhost:65399/java/" class="article-link">
+            <a href="https://arkleselect.github.io/java/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -148,7 +197,7 @@ function themeToggleHandler() {
                 </article>
             </a>
             
-            <a href="http://localhost:65399/20240903/" class="article-link">
+            <a href="https://arkleselect.github.io/20240903/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -170,7 +219,7 @@ function themeToggleHandler() {
                 </article>
             </a>
             
-            <a href="http://localhost:65399/freevps/" class="article-link">
+            <a href="https://arkleselect.github.io/freevps/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -192,7 +241,7 @@ function themeToggleHandler() {
                 </article>
             </a>
             
-            <a href="http://localhost:65399/20240826/" class="article-link">
+            <a href="https://arkleselect.github.io/20240826/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -214,7 +263,7 @@ function themeToggleHandler() {
                 </article>
             </a>
             
-            <a href="http://localhost:65399/yandex/" class="article-link">
+            <a href="https://arkleselect.github.io/yandex/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -236,7 +285,7 @@ function themeToggleHandler() {
                 </article>
             </a>
             
-            <a href="http://localhost:65399/hugo/" class="article-link">
+            <a href="https://arkleselect.github.io/hugo/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -258,7 +307,7 @@ function themeToggleHandler() {
                 </article>
             </a>
             
-            <a href="http://localhost:65399/test/" class="article-link">
+            <a href="https://arkleselect.github.io/test/" class="article-link">
                 <article class="article-block">
                     <div class="article-image-container">
                         
@@ -286,7 +335,7 @@ function themeToggleHandler() {
 
   <footer>
   <img class="footer-images" src="./images/footer-image.png">
-  <p class="footer-word">Designed by 你所热爱的 | 听不见不想看 &copy; 2024
+  <p class="footer-word">Designed by 打破第四面墙 &copy; 2024
   </p>
   <a class="footer-link" href="https://t.me/crthbi">
     Telegram
