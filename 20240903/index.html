@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/idea.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
+<script src="../js/codeBlock.js"></script>
+
 </head>
 <body>
   <head>
@@ -177,41 +179,41 @@ function loadUtterances(theme) {
 <p>点击链接，选择你刚才创建的仓库。</p>
 <h2 id="3-在hugo主题中新建一个模块comments">3. 在hugo主题中新建一个模块comments</h2>
 <p>路径：themes/mytheme/layouts/partials/comments.html，粘贴代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span>&gt;    
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pagination__title&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pagination__title-h&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;font-size: 20px;&#34;</span>&gt;评论&lt;/<span style="color:#f92672">span</span>&gt;
-</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">br</span>/&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tcomment&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://utteranc.es/client.js&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;你的github用户名/你创建的仓库名&#34;</span> 
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">issue-term</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;github-light&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">async</span>&gt;
-</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>    
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;pagination__title&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;pagination__title-h&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;font-size: 20px;&#34;</span><span class="p">&gt;</span>评论<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;tcomment&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://utteranc.es/client.js&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">repo</span><span class="o">=</span><span class="s">&#34;你的github用户名/你创建的仓库名&#34;</span> 
+</span></span><span class="line"><span class="cl">            <span class="na">issue-term</span><span class="o">=</span><span class="s">&#34;title&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">theme</span><span class="o">=</span><span class="s">&#34;github-light&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">async</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></span></code></pre></div><p>修改repo=&ldquo;你的github用户名/你创建的仓库名&rdquo; ，例如我的repo=&ldquo;arkleselect/comments&rdquo;
 然后在你的hugo中控制文章页面的代码中引用comments
 我的是在single.html</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span> {{ partial &#34;comments.html&#34; . }}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"> {{ partial &#34;comments.html&#34; . }}
 </span></span></code></pre></div><p><img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/1725365699072.jpg" class="imageBig" alt=""></p>
 <h2 id="4-修改配置文件">4. 修改配置文件</h2>
 <p>在hugo的根目录配置文件中添加参数
 💡注意不是主题文件夹的配置文件
 如果配置文件是yaml结尾的文件（config.yaml）则粘贴如下代码</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">utteranc</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enable</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">repo</span>: <span style="color:#e6db74">&#34;你的GitHub用户名/你创建的仓库名&#34;</span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">issueTerm</span>: <span style="color:#e6db74">&#34;title&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">theme</span>: <span style="color:#e6db74">&#34;github-light&#34;</span>  
-</span></span></code></pre></div><p>修改repo: &ldquo;你的GitHub用户名/你创建的仓库名&rdquo; ，例如我的repo=&ldquo;arkleselect/comments&rdquo;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">utteranc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;你的GitHub用户名/你创建的仓库名&#34;</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">issueTerm</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;title&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;github-light&#34;</span><span class="w">  
+</span></span></span></code></pre></div><p>修改repo: &ldquo;你的GitHub用户名/你创建的仓库名&rdquo; ，例如我的repo=&ldquo;arkleselect/comments&rdquo;
 如果你是toml结尾的文件（hugo.toml），选择这个</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">utterances</span>] 
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">enable</span> = <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">repo</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;你的GitHub用户名/你创建的仓库名&#34;</span> 
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">issueTerm</span> = <span style="color:#e6db74">&#34;title&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#34;github-light&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">utterances</span><span class="p">]</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">repo</span><span class="err">:</span> <span class="s2">&#34;你的GitHub用户名/你创建的仓库名&#34;</span> 
+</span></span><span class="line"><span class="cl">    <span class="nx">issueTerm</span> <span class="p">=</span> <span class="s2">&#34;title&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;github-light&#34;</span>
 </span></span></code></pre></div><p>参考
 <a href="https://www.shaohanyun.top/posts/env/hugo_comments/">https://www.shaohanyun.top/posts/env/hugo_comments/</a>
 ~</p>

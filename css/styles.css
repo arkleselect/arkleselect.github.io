@@ -1198,4 +1198,115 @@ height: 260px;
   color: var(--pagination-title-h)!important;
 }
 
+/* 深色主题代码块样式 */
+.highlight {
+  background-color: #272822;
+  border-radius: 6px;
+  margin: 1em 0;
+  padding: 0.1em;
+  overflow-x: auto;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
 
+.highlight pre {
+  margin: 0;
+  padding: 0;
+  background-color: #272822;
+}
+
+.highlight code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #272822;
+  background-color: #272822;
+}
+
+/* 自定义滚动条样式 */ 
+.highlight::-webkit-scrollbar { 
+  height: 6px; /* 减小滚动条高度 */ 
+} 
+.highlight::-webkit-scrollbar-thumb { 
+  background-color: #4a4f57; /* 滚动条滑块颜色 */ 
+  border-radius: 3px; 
+} 
+.highlight::-webkit-scrollbar-track { 
+  background-color: #2e3238; /* 滚动条轨道颜色 */ 
+}
+
+/* 深色主题代码块样式 */
+.highlight,
+.highlight pre,
+.highlight code,
+.highlight span,
+.content .highlight, 
+.content .highlight pre, 
+.content .highlight code{
+  background-color: #272822 !important;
+  color: #abb2bf;
+}
+
+/* 覆盖所有可能的高亮类 */
+.highlight .tag,
+.highlight .attr,
+.highlight .built_in,
+.highlight .builtin-name,
+.highlight .selector-tag,
+.highlight .section,
+.highlight .type,
+.highlight .meta,
+.highlight .keyword,
+.highlight .string,
+.highlight .subst,
+.highlight .symbol,
+.highlight .name,
+.highlight .attribute,
+.highlight .literal,
+.highlight .addition,
+.highlight .deletion,
+.highlight .selector-id,
+.highlight .selector-class {
+  background-color: #272822 !important;
+}
+
+/* 语法高亮颜色 */
+.highlight .keyword { color: #c678dd; }
+.highlight .string { color: #98c379; }
+.highlight .comment { color: #5c6370; font-style: italic; }
+.highlight .built_in { color: #e6c07b; }
+.highlight .tag { color: #e06c75; }
+.highlight .attr { color: #d19a66; }
+.highlight .function { color: #61afef; }
+.highlight .class-name { color: #e5c07b; }
+.highlight .variable { color: #d19a66; }
+.highlight .operator { color: #56b6c2; }
+.highlight .number { color: #d19a66; }
+
+/* 复制按钮样式 */
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background: #444;
+  backdrop-filter: blur(5px);
+  border: 1px solid #444;
+  color: #bdb9b1;
+  width: 70px;
+  font-size: 17px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.highlight:hover .copy-btn {
+  display: block; 
+}
+
+.copy-btn:active {
+  background: rgba(0, 0, 0, 0.2); 
+}
