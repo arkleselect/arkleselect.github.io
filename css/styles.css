@@ -1158,9 +1158,9 @@ height: 260px;
   }
 }
 
-@media (max-width: 1550px) {
+@media (max-width: 1450px) {
   .sidebar-category a {
-    display: none; /* 隐藏元素 */
+    display: none; 
   }
 }
 

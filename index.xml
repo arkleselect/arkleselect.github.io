@@ -6,8 +6,15 @@
     <description>Recent content in 首页 on 打破第四面墙</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 07 Sep 2024 17:07:43 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Sep 2024 16:19:04 +0800</lastBuildDate>
     <atom:link href="https://arkleselect.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Canal数据不同步问题</title>
+      <link>https://arkleselect.github.io/canaldata/</link>
+      <pubDate>Thu, 12 Sep 2024 16:19:04 +0800</pubDate>
+      <guid>https://arkleselect.github.io/canaldata/</guid>
+      <description>当发现修改了数据库后修改的数据并没有发送到MQ，通过查看Canal的日志发现下边的错误。&#xA;进入Canal目录，查看日志：&#xA;cd /data/soft/canal/logs tail -f logs/xzb-canal.log Canal报错如下：&#xA;2023-09-22 08:34:40.802 [destination = xzb-canal , address = /192.168.101.68:3306 , EventParser] WARN c.a.o.c.p.inbound.mysql.rds.RdsBinlogEventParserProxy - ---&amp;gt; find start position successfully, EntryPosition[included=false,journalName=mysql-bin.000055,position=486221,serverId=1,gtid=,timestamp=1695341830000] cost : 13ms , the next step is binlog dump 2023-09-22 08:34:40.811 [destination = xzb-canal , address = /192.168.101.68:3306 , EventParser] ERROR c.a.o.canal.parse.inbound.mysql.dbsync.DirectLogFetcher - I/O error while reading from client socket java.io.IOException: Received error packet: errno = 1236, sqlstate = HY000 errmsg = Could not find first log file name in binary log index file at com.</description>
+    </item>
     <item>
       <title>Java面试宝典</title>
       <link>https://arkleselect.github.io/java/</link>
