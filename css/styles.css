@@ -1217,8 +1217,8 @@ height: 260px;
 }
 
 .highlight code {
-  font-family: 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9em;
+  font-family: 'JetBrains Mono','Fira Code', 'Courier New', monospace;
+  font-size: 14px;
   line-height: 1.5;
   color: #272822;
   background-color: #272822;
@@ -1248,6 +1248,31 @@ height: 260px;
   color: #abb2bf;
 }
 
+/* 确保所有代码元素都不会加粗 */
+.highlight code *,
+.highlight span,
+.highlight .tag,
+.highlight .attr,
+.highlight .built_in,
+.highlight .builtin-name,
+.highlight .selector-tag,
+.highlight .section,
+.highlight .type,
+.highlight .meta,
+.highlight .keyword,
+.highlight .string,
+.highlight .subst,
+.highlight .symbol,
+.highlight .name,
+.highlight .attribute,
+.highlight .literal,
+.highlight .addition,
+.highlight .deletion,
+.highlight .selector-id,
+.highlight .selector-class {
+  font-weight: normal !important;
+}
+
 /* 覆盖所有可能的高亮类 */
 .highlight .tag,
 .highlight .attr,
@@ -1270,19 +1295,6 @@ height: 260px;
 .highlight .selector-class {
   background-color: #272822 !important;
 }
-
-/* 语法高亮颜色 */
-.highlight .keyword { color: #c678dd; }
-.highlight .string { color: #98c379; }
-.highlight .comment { color: #5c6370; font-style: italic; }
-.highlight .built_in { color: #e6c07b; }
-.highlight .tag { color: #e06c75; }
-.highlight .attr { color: #d19a66; }
-.highlight .function { color: #61afef; }
-.highlight .class-name { color: #e5c07b; }
-.highlight .variable { color: #d19a66; }
-.highlight .operator { color: #56b6c2; }
-.highlight .number { color: #d19a66; }
 
 /* 复制按钮样式 */
 .copy-btn {
