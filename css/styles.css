@@ -1435,3 +1435,20 @@ height: 260px;
   margin-top: -3px;
   margin-right: -3px;
 }
+
+
+
+
+
+
+.imageBig {
+  /* 基础样式 */
+  border: 1px solid #ccc; /* 灰色边框 */
+  border-radius: 12px; /* 圆角 */
+  /* 鼠标悬停时的样式 */
+  transition: box-shadow 0.3s ease; /* 添加过渡效果 */
+}
+
+.imageBig:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 阴影变得柔和 */
+}
