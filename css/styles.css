@@ -679,12 +679,12 @@ footer {
   margin-top: 200px;
   color: #454545;
   background-color: var(--footer-bg-color);
-  height: 300px;
+  height: 370px;
   text-align: center;
   padding: 0.5rem;
 }
 .footer-images{
-  margin-top: 37px;
+  margin-top: 97px;
   width: 450px;
   height: 100px;
 }
