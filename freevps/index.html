@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>免费VPS | 白嫖党福利</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="keyword1, keyword2, ">
+
+  
+  <link rel="icon" href="../icons/favicon.jpg" type="image/jpg">
+  
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/custom.css">
+  <link rel="stylesheet" href="../css/fonts.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/idea.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="../js/codeBlock.js"></script>
+
+</head>
+<body>
+  <head>
+  
+  <link rel="stylesheet" href="../css/styles.css">
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  
+  const themeToggleButton = document.getElementById('theme-toggle');
+  const profileToggleButton = document.getElementById('profile-toggle');
+  const profileOverlay = document.getElementById('profile-overlay');
+  const searchButton = document.getElementById('search-toggle');
+  const searchInput = document.querySelector('.search-input');
+
+  
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.body.classList.add(savedTheme);
+  }
+
+  
+  
+  var tcommentContainer = document.getElementById('tcomment');
+  if (tcommentContainer) {
+    
+    const initialTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    loadUtterances(initialTheme === 'dark' ? 'github-dark' : 'github-light');
+
+    
+    document.addEventListener('themeChange', function (event) {
+      const newTheme = event.detail.theme;
+      console.log("Theme changed to: " + newTheme);
+      loadUtterances(newTheme === 'dark' ? 'github-dark' : 'github-light');
+    });
+  }
+  
+
+  
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener('click', themeToggleHandler);
+  }
+
+  if (profileToggleButton) {
+    profileToggleButton.addEventListener('click', function () {
+      profileOverlay.classList.toggle('active');
+    });
+  }
+
+  if (searchButton) {
+    searchButton.addEventListener('click', function () {
+      searchInput.classList.toggle('expanded');
+      searchInput.focus(); 
+    });
+  }
+
+  
+  document.addEventListener('click', function (event) {
+    if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+      searchInput.classList.remove('expanded');
+    }
+    if (!profileToggleButton.contains(event.target) && !profileOverlay.contains(event.target)) {
+      profileOverlay.classList.remove('active');
+    }
+  });
+});
+
+function themeToggleHandler() {
+  console.log("Theme toggle button clicked");
+
+  
+  if (document.body.classList.contains('dark-theme')) {
+    document.body.classList.remove('dark-theme');
+    localStorage.removeItem('theme'); 
+
+    
+    const event = new CustomEvent('themeChange', { detail: { theme: 'light' } });
+    document.dispatchEvent(event);
+  } else {
+    document.body.classList.add('dark-theme');
+    localStorage.setItem('theme', 'dark-theme');
+
+    
+    const event = new CustomEvent('themeChange', { detail: { theme: 'dark' } });
+    document.dispatchEvent(event);
+  }
+}
+
+
+function loadUtterances(theme) {
+  var script = document.createElement("script");
+  script.src = "https://utteranc.es/client.js";
+  script.setAttribute("repo", "arkleselect/comments");
+  script.setAttribute("issue-term", "title");
+  script.setAttribute("theme", theme);
+  script.setAttribute("crossorigin", "anonymous");
+  script.async = true;
+
+  
+  var container = document.getElementById("tcomment");
+  if (!container) {
+    console.warn("Utterances container not found on this page.");
+    return;
+  }
+
+  
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+  container.appendChild(script);
+}
+</script>
+
+
+</head>
+<body>
+  <header>
+    
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="../">首页</a></li>
+        <li><a href="../friends">识友</a></li>
+        <li><a href="../categories">分组</a></li>
+        <li><a href="../about">关于</a></li>
+        <li><a href="../more">更多</a></li>
+      </ul>
+      <button id="theme-toggle" class="theme-toggle-button">
+        <img src="../icons/light-theme-icon.svg" id="light-icon" class="theme-icon" alt="Light Theme Icon">
+        <img src="../icons/dark-theme-icon.svg" id="dark-icon" class="theme-icon" alt="Dark Theme Icon">
+      </button>
+    </nav>
+  </header>
+</body>
+
+  
+  <div class="image-wrapper">
+    <div class="image" style="background-image: url('https://raw.githubusercontent.com/arkleselect/blog/main/img/imageVPS.png')"></div>
+    
+  </div>
+  <div class="main-wrapper">
+    <div class="content-wrapper">
+      <main class="content">
+        
+          <h1 class="h1-single">免费VPS | 白嫖党福利</h1>
+        
+        <p class="article-cate-single">转载</p>
+        
+          <p class="article-meta-single">2024-09-01</p>
+        
+
+        
+        <article class="article-body">
+          
+          
+          
+          <p>1.免费提供 3GB 的存储空间<br>
+2.内存：512MB<br>
+3.流量：不限流量 （可以搭建IP节点）<br>
+4.支持PHP、MySQL等网站开发语言和数据库<br>
+5.可以同时搭建100个网站<br>
+6.可自定义开放端口<br>
+7.支持SSH远程访问<br>
+8.免费提供的二级域名，可以自定义绑定<br>
+9.官方要求至少每隔3个月登入一次</p>
+<p><img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/1725187909171.jpg" class="imageBig" alt="">
+网址：<a href="https://www.serv00.com/">Serv00.com</a></p>
+<h2 id="注册">注册</h2>
+<p>进入首页面后点击图中的Register an account注册账号</p>
+<p>注册过程中有一个选项是What is the cost of hosting on serv00.com,这里写0就可以
+如果注册的过程中Username那一项提示服务器正在维护，大概率的使用的代理IP不太纯净，换一个就可以了。
+如果不知道怎么查看自己使用的IP污染情况，可以使用以下方法检查</p>
+<p>第一步：查看IP <a href="https://www.myip.com/">https://www.myip.com/</a></p>
+<p>第二步：https://scamalytics.com/ 输入第一把查看的IP地址，如果检测出来是红色的，说明污染严重，需要更换。
+注册完了之后查看邮件，在这个地方会有服务器的基本信息
+<img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/1725188431951.jpg" class="imageBig" alt=""></p>
+<h2 id="开放限制">开放限制</h2>
+<p>接下来需要解除限制，然后才可以使用SSH登录 <a href="https://www.serv00.com/ip_unban/">https://www.serv00.com/ip_unban/</a>
+<img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/1725188689825.jpg" class="imageBig" alt="">
+查看邮件中的SSH地址，我这里显示的是s10.serv00.com，然后再上面网址中就选择对应的选项，再点击解除限制
+<img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/1725188767765.jpg" class="imageBig" alt=""></p>
+<h2 id="ssh连接">SSH连接</h2>
+<p>接下来可以使用任意一个工具登录，比如<a href="https://github.com/kingToolbox/WindTerm/releases/tag/2.6.0">WindTerm</a>或者<a href="https://www.hostbuf.com/">FinalShell</a>，连接的时候主机地址写刚才解除限制时选择的那个，比如我的是s10.serv00.com，然后输入邮件中的用户名和密码就可以登陆成功了
+<img src="https://raw.githubusercontent.com/arkleselect/blog/main/img/1725188767765.jpg" class="imageBig" alt=""></p>
+<p>参考
+<a href="https://www.freedidi.com/12795.html">免费白嫖10年VPS服务器！先到先得，搭建ip节点，网站等！ – 零度解说 (freedidi.com)</a></p>
+
+        </article>
+
+
+<div class="article-footer">
+  
+  <div class="footer-item single">
+    <p class="hover-underline" id="CC">
+      <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC
+      </a>
+    </p>
+  </div>
+
+  
+  <hr class="footer-divider">
+
+  
+  <div class="footer-item">
+    <div class="footer-content">
+        <p class="hover-underline">
+          <img class="category-icon" src="../icons/category.svg" alt="category icon">
+  
+    
+    
+    
+      <a href="../categories#%25E8%25BD%25AC%25E8%25BD%25BD">转载
+      </a>
+      
+    
+  
+</p>
+
+      <p class="hover-underline">
+        <a href="javascript:history.back()">返回</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<nav class="post-navigation">
+  <div class="nav-links-down">
+    
+    <div class="nav-previous">
+      <a href="https://arkleselect.github.io/20240826/" rel="prev">
+        <span class="nav-title">Notion Web Clipper | 将任何网络页面保存到 Notion</span>
+      </a>
+    </div>
+    
+    
+    <div class="nav-next">
+      <a href="https://arkleselect.github.io/20240903/" rel="next">
+        <span class="nav-title">为Hugo博客添加评论系统 | utterances</span>
+      </a>
+    </div>
+    
+  </div>
+</nav>
+
+        
+        
+<div>    
+    <div class="pagination__title">
+        <span class="pagination__title-h" style="font-size: 20px;">评论</span>
+        <br/>
+    </div>
+    <div id="tcomment"></div>
+    
+    <script>
+        
+        function loadUtterances(theme) {
+            var script = document.createElement("script");
+            script.src = "https://utteranc.es/client.js";
+            script.setAttribute("repo", "arkleselect/comments");
+            script.setAttribute("issue-term", "title");
+            script.setAttribute("theme", theme);
+            script.setAttribute("crossorigin", "anonymous");
+            script.async = true;
+
+            
+            var container = document.getElementById("tcomment");
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            container.appendChild(script);
+        }
+
+        
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+        loadUtterances(currentTheme === "dark" ? "github-dark" : "github-light");
+
+        
+        document.addEventListener("themeChange", function(event) {
+            const newTheme = event.detail.theme;
+            loadUtterances(newTheme === "dark" ? "github-dark" : "github-light");
+        });
+    </script>
+</div>
+
+      </main>
+    </div>
+  </div>
+
+  <footer>
+  <img class="footer-images" src="../images/footer-image.png">
+  <p class="footer-word">Designed by 打破第四面墙 &copy; 2024
+  </p>
+  <a class="footer-link" href="https://t.me/crthbi">
+    Telegram
+  </a>
+  <a class="footer-link" href="mailto:wpprqi@duck.com">
+    Gmail
+  </a>
+  <a class="footer-link" href="https://mastodon.social/@wpprqi">
+    Mastodon
+  </a>
+  <a class="footer-link" href="https://github.com/arkleselect">
+    Github
+  </a>
+  <a class="footer-link" href="">
+    Rss
+  </a>
+
+</footer>
+
+
+  <script src="../js/nav.js"></script>
+</body>
+</html>

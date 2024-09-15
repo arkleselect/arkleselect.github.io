@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>首页 on 打破第四面墙</title>
+    <link>https://arkleselect.github.io/</link>
+    <description>Recent content in 首页 on 打破第四面墙</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 12 Sep 2024 16:19:04 +0800</lastBuildDate>
+    <atom:link href="https://arkleselect.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Canal数据不同步问题</title>
+      <link>https://arkleselect.github.io/canaldata/</link>
+      <pubDate>Thu, 12 Sep 2024 16:19:04 +0800</pubDate>
+      <guid>https://arkleselect.github.io/canaldata/</guid>
+      <description>当发现修改了数据库后修改的数据并没有发送到MQ，通过查看Canal的日志发现下边的错误。&#xA;进入Canal目录，查看日志：&#xA;cd /data/soft/canal/logs tail -f logs/xzb-canal.log Canal报错如下：&#xA;2023-09-22 08:34:40.802 [destination = xzb-canal , address = /192.168.101.68:3306 , EventParser] WARN c.a.o.c.p.inbound.mysql.rds.RdsBinlogEventParserProxy - ---&amp;gt; find start position successfully, EntryPosition[included=false,journalName=mysql-bin.000055,position=486221,serverId=1,gtid=,timestamp=1695341830000] cost : 13ms , the next step is binlog dump 2023-09-22 08:34:40.811 [destination = xzb-canal , address = /192.168.101.68:3306 , EventParser] ERROR c.a.o.canal.parse.inbound.mysql.dbsync.DirectLogFetcher - I/O error while reading from client socket java.io.IOException: Received error packet: errno = 1236, sqlstate = HY000 errmsg = Could not find first log file name in binary log index file at com.</description>
+    </item>
+    <item>
+      <title>Java面试宝典</title>
+      <link>https://arkleselect.github.io/java/</link>
+      <pubDate>Sat, 07 Sep 2024 17:07:43 +0800</pubDate>
+      <guid>https://arkleselect.github.io/java/</guid>
+      <description>一 Java 基础 1.Java 基础 知识 1.1 面向对象的特征（了解） 面向对象的特征：封装、继承、多态。 封装：就是把一个对象的属性和行为封装成一个整体，别人使用我提供的功能来实现他们想要的需求，但是不能查看我的源码，增加了安全性. 继承：子类继承父类的数据属性和行为，可以使用父类的功能，也可以自己拓展，提高了代码的复用性。 多态：同一个方法或对象可以根据不同的上下文表现出不同的行为。（主要通过方法重载和方法重写来实现的）重载（方法名相同，参数不同）重写（方法名相同，参数类型、返回类型必须相同）&#xA;1.2 Java 的基本数据类型有哪些（了解） 数据类型 字节数 位数 整形 byte 1 8 整形 short 2 16 整形 int 4 32 整形 long 8 64 浮点型 float 4 32 浮点型 double 8 64 布尔型 boolean 1 8 字符型 char 2 16 1.3JDK JRE JVM 的区别 （必会） JDK（Java Development Kit）是java的核心，一个开发工具包，包括JRE、Java 工具和 Java 基础类库。 JRE（Java Runtime Environment）是运行 JAVA 程序所必须的环境，包含 java 虚拟机和 java 的一些核心类库。 JVM 是 Java Virtual Machine（Java 虚拟机）的缩写，是整个 java 实现跨平台的最核心的部分，能够运行以 Java 语言写作的软件程序。</description>
+    </item>
+    <item>
+      <title>为Hugo博客添加评论系统 | utterances</title>
+      <link>https://arkleselect.github.io/20240903/</link>
+      <pubDate>Tue, 03 Sep 2024 20:10:04 +0800</pubDate>
+      <guid>https://arkleselect.github.io/20240903/</guid>
+      <description>参考官方文档:utterances&#xA;1. 创建一个存储评论系统的仓库 先创建一个仓库，一定要是公开的，比如我的是comments&#xA;2. 授权评论系统 点击链接，选择你刚才创建的仓库。&#xA;3. 在hugo主题中新建一个模块comments 路径：themes/mytheme/layouts/partials/comments.html，粘贴代码&#xA;&amp;lt;div&amp;gt; &amp;lt;div class=&amp;#34;pagination__title&amp;#34;&amp;gt; &amp;lt;span class=&amp;#34;pagination__title-h&amp;#34; style=&amp;#34;font-size: 20px;&amp;#34;&amp;gt;评论&amp;lt;/span&amp;gt; &amp;lt;br/&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div id=&amp;#34;tcomment&amp;#34;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;script src=&amp;#34;https://utteranc.es/client.js&amp;#34; repo=&amp;#34;你的github用户名/你创建的仓库名&amp;#34; issue-term=&amp;#34;title&amp;#34; theme=&amp;#34;github-light&amp;#34; crossorigin=&amp;#34;anonymous&amp;#34; async&amp;gt; &amp;lt;/script&amp;gt; &amp;lt;/div&amp;gt; 修改repo=&amp;ldquo;你的github用户名/你创建的仓库名&amp;rdquo; ，例如我的repo=&amp;ldquo;arkleselect/comments&amp;rdquo; 然后在你的hugo中控制文章页面的代码中引用comments 我的是在single.html&#xA;{{ partial &amp;#34;comments.html&amp;#34; . }} 4. 修改配置文件 在hugo的根目录配置文件中添加参数 💡注意不是主题文件夹的配置文件 如果配置文件是yaml结尾的文件（config.yaml）则粘贴如下代码&#xA;utteranc: enable: true repo: &amp;#34;你的GitHub用户名/你创建的仓库名&amp;#34; issueTerm: &amp;#34;title&amp;#34; theme: &amp;#34;github-light&amp;#34; 修改repo: &amp;ldquo;你的GitHub用户名/你创建的仓库名&amp;rdquo; ，例如我的repo=&amp;ldquo;arkleselect/comments&amp;rdquo; 如果你是toml结尾的文件（hugo.toml），选择这个&#xA;[params.utterances] enable = true repo: &amp;#34;你的GitHub用户名/你创建的仓库名&amp;#34; issueTerm = &amp;#34;title&amp;#34; theme = &amp;#34;github-light&amp;#34; 参考 https://www.</description>
+    </item>
+    <item>
+      <title>免费VPS | 白嫖党福利</title>
+      <link>https://arkleselect.github.io/freevps/</link>
+      <pubDate>Sun, 01 Sep 2024 19:12:05 +0800</pubDate>
+      <guid>https://arkleselect.github.io/freevps/</guid>
+      <description>1.免费提供 3GB 的存储空间&#xA;2.内存：512MB&#xA;3.流量：不限流量 （可以搭建IP节点）&#xA;4.支持PHP、MySQL等网站开发语言和数据库&#xA;5.可以同时搭建100个网站&#xA;6.可自定义开放端口&#xA;7.支持SSH远程访问&#xA;8.免费提供的二级域名，可以自定义绑定&#xA;9.官方要求至少每隔3个月登入一次&#xA;网址：Serv00.com&#xA;注册 进入首页面后点击图中的Register an account注册账号&#xA;注册过程中有一个选项是What is the cost of hosting on serv00.com,这里写0就可以 如果注册的过程中Username那一项提示服务器正在维护，大概率的使用的代理IP不太纯净，换一个就可以了。 如果不知道怎么查看自己使用的IP污染情况，可以使用以下方法检查&#xA;第一步：查看IP https://www.myip.com/&#xA;第二步：https://scamalytics.com/ 输入第一把查看的IP地址，如果检测出来是红色的，说明污染严重，需要更换。 注册完了之后查看邮件，在这个地方会有服务器的基本信息 开放限制 接下来需要解除限制，然后才可以使用SSH登录 https://www.serv00.com/ip_unban/ 查看邮件中的SSH地址，我这里显示的是s10.serv00.com，然后再上面网址中就选择对应的选项，再点击解除限制 SSH连接 接下来可以使用任意一个工具登录，比如WindTerm或者FinalShell，连接的时候主机地址写刚才解除限制时选择的那个，比如我的是s10.serv00.com，然后输入邮件中的用户名和密码就可以登陆成功了 参考 免费白嫖10年VPS服务器！先到先得，搭建ip节点，网站等！ – 零度解说 (freedidi.com)</description>
+    </item>
+    <item>
+      <title>Notion Web Clipper | 将任何网络页面保存到 Notion</title>
+      <link>https://arkleselect.github.io/20240826/</link>
+      <pubDate>Mon, 26 Aug 2024 02:06:17 +0800</pubDate>
+      <guid>https://arkleselect.github.io/20240826/</guid>
+      <description>Notion Web Clipper 是一款由 Notion 提供的浏览器扩展工具，旨在帮助用户将网页内容快速保存到 Notion 笔记本中。&#xA;今天冲浪的时候发现了一个很好玩的东西&amp;mdash;Notion Web Clipper&#xA;其实之前我也用过Notion，只不过我记得当时不支持中文，而且我当时下载了Notion For Windows后打开登录上之后又给我跳转到了网页上，看了一些安利文章后发现确实不错，但是被只有英文和网页端的情况给劝退了。&#xA;最近工作需要用到语雀，使用的时候总是感觉怪怪的，然后又去搜索类似语雀的软件，又发现了Notion，而且现在已经解决了我上面说的两个问题。&#xA;话不多说立马下载，接着就开始了寻找Notion教程的文章，直到今天在尝试Web Clipper和简悦 - SimpRead插件的时候，看到了Notion Web Clipper，嗯！？还能这么玩，不愧是我选择的软件，更爱了哈哈&#xA;赶紧把我Edge和Chrome的那一堆沾满灰的东西挪一下地方，正好清理清理灰/dog 在挪的时候发现真的好用，由于我是两个电脑，一个电脑用Edge另一个用Chrome，有时候今天在这个电脑收藏的网页后另一个电脑没有，于是我还每隔一段时间把收藏夹导出放到U盘中，做了几次后就患上了懒癌晚期，Notion Web Clipper成功的帮我将收藏夹和笔记统一了起来。</description>
+    </item>
+    <item>
+      <title>追寻网络图文 | 从Yandex到午夜求助</title>
+      <link>https://arkleselect.github.io/yandex/</link>
+      <pubDate>Sun, 18 Aug 2024 21:45:39 +0800</pubDate>
+      <guid>https://arkleselect.github.io/yandex/</guid>
+      <description>刷到了泽泽社长的记录了一篇关于Yandex的文章，突然想起来前几年自己做的一件有趣的事，开始的时候具体是因为什么似乎忘记了，模糊记得是帮舍友找一个东西，自己在谷歌上搜索资料的时候发现的Yandex，当时似乎发现了新大陆，像是一个刚学会一项新技能的小朋友迫不及待地展示自己的技能，于是就去疯狂找用武之地。&#xA;当时喜欢刷皮皮虾，记得有时候在对的视频下一定有对的评论/Dog，说来也巧，刷图文帖没刷几个就找到了一个求助的，当时的我心情略显激动，马上启动谷歌，很快啊，复制粘贴，出结果，找到视频地址，回复评论，一气呵成，简直太佩服自己了。&#xA;没过了几天，看又有人在我的回复上求助。鬼知道我哪来的动力，半夜12点起床打开电脑，认真搜索，我还记得当时为了给他们搜来源的时候又发现了一个网站，它可以根据图片中的人脸来计算出相似度最高的女优，地址现在都忘记了，记得应该在收藏里找了一会没找到，不过在搜来源上用处好像不大。&#xA;我最主要的还是用Yandex。记得还有一个叫什么TinEye，去看了以下怎么不收费了，我当时用的时候好像每天只有几个免费次数来着🤔。¼</description>
+    </item>
+    <item>
+      <title>如何在Hugo中创建和定制你的博客主题</title>
+      <link>https://arkleselect.github.io/hugo/</link>
+      <pubDate>Sat, 17 Aug 2024 20:46:15 +0800</pubDate>
+      <guid>https://arkleselect.github.io/hugo/</guid>
+      <description>不知道什么时候迷上了看博客和社区的习惯，同样都是字，对于小说来讲我却丝毫提不起兴趣，看了好多别人的博客后，便萌生了搭建一个自己的博客大想法，当时的我殊不知是折腾的开始。&#xA;打开ChatGPT：告诉我几个静态网站生成器,接着开始了搜索主题，尝试过hexo、hugo、Jekyll、gridsome等，在众多主题中，选中了安知鱼，本想在此基础上再修改一下，结果部署好了后越看越不顺眼，不知道当时怎么说服了自己选择了与自己自己喜欢的背道而驰的风格。 于是又萌生了另一个想法，我能不能自己写一个主题，询问了GPT后，选择了对小白相对友好的Hugo，于是便开始了面向GPT开发。&#xA;既然说到了自定义Hugo主题，正好记录一下。并不是专业的开发人员，本文仅供参考，当然你如果遇到了什么困难，我很乐意帮忙。Hugo不像Hexo一样有自带的主题，下载好了后需要定义主题才能看到效果。 以下是Hugo的目录结构&#xA;my-hugo-theme/ ├── layouts/ # 布局文件夹 │ ├── _default/ # 默认布局 │ ├── partials/ # 部分布局（可重用的部分） │ ├── index.html # 首页布局 │ └── ... # 其他布局文件 ├── static/ # 静态文件夹 │ ├── css/ # CSS 文件 │ ├── js/ # JavaScript 文件 │ ├── images/ # 图片文件 │ └── ... # 其他静态资源 ├── themes.toml # 主题配置文件 ├── README.md # 主题说明文档 layouts layouts是来管理布局的，再这个目录下可以控制网页的元素排版，创建index.html文件便是首页的排版。&#xA;另外还有两个文件夹，_default和partials，前者是默认的布局，比如baseof.html、category.html、list.html、single.html，由于是面向GPT开发，写完了后我都忘记了具体是怎样的了，开始这个single.html我以为是定义当目录中只有一个文章的时候元素排版方式，因为当时使用paper这个主题，第一个的呈现方式与其他的不一样，后来我才知道这是控制文章内容页面的，现在想当时可真蠢🤦‍♂️，这都不知道。&#xA;baseof.html是控制页面的基本排版，比如我的这个代码&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, initial-scale=1.</description>
+    </item>
+    <item>
+      <title>镜花水月 | 观</title>
+      <link>https://arkleselect.github.io/test/</link>
+      <pubDate>Mon, 12 Aug 2024 22:46:48 +0800</pubDate>
+      <guid>https://arkleselect.github.io/test/</guid>
+      <description> 这是引用的内容展示&#xA;这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度斜体这是用来测试的文章的正文宽度斜体这是用来测试的文章的正文宽度斜体这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度Google这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度这是用来测试的文章的正文宽度&#xA;H1标题 H2标题 H3标题 H4标题 H5标题 H6标题 有序列表1 有序列表2 有序列表3 无序列表1&#xA;无序列表2&#xA;无序列表3&#xA;任务列表1&#xA;任务列表2&#xA;任务列表3&#xA;表格 展示 第一列 第一列 第二列 第二列 第三列 第三列 public class HelloWorld { public static void main(String[] args) { System.out.println(&amp;#34;Hello, World!&amp;#34;); } } </description>
+    </item>
+    <item>
+      <title>Friends</title>
+      <link>https://arkleselect.github.io/categories/categories/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://arkleselect.github.io/categories/categories/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>专注于分享</title>
+      <link>https://arkleselect.github.io/more/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://arkleselect.github.io/more/</guid>
+      <description>装备栏&#xA;贝尔金充电头&#xA;iPhone 14&#xA;VGN F1 pro&#xA;贝尔金充电宝&#xA;wh-1000xm4&#xA;MX keys Mini&#xA;MacBook Air</description>
+    </item>
+    <item>
+      <title>关于本站的搭建</title>
+      <link>https://arkleselect.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://arkleselect.github.io/about/</guid>
+      <description>这里是About页面的内容。</description>
+    </item>
+    <item>
+      <title>我推荐的</title>
+      <link>https://arkleselect.github.io/friends/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://arkleselect.github.io/friends/</guid>
+      <description>这里是Friends页面的内容。</description>
+    </item>
+  </channel>
+</rss>

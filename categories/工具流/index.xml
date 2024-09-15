@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具流 on 打破第四面墙</title>
+    <link>https://arkleselect.github.io/categories/%E5%B7%A5%E5%85%B7%E6%B5%81/</link>
+    <description>Recent content in 工具流 on 打破第四面墙</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 26 Aug 2024 02:06:17 +0800</lastBuildDate>
+    <atom:link href="https://arkleselect.github.io/categories/%E5%B7%A5%E5%85%B7%E6%B5%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notion Web Clipper | 将任何网络页面保存到 Notion</title>
+      <link>https://arkleselect.github.io/20240826/</link>
+      <pubDate>Mon, 26 Aug 2024 02:06:17 +0800</pubDate>
+      <guid>https://arkleselect.github.io/20240826/</guid>
+      <description>Notion Web Clipper 是一款由 Notion 提供的浏览器扩展工具，旨在帮助用户将网页内容快速保存到 Notion 笔记本中。&#xA;今天冲浪的时候发现了一个很好玩的东西&amp;mdash;Notion Web Clipper&#xA;其实之前我也用过Notion，只不过我记得当时不支持中文，而且我当时下载了Notion For Windows后打开登录上之后又给我跳转到了网页上，看了一些安利文章后发现确实不错，但是被只有英文和网页端的情况给劝退了。&#xA;最近工作需要用到语雀，使用的时候总是感觉怪怪的，然后又去搜索类似语雀的软件，又发现了Notion，而且现在已经解决了我上面说的两个问题。&#xA;话不多说立马下载，接着就开始了寻找Notion教程的文章，直到今天在尝试Web Clipper和简悦 - SimpRead插件的时候，看到了Notion Web Clipper，嗯！？还能这么玩，不愧是我选择的软件，更爱了哈哈&#xA;赶紧把我Edge和Chrome的那一堆沾满灰的东西挪一下地方，正好清理清理灰/dog 在挪的时候发现真的好用，由于我是两个电脑，一个电脑用Edge另一个用Chrome，有时候今天在这个电脑收藏的网页后另一个电脑没有，于是我还每隔一段时间把收藏夹导出放到U盘中，做了几次后就患上了懒癌晚期，Notion Web Clipper成功的帮我将收藏夹和笔记统一了起来。</description>
+    </item>
+  </channel>
+</rss>
