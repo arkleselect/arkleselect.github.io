@@ -1443,6 +1443,7 @@ height: 260px;
 
 .imageBig {
   /* 基础样式 */
+  width: 670px !important;
   border: 1px solid #ccc; /* 灰色边框 */
   border-radius: 12px; /* 圆角 */
   /* 鼠标悬停时的样式 */
