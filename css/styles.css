@@ -1422,7 +1422,8 @@ height: 260px;
 }
 .nav-previous,
 .nav-next {
-  flex: 0 0 38%;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 .nav-next {
