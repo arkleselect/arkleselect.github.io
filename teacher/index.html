@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Canal数据不同步问题</title>
+  <title>老师</title>
   <meta name="description" content="">
   <meta name="keywords" content="keyword1, keyword2, ">
 
@@ -153,18 +153,18 @@ function loadUtterances(theme) {
 
   
   <div class="image-wrapper">
-    <div class="image" style="background-image: url('https://raw.githubusercontent.com/arkleselect/blog/main/img/0fe0d788ab4c96e24bdb750d11418e2.png')"></div>
+    <div class="image" style="background-image: url('https://raw.githubusercontent.com/arkleselect/blog/main/img/teacher.jpeg')"></div>
     
   </div>
   <div class="main-wrapper">
     <div class="content-wrapper">
       <main class="content">
         
-          <h1 class="h1-single">Canal数据不同步问题</h1>
+          <h1 class="h1-single">老师</h1>
         
-        <p class="article-cate-single">记录</p>
+        <p class="article-cate-single">流水账</p>
         
-          <p class="article-meta-single">2024-09-12</p>
+          <p class="article-meta-single">2024-10-15</p>
         
 
         
@@ -172,40 +172,7 @@ function loadUtterances(theme) {
           
           
           
-          <p>当发现修改了数据库后修改的数据并没有发送到MQ，通过查看Canal的日志发现下边的错误。</p>
-<p>进入Canal目录，查看日志：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> /data/soft/canal/logs
-</span></span><span class="line"><span class="cl">tail -f logs/xzb-canal.log
-</span></span></code></pre></div><p>Canal报错如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">2023-09-22 08:34:40.802 <span class="o">[</span><span class="nv">destination</span> <span class="o">=</span> xzb-canal , <span class="nv">address</span> <span class="o">=</span> /192.168.101.68:3306 , EventParser<span class="o">]</span> WARN  c.a.o.c.p.inbound.mysql.rds.RdsBinlogEventParserProxy - ---&gt; find start position successfully, EntryPosition<span class="o">[</span><span class="nv">included</span><span class="o">=</span>false,journalName<span class="o">=</span>mysql-bin.000055,position<span class="o">=</span>486221,serverId<span class="o">=</span>1,gtid<span class="o">=</span>,timestamp<span class="o">=</span>1695341830000<span class="o">]</span> cost : 13ms , the next step is binlog dump
-</span></span><span class="line"><span class="cl">2023-09-22 08:34:40.811 <span class="o">[</span><span class="nv">destination</span> <span class="o">=</span> xzb-canal , <span class="nv">address</span> <span class="o">=</span> /192.168.101.68:3306 , EventParser<span class="o">]</span> ERROR c.a.o.canal.parse.inbound.mysql.dbsync.DirectLogFetcher - I/O error <span class="k">while</span> reading from client socket
-</span></span><span class="line"><span class="cl">java.io.IOException: Received error packet: <span class="nv">errno</span> <span class="o">=</span> 1236, <span class="nv">sqlstate</span> <span class="o">=</span> HY000 <span class="nv">errmsg</span> <span class="o">=</span> Could not find first log file name in binary log index file
-</span></span><span class="line"><span class="cl">        at com.alibaba.otter.canal.parse.inbound.mysql.dbsync.DirectLogFetcher.fetch<span class="o">(</span>DirectLogFetcher.java:102<span class="o">)</span> ~<span class="o">[</span>canal.parse-1.1.5.jar:na<span class="o">]</span>
-</span></span><span class="line"><span class="cl">        at com.alibaba.otter.canal.parse.inbound.mysql.MysqlConnection.dump<span class="o">(</span>MysqlConnection.java:238<span class="o">)</span> <span class="o">[</span>canal.parse-1.1.5.jar:na<span class="o">]</span>
-</span></span><span class="line"><span class="cl">        at com.alibaba.otter.canal.parse.inbound.AbstractEventParser<span class="nv">$1</span>.run<span class="o">(</span>AbstractEventParser.java:262<span class="o">)</span> <span class="o">[</span>canal.parse-1.1.5.jar:na<span class="o">]</span>
-</span></span><span class="line"><span class="cl">        at java.lang.Thread.run<span class="o">(</span>Thread.java:748<span class="o">)</span> <span class="o">[</span>na:1.8.0_181<span class="o">]</span>
-</span></span></code></pre></div><p>找到关键的位置：<strong>Could not find first</strong> <strong>log file</strong> <strong>name in</strong> <strong>binary log</strong> <strong>index file</strong></p>
-<p>根据日志分析是Canal找不到mysql-bin.000055 的486221位置，原因是mysql-bin.000055文件不存在，这是由于为了节省磁盘空间将binlog日志清理了。</p>
-<p>解决方法：</p>
-<p>把canal复位从最开始开始同步的位置。</p>
-<ol>
-<li>首先重置mysql的bin log：</li>
-</ol>
-<p>连接mysql执行：reset master</p>
-<p>执行后所有的binlog删除，从000001号开始</p>
-<p>通过show master status;查看 ，结果显示 mysql-bin.000001</p>
-<ol start="2">
-<li>先停止canal</li>
-</ol>
-<p>docker stop canal</p>
-<ol start="3">
-<li>删除meta.dat</li>
-</ol>
-<p>rm -rf /data/soft/canal/conf/meta.dat</p>
-<ol start="4">
-<li>再启动canal</li>
-</ol>
-<p>docker start canal</p>
+          <p>张老师 - 王老师 - *** - 唐老师 - 刘老师 - 赵老师</p>
 
         </article>
 
@@ -232,7 +199,7 @@ function loadUtterances(theme) {
             
             
             
-              <a href="../categories#%25E8%25AE%25B0%25E5%25BD%2595">记录</a>
+              <a href="../categories#%25E6%25B5%2581%25E6%25B0%25B4%25E8%25B4%25A6">流水账</a>
               
             
           
@@ -249,17 +216,11 @@ function loadUtterances(theme) {
   <div class="nav-links-down">
     
     <div class="nav-previous">
-      <a href="https://arkleselect.github.io/java/" rel="prev">
-        <span class="nav-title">Java面试宝典</span>
+      <a href="https://arkleselect.github.io/canaldata/" rel="prev">
+        <span class="nav-title">Canal数据不同步问题</span>
       </a>
     </div>
     
-    
-    <div class="nav-next">
-      <a href="https://arkleselect.github.io/teacher/" rel="next">
-        <span class="nav-title">老师</span>
-      </a>
-    </div>
     
   </div>
 </nav>

@@ -6,8 +6,15 @@
     <description>Recent content in 首页 on 打破第四面墙</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 12 Sep 2024 16:19:04 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Oct 2024 16:52:12 +0800</lastBuildDate>
     <atom:link href="https://arkleselect.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>老师</title>
+      <link>https://arkleselect.github.io/teacher/</link>
+      <pubDate>Tue, 15 Oct 2024 16:52:12 +0800</pubDate>
+      <guid>https://arkleselect.github.io/teacher/</guid>
+      <description>张老师 - 王老师 - *** - 唐老师 - 刘老师 - 赵老师</description>
+    </item>
     <item>
       <title>Canal数据不同步问题</title>
       <link>https://arkleselect.github.io/canaldata/</link>
