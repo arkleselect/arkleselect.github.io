@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dailies on Wpprqi</title>
-    <link>arkleselect.github.io/daily/</link>
+    <link>https://arkleselect.github.io/daily/</link>
     <description>Recent content in Dailies on Wpprqi</description>
     <generator>Hugo</generator>
     <language>zh-us</language>
     <lastBuildDate>Tue, 22 Jul 2025 14:40:22 +0800</lastBuildDate>
-    <atom:link href="arkleselect.github.io/daily/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://arkleselect.github.io/daily/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>arkleselect.github.io/daily/722/</link>
+      <link>https://arkleselect.github.io/daily/722/</link>
       <pubDate>Tue, 22 Jul 2025 14:40:22 +0800</pubDate>
-      <guid>arkleselect.github.io/daily/722/</guid>
+      <guid>https://arkleselect.github.io/daily/722/</guid>
       <description>不想玩马可波罗了，这次是真的不想玩了</description>
     </item>
     <item>
       <title></title>
-      <link>arkleselect.github.io/daily/test/</link>
+      <link>https://arkleselect.github.io/daily/test/</link>
       <pubDate>Mon, 21 Jul 2025 23:10:22 +0800</pubDate>
-      <guid>arkleselect.github.io/daily/test/</guid>
+      <guid>https://arkleselect.github.io/daily/test/</guid>
       <description>钢琴好难练啊。。。</description>
     </item>
   </channel>
