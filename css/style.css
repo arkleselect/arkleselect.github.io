@@ -299,7 +299,7 @@ footer a {
 }
 .article-content .article-title {
   text-align: left;
-  margin-bottom: 1em;
+  margin-bottom: 0.7em;
 }
 
 .article-title {
@@ -363,7 +363,7 @@ footer a {
 .article-meta-bottom {
   display: flex;
 /*  align-items: center;*/
-  margin-top: 0.5em;
+  margin-top: 0.8em;
   gap: 0.3em;
   color: #fcfaf2;
 }
@@ -1310,13 +1310,13 @@ body, p, .post-content, .daily-post-content p, .daily-post p {
 
 
 /* 代码块与上下方文本的间距 */
-.article-content pre,
+/*.article-content pre,
 .post-body pre,
 .post-article-content pre {
-  margin-top: 0.3em;      /* 与上方文本距离 */
-  margin-bottom: 0;   /* 与下方文本距离 */
+  margin-top: 1.7em;
+  margin-bottom: 1.7em;
 }
-
+*/
 
 
 
