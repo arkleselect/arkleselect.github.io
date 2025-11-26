@@ -2,10 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://arkleselect.github.io/daily/1005/</loc>
-    <lastmod>2025-10-05T01:07:36+08:00</lastmod>
+    <loc>https://arkleselect.github.io/daily/251126/</loc>
+    <lastmod>2025-11-26T14:48:46+08:00</lastmod>
   </url><url>
     <loc>https://arkleselect.github.io/daily/</loc>
+    <lastmod>2025-11-26T14:48:46+08:00</lastmod>
+  </url><url>
+    <loc>https://arkleselect.github.io/daily/1005/</loc>
     <lastmod>2025-10-05T01:07:36+08:00</lastmod>
   </url><url>
     <loc>https://arkleselect.github.io/daily/0903/</loc>
@@ -38,7 +41,7 @@
     <loc>https://arkleselect.github.io/categories/%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2025-07-21T13:47:53+08:00</lastmod>
   </url><url>
-    <loc>https://arkleselect.github.io/posts/gpt-sovits%E5%A3%B0%E9%9F%B3%E5%85%8B%E9%9A%86/</loc>
+    <loc>https://arkleselect.github.io/posts/gpt-sovits-clone/</loc>
     <lastmod>2025-07-20T16:00:00+08:00</lastmod>
   </url><url>
     <loc>https://arkleselect.github.io/posts/20240903/</loc>

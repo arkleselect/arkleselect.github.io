@@ -1,13 +1,14 @@
 // 导航栏功能
-function initNavigation() {
-  const menuButtons = document.querySelectorAll('.menu-button');
-  menuButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      menuButtons.forEach(btn => btn.classList.remove('menu-button-active'));
-      this.classList.add('menu-button-active');
-    });
-  });
-}
+// 注释掉此函数,因为导航激活状态由 Hugo 模板控制
+// function initNavigation() {
+//   const menuButtons = document.querySelectorAll('.menu-button');
+//   menuButtons.forEach(button => {
+//     button.addEventListener('click', function () {
+//       menuButtons.forEach(btn => btn.classList.remove('menu-button-active'));
+//       this.classList.add('menu-button-active');
+//     });
+//   });
+// }
 
 // 新增部分
 function initMenuSticky() {
@@ -39,13 +40,13 @@ function smoothScroll(target) {
 }
 
 // 页面加载时初始化
-document.addEventListener('DOMContentLoaded', function() {
-  initNavigation();
+document.addEventListener('DOMContentLoaded', function () {
+  // initNavigation(); // 已注释,由 Hugo 模板控制激活状态
   initMenuSticky();
 
   // 绑定文章卡片点击跳转
-  document.querySelectorAll('.article-item').forEach(function(item) {
-    item.addEventListener('click', function(e) {
+  document.querySelectorAll('.article-item').forEach(function (item) {
+    item.addEventListener('click', function (e) {
       // 如果点击的是 a 标签，不处理
       if (e.target.tagName.toLowerCase() === 'a') return;
       var url = item.getAttribute('data-url');
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   document.body.classList.add('loaded');
 });
 
