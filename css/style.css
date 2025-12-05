@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background: #121212;
-  color: #FCFAF2;
+  color: #CCCCCC;
   overflow: auto;
   /* 允许页面滚动 */
 }
@@ -38,7 +38,7 @@ body {
   font-size: 2em;
   font-weight: bold;
   font-style: normal;
-  color: #fcfaf2;
+  color: #FCFAF2;
   letter-spacing: 2px;
   margin: 0.8rem auto;
 }
@@ -121,7 +121,7 @@ body {
 .menu-button {
   border: none;
   background: none;
-  color: #fcfaf2;
+  color: #CCCCCC;
   font-size: 1.05em;
   border-radius: 0;
   padding: 0.53em 1.2em;
@@ -307,7 +307,7 @@ footer a {
 .article-title {
   margin-bottom: 10px;
   text-align: center;
-  color: #fcfaf2;
+  color: #FCFAF2;
   font-size: 1.5em;
   margin-top: 0.3em;
 }
@@ -319,14 +319,14 @@ footer a {
 
 .article-content .article-summary {
   font-size: 1.06em;
-  color: #fcfaf2;
+  color: #CCCCCC;
 }
 
 .article-summary {
   flex-grow: 1;
   /* 让摘要占据剩余空间 */
   font-size: 1.06em;
-  color: #fcfaf2;
+  color: #CCCCCC;
 }
 
 .article-footer {
@@ -371,15 +371,15 @@ footer a {
   /*  align-items: center;*/
   margin-top: 0.8em;
   gap: 0.3em;
-  color: #fcfaf2;
+  color: #CCCCCC;
 }
 
 /* 文章分类区域（左下角） */
 .article-category {
-  color: #fcfaf2;
+  color: #CCCCCC;
   background: #51a7f9;
   text-transform: uppercase;
-  /*border: 1px solid #fcfaf2;*/
+  /*border: 1px solid #CCCCCC;*/
   border-radius: 5px;
   padding: 0.01em 0.5em;
   font-size: 0.9em;
@@ -391,7 +391,7 @@ footer a {
 
 /* 时间区域 */
 .article-date {
-  color: #fcfaf2;
+  color: #CCCCCC;
   font-weight: 500;
 }
 
@@ -672,7 +672,7 @@ footer a {
 }
 
 .post-body {
-  color: #e0e0e0;
+  color: #CCCCCC;
   line-height: 1.8;
   font-size: 1.1em;
 }
@@ -683,7 +683,7 @@ footer a {
 .post-body h4,
 .post-body h5,
 .post-body h6 {
-  color: #fff;
+  color: #FCFAF2;
   margin: 2em 0 1em 0;
   font-weight: 600;
 }
@@ -728,7 +728,7 @@ footer a {
 
 .post-body pre code {
   background: none;
-  color: #e0e0e0;
+  color: #CCCCCC;
   padding: 0;
 }
 
@@ -870,13 +870,13 @@ footer a {
 
 .prev-card .article-nav-date {
   order: 2;
-  color: #fcfaf2;
+  color: #CCCCCC;
   text-align: right;
 }
 
 .next-card .article-nav-date {
   order: 1;
-  color: #fcfaf2;
+  color: #CCCCCC;
   text-align: left;
 }
 
@@ -888,7 +888,7 @@ footer a {
 .article-nav-title {
   font-size: 1.1em;
   font-weight: 600;
-  color: #fcfaf2;
+  color: #CCCCCC;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -934,7 +934,7 @@ footer a {
 .article-comment-title {
   font-size: 1.5em;
   font-weight: 600;
-  color: #fcfaf2;
+  color: #CCCCCC;
   margin-bottom: 1em;
 }
 
@@ -962,7 +962,7 @@ footer a {
 .card {
   background: #1b1b1b;
   border-radius: 2px;
-  color: #fcfaf2;
+  color: #CCCCCC;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 1.2em;
   margin-bottom: 2em;
@@ -981,7 +981,7 @@ footer a {
 .card-content {
   font-size: 1.17em;
   text-align: center;
-  color: #fcfaf2;
+  color: #CCCCCC;
 }
 
 
@@ -994,7 +994,7 @@ footer a {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #fcfaf2;
+  color: #CCCCCC;
   background: transparent;
   border: none;
   border-radius: 2px;
@@ -1054,13 +1054,13 @@ footer a {
 /* 按钮初始状态 */
 .card-category-btn {
   padding: 0.3em 0.9em;
-  border: 0.1rem solid #fcfaf2;
+  border: 0.1rem solid #CCCCCC;
   /* 白色描边 */
   border-radius: 8px;
   /* 圆角 */
   background: #1b1b1b;
   /* 黑色底 */
-  color: #fcfaf2;
+  color: #CCCCCC;
   /* 白色字 */
   font-size: 1em;
   font-weight: 600;
@@ -1201,7 +1201,7 @@ pre,
 
 .user-info {
   display: flex;
-  color: #fcfaf2;
+  color: #CCCCCC;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -1298,7 +1298,7 @@ pre,
 
 .daily-post-content {
   position: relative;
-  color: #fcfaf2;
+  color: #CCCCCC;
   padding: 0.1em 0.1em 0.1em 3.4em;
   background: transparent;
   box-shadow: none;
@@ -1308,7 +1308,7 @@ pre,
 }
 
 .daily-post-content p {
-  color: #fcfaf2;
+  color: #CCCCCC;
 }
 
 .daily-post-content .daily-post-date {
@@ -1455,4 +1455,280 @@ p,
 
 .article-main-card .article-title {
   text-align: center;
+}
+
+/* ========== Cat Gallery Styles ========== */
+.cat-gallery {
+  width: 75%;
+  max-width: 932px;
+  margin: 2em auto;
+  padding: 1.5em;
+  /* Increase padding */
+  background: rgba(36, 36, 36);
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+
+.gallery-title {
+  color: #fff;
+  font-size: 1.8em;
+  margin: 0 0 0.2em 0;
+}
+
+.gallery-subtitle {
+  color: #8492a6;
+  font-size: 0.95em;
+  margin: 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1em;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  /* Maintain aspect ratio */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .cat-gallery {
+    width: 90%;
+    padding: 1em;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* Two columns on mobile */
+    gap: 0.5em;
+  }
+}
+
+/* ========== Refined Cat Gallery Styles ========== */
+.cat-gallery-section {
+  width: 80%;
+  margin: 3em auto;
+  box-sizing: border-box;
+  background: #1b1b1b;
+  border-radius: 4px;
+  padding: 1.5em;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.section-header {
+  border-left: 5px solid #52a8dd;
+  padding-left: 15px;
+}
+
+.section-title {
+  color: #FCFAF2;
+  font-size: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.section-subtitle {
+  color: #FCFAF2;
+  font-size: 0.9em;
+  margin: 0.5em 0 0 0;
+  font-weight: bold;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5em;
+}
+
+.gallery-card {
+  background: #1b1b1b;
+  /* Dark card background */
+  border-radius: 8px;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-card:hover {
+  background: #252525;
+  transform: translateY(-5px);
+}
+
+.gallery-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1em;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #333;
+}
+
+.gallery-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-info h3 {
+  color: #fff;
+  font-size: 1.1em;
+  margin: 0 0 0.5em 0;
+}
+
+.gallery-info p {
+  color: #8492a6;
+  font-size: 0.85em;
+  margin: 0;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .cat-gallery-section {
+    width: 90%;
+    margin: 2em auto;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+  }
+}
+
+/* ========== Bento Grid Gallery Styles ========== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(2, 200px);
+  gap: 0.5em;
+}
+
+.bento-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background: #252525;
+}
+
+.bento-large {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  /* Spans 2 rows */
+}
+
+.bento-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.bento-item:hover img {
+  transform: scale(1.05);
+}
+
+.bento-label {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(27, 27, 27, 0.4);
+  /* Semi-transparent background */
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .bento-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .bento-item {
+    height: 200px;
+    /* Fixed height for mobile items */
+  }
+
+  .bento-large {
+    height: 300px;
+    /* Taller for main image on mobile */
+  }
+}
+
+/* ========== Text Module Styles ========== */
+.text-module-section {
+  width: 80%;
+  box-sizing: border-box;
+  background: #1b1b1b;
+  border-radius: 4px;
+  padding: 1.5em;
+  margin: 3em auto;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+.text-content-box {
+  padding: 0.5em 0;
+}
+
+.text-subtitle {
+  color: #FCFAF2;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+}
+
+.text-content-box p {
+  color: #CCCCCC;
+  font-size: 1em;
+  line-height: 1.8;
+  margin-bottom: 1em;
+}
+
+.text-content-box p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .text-module-section {
+    width: 90%;
+    margin: 2em auto;
+  }
 }
