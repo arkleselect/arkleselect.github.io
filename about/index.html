@@ -9,6 +9,8 @@
     content="The darkness is boundless">
   <link rel="icon" type="image/x-icon" href="/mask.ico">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    integrity="sha384-n99VslWt3HLhYhZ8e7vE3S7S4RHswM8Fvj0CQ6Svh7koG8Z/Jp9Y+fR3mXm90656" crossorigin="anonymous">
 </head>
 
 <body class="section-page about-section">
@@ -304,13 +306,24 @@
 
   
   <footer>
-  <p>Designed by <a href="https://cynosura.one">wpprqi</a> © 2025</p>
+  <p>Designed by <a href="https://cynosura.one">wpprqi</a> © 2026</p>
 </footer>
-
 
   
   <script src="/js/main.js"></script>
-
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    integrity="sha384-7zkQWkzgoc8ne/+8DoHkoVTAnOq5oz61/+36nmeyKnLpxSMMx33tK+90j6V6C4aG"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body, {
+        delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError : false
+    });"></script>
 </body>
 
 </html>

@@ -1134,8 +1134,9 @@ footer a {
 
 /* 标题间距，适合你的页面风格 */
 .single .article-content h1,
-.single .article-content h2 {
-  margin-top: 0.6em;
+.single .article-content h2,
+.single .article-content h3 {
+  margin-top: 0.3em;
   /* 上方间距，保证层级感 */
   margin-bottom: 0;
   /* 下方间距，让标题和正文分开 */
@@ -1144,7 +1145,20 @@ footer a {
 /* 正文与标题之间的距离（正文为 p 标签） */
 .article-content p {
   margin-top: 0.1em;
-  /* 段落与上方标题保持紧凑 */
+  margin-bottom: 1.3em;
+}
+
+/* Notion 风格文章图片样式 */
+.article-content img {
+  display: block;
+  max-width: 85%;
+  /* 限制宽度，使其更像 Notion */
+  height: auto;
+  /* 改为居左，仅保留上下边距 */
+  border-radius: 3px;
+  /* 柔和圆角 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  /* 淡淡的投影增加质感 */
 }
 
 
@@ -1458,85 +1472,17 @@ p,
 }
 
 /* ========== Cat Gallery Styles ========== */
-.cat-gallery {
-  width: 75%;
-  max-width: 932px;
-  margin: 2em auto;
-  padding: 1.5em;
-  /* Increase padding */
-  background: rgba(36, 36, 36);
-  border-radius: 2px;
-  box-sizing: border-box;
-}
-
-.gallery-header {
-  text-align: center;
-  margin-bottom: 1.5em;
-}
-
-.gallery-title {
-  color: #fff;
-  font-size: 1.8em;
-  margin: 0 0 0.2em 0;
-}
-
-.gallery-subtitle {
-  color: #8492a6;
-  font-size: 0.95em;
-  margin: 0;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1em;
-}
-
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 4px;
-  cursor: pointer;
-  aspect-ratio: 4/3;
-  /* Maintain aspect ratio */
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-  display: block;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.1);
-}
-
-/* Responsive adjustment */
-@media (max-width: 768px) {
-  .cat-gallery {
-    width: 90%;
-    padding: 1em;
-  }
-
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    /* Two columns on mobile */
-    gap: 0.5em;
-  }
-}
-
-/* ========== Refined Cat Gallery Styles ========== */
 .cat-gallery-section {
   width: 80%;
   margin: 3em auto;
-  box-sizing: border-box;
-  background: #1b1b1b;
-  border-radius: 4px;
-  padding: 1.5em;
   margin-top: 0;
   margin-bottom: 0.5em;
+  padding: 1.75em;
+  box-sizing: border-box;
+  background: #1b1b1b;
+  border-radius: 6px;
+  border: 1px solid #272727;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .section-header {
@@ -1558,136 +1504,132 @@ p,
   font-weight: bold;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5em;
+.cat-gallery-section .text-content-box {
+  background: transparent;
+  padding: 0.4em 0 0.2em;
+  margin-bottom: 1.2em;
 }
 
-.gallery-card {
-  background: #1b1b1b;
-  /* Dark card background */
-  border-radius: 8px;
-  padding: 1.5em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.3s ease, background 0.3s ease;
-  cursor: pointer;
-}
-
-.gallery-card:hover {
-  background: #252525;
-  transform: translateY(-5px);
-}
-
-.gallery-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 1em;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #333;
-}
-
-.gallery-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.gallery-info h3 {
-  color: #fff;
-  font-size: 1.1em;
-  margin: 0 0 0.5em 0;
-}
-
-.gallery-info p {
-  color: #8492a6;
-  font-size: 0.85em;
+.cat-gallery-section .text-subtitle {
+  color: #97b3cc;
+  font-size: 0.95em;
   margin: 0;
-}
-
-/* Responsive adjustment */
-@media (max-width: 768px) {
-  .cat-gallery-section {
-    width: 90%;
-    margin: 2em auto;
-  }
-
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1em;
-  }
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 /* ========== Bento Grid Gallery Styles ========== */
 .bento-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(2, 200px);
-  gap: 0.5em;
+  grid-template-columns: repeat(3, 359px);
+  /* 严格匹配 359px 宽度 */
+  grid-template-rows: repeat(2, 273px);
+  /* 严格匹配 273px 高度 */
+  gap: 0.5rem;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .bento-item {
   position: relative;
   overflow: hidden;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-  background: #252525;
+  height: 273px;
+  /* 默认小图高度 */
+  border-radius: 12px;
+  background: #101010;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* 降低阴影强度，使其更像图中风格 */
+  transition: none;
+  /* 去掉所有过渡效果 */
 }
 
-.bento-large {
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-  /* Spans 2 rows */
+.bento-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+  opacity: 0.9;
+  transition: opacity 0.35s ease;
+  z-index: 1;
 }
 
 .bento-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
   display: block;
+  filter: saturate(1.03);
+  transition: transform 0.35s ease;
+}
+
+/* 去掉所有的 hover 效果以匹配图中风格 */
+.bento-item:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .bento-item:hover img {
-  transform: scale(1.05);
+  transform: none;
+}
+
+.bento-item:hover::after {
+  opacity: 0.9;
+}
+
+.bento-large {
+  grid-row: span 2;
+  grid-column: 1;
+  /* 强制在第一列 */
+  height: 554px;
+  /* 匹配用户提供的大图高度 */
+  min-height: auto;
 }
 
 .bento-label {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(27, 27, 27, 0.4);
-  /* Semi-transparent background */
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 0.85em;
-  backdrop-filter: blur(4px);
+  left: 14px;
+  bottom: 12px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  background: rgba(36, 34, 34, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.097);
+  color: #f3f0e8;
+  font-size: 0.8em;
+  letter-spacing: 0.01em;
+  z-index: 2;
   pointer-events: none;
 }
 
-/* Responsive adjustment */
-@media (max-width: 768px) {
-  .bento-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+@media (max-width: 960px) {
+  .cat-gallery-section {
+    width: 90%;
+    padding: 1.4em;
   }
 
-  .bento-item {
-    height: 200px;
-    /* Fixed height for mobile items */
+  .bento-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
   }
 
   .bento-large {
-    height: 300px;
-    /* Taller for main image on mobile */
+    grid-row: span 1;
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 540px) {
+  .cat-gallery-section {
+    width: 92%;
+    padding: 1.1em;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .bento-item {
+    min-height: 210px;
   }
 }
 

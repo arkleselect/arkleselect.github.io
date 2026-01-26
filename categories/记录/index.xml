@@ -6,8 +6,15 @@
     <description>Recent content in 记录 on Wpprqi</description>
     <generator>Hugo</generator>
     <language>zh-us</language>
-    <lastBuildDate>Mon, 21 Jul 2025 13:47:53 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jan 2026 22:26:54 +0800</lastBuildDate>
     <atom:link href="https://arkleselect.github.io/categories/%E8%AE%B0%E5%BD%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paddle训练模型</title>
+      <link>https://arkleselect.github.io/posts/paddle%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Mon, 26 Jan 2026 22:26:54 +0800</pubDate>
+      <guid>https://arkleselect.github.io/posts/paddle%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/</guid>
+      <description>1. 写在前面 模型（推理模型）分为预测模型和识别模型，模型拿到数据需要先使用预测模型将文本框选出来，然后再使用识别模型来识别文本&#xA;训练模型总体分为4个步骤：第一步：标注数据，并生成相关配置文件 第二步：训练预测模型 第三步：训练识别模型 第四步：将两个模型导出为推理模型&#xA;首先标注数据使用PPOCRLabel，将准备好的图片打开，可以使用自动标注将图片中需要识别的文本标注出来，然后人工修改模型预测错的数据，也可以直接自己框选并写入数据&#xA;PPOCRLabel使用教程&#xA;可以从训练曲线中参考到训练模型过程中模型在识别时学习的过程&#xA;1. 准确率 (Accuracy) 在训练一百轮中，整体表现稳定提升，说明模型学习效果不断增强。&#xA;2. 总损失（Loss） Loss：模型在一次前向计算后，所有任务（子损失）误差的加权和。它反映了模型整体预测结果与真实标签之间的差距。&#xA;$Total Loss = CTCLoss + NRTRLoss$&#xA;第 2 轮约 93，迅速降到第 10 轮 ~17，然后平滑下降到第 50 轮 ~1.7，再到第 100 轮 ~0.85。训练初期收敛最快，中后期趋于平缓。&#xA;3. CTCLoss CTCLoss：它惩罚模型把字符预测到错误的时刻或多余的空白，数值越小说明模型在序列对齐和字符识别上越准确。&#xA;从 ~90 降到 ~0.23，第 10–20 轮后就降至个位数，第 40 轮后接近 1，至第 100 轮降至 ~0.23。&#xA;是整体 loss 降低的主力。&#xA;4. 归一化编辑距离 (Norm Edit Distance) 编辑距离：衡量预测文本和真实文本在字符层面需要多少次“增删改”操作才能互相转换。&#xA;归一化：用编辑距离除以真实文本长度，得到一个 0–1 之间的比值。如果值越接近0，表示预测文本与真实文本差异越小，预测的越准确。&#xA;第 30+ 轮后即超过 0.90，到第 60 轮接近 0.98，表明预测文本与真实文本高度一致。</description>
+    </item>
     <item>
       <title>AI数字人SadTalker</title>
       <link>https://arkleselect.github.io/posts/ai%E6%95%B0%E5%AD%97%E4%BA%BAsadtalker/</link>
