@@ -1178,7 +1178,7 @@ pre,
   border-radius: 11px;
   /* 适中圆角 */
   padding: 2.2em 1.5em;
-  margin: 1.5em 0;
+  margin-bottom: 1.5em;
   font-family: 'JetBrains Mono', 'Fira Mono', 'Menlo', 'Consolas', monospace;
   font-size: 15px;
   overflow-x: auto;

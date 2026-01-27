@@ -6,8 +6,15 @@
     <description>Recent content in 标题 on Wpprqi</description>
     <generator>Hugo</generator>
     <language>zh-us</language>
-    <lastBuildDate>Mon, 26 Jan 2026 22:26:54 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 09:32:03 +0800</lastBuildDate>
     <atom:link href="https://arkleselect.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mac同局域网连接centos7虚拟机中翰高数据库</title>
+      <link>https://arkleselect.github.io/posts/%E8%BF%9E%E6%8E%A5%E7%BF%B0%E9%AB%98%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Tue, 27 Jan 2026 09:32:03 +0800</pubDate>
+      <guid>https://arkleselect.github.io/posts/%E8%BF%9E%E6%8E%A5%E7%BF%B0%E9%AB%98%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>1. 编辑网络编辑器 虚拟机改成桥接/Net模式&#xA;# ip a 看同局域网物理机是否能ping通&#xA;2. 开放 5866 端口 虚拟机开放防火墙翰高数据库的端口&#xA;sudo firewall-cmd --zone=public --add-port=5866/tcp --permanent sudo firewall-cmd --reload 3. 修改数据库配置 先找到翰高数据库配置文件&#xA;find / -name postgresql.conf 2&amp;gt;/dev/null&#xA;然后编辑conf配置文件，将监听本地改为*，然后添加端口5866&#xA;在pg_hba.conf末尾添加一行代码&#xA;host all all 0.0.0.0/0 md5 4. 重启数据库 找到服务&#xA;[root@localhost data]# systemctl list-units --type=service | grep -E &amp;#34;hgdb|highgo&amp;#34; hgdb-4.5.service loaded active running hgdb 5. 测试连接 mortysmith@Mortys-MacBook-Air ~ % nc -zv 192.168.50.173 5866 Connection to 192.168.50.173 port 5866 [tcp/*] succeeded! </description>
+    </item>
     <item>
       <title>Paddle训练模型</title>
       <link>https://arkleselect.github.io/posts/paddle%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/</link>
