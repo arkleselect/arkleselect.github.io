@@ -77,64 +77,74 @@ export default function Home() {
         <div className="max-w-xl w-full p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/5 to-transparent relative group">
           <FiCommand className="absolute top-4 left-4 w-4 h-4 text-white/20" />
           <p className="font-press-start text-xs leading-loose text-center text-white/80 p-4">
-            " THE DARKNESS IS BOUNDLESS, BUT SO IS THE LIGHT WE CARRY. "
+            "DARKNESS IS BOUNDLESS, YET HUMANITY FOOLISHLY YEARNS FOR LIGHT."
           </p>
           <div className="text-[10px] text-right text-white/20 font-mono mt-4">— SYSTEM_OVERRIDE</div>
         </div>
       </section>
 
-      {/* 方案4: GitHub Contribution 模拟贡献墙 */}
-      <section className="mb-24">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold">足迹</h2>
-          <span className="text-[10px] text-white/30 font-mono uppercase">Github: ArkleSelect</span>
-        </div>
-        <div className="p-4 rounded-xl border border-white/5 bg-black/20 overflow-hidden">
-          <div className="grid grid-cols-[repeat(52,1fr)] gap-1">
-            {Array.from({ length: 52 * 7 }).map((_, i) => (
-              <div
-                key={i}
-                className={`aspect-square rounded-[1px] ${Math.random() > 0.8 ? 'bg-white/40' :
-                  Math.random() > 0.6 ? 'bg-white/20' :
-                    Math.random() > 0.4 ? 'bg-white/10' : 'bg-white/5'
-                  }`}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="flex gap-12 relative">
+        {/* 纵向结构线 */}
+        <div className="hidden md:block absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-white/10 via-white/5 to-transparent"></div>
 
-      {/* 工具集 Section */}
-      <section className="mb-24">
-        <h2 className="mb-8 text-xl font-semibold text-center md:text-left">工具集</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-          {tools.map((tool) => (
-            <div
-              key={tool.name}
-              className="group relative flex flex-col justify-between p-4 rounded-xl border border-white/10 bg-black/40 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-black/60"
-            >
-              <div className="flex flex-col gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white transition-transform group-hover:scale-105">
-                  {tool.icon}
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-white mb-1.5">{tool.name}</h3>
-                  <p className="text-xs text-white/50 leading-relaxed mb-4">{tool.description}</p>
-                </div>
-              </div>
-
-              <a
-                href={tool.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-xs px-3 py-1.5 rounded-md bg-white/5 border border-white/10 text-white transition-all hover:bg-white hover:text-black self-start"
-              >
-                查看 →
-              </a>
+        <div className="flex-1 md:pl-8 space-y-24">
+          {/* 方案4: GitHub Contribution 模拟贡献墙 - 重构为纹理风格 */}
+          <section>
+            <div className="flex items-baseline justify-between mb-2 border-b border-white/5 pb-2">
+              <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Footprints</h2>
+              <span className="text-[10px] text-white/20 font-mono uppercase tracking-widest">ArkleSelect // 2024-2025</span>
             </div>
-          ))}
+            <div className="rounded-sm border border-white/5 bg-black/10 overflow-hidden p-1">
+              <div className="grid grid-cols-[repeat(52,1fr)]">
+                {Array.from({ length: 52 * 7 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={`aspect-square ${Math.random() > 0.8 ? 'bg-white/30' :
+                      Math.random() > 0.6 ? 'bg-white/15' :
+                        Math.random() > 0.4 ? 'bg-white/5' : 'bg-transparent'
+                      }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* 工具集 Section - 重构为侧标设计 */}
+          <section>
+            <div className="flex items-baseline justify-between mb-6 border-b border-white/5 pb-2">
+              <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Core_Tools</h2>
+              <span className="text-[10px] text-white/20 font-mono uppercase tracking-widest">V.1.0.4 // SYSTEM_ACTIVE</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {tools.map((tool) => (
+                <div
+                  key={tool.name}
+                  className="group relative flex flex-col justify-between p-4 border-l border-white/10 hover:border-white transition-all duration-500"
+                >
+                  <div className="flex flex-col gap-3">
+                    <div className="text-white/30 group-hover:text-white transition-colors">
+                      {tool.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white/80 group-hover:text-white mb-1 transition-colors uppercase tracking-tight">{tool.name}</h3>
+                      <p className="text-[10px] text-white/30 leading-relaxed font-mono">{tool.description.toUpperCase()}</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href={tool.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 text-[10px] font-mono text-white/20 hover:text-white flex items-center gap-1 transition-all"
+                  >
+                    ACCESS_URL <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
