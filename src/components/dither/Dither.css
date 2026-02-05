@@ -6,6 +6,7 @@
     left: 0;
     z-index: -1;
     pointer-events: none;
+    /* Changed from none to auto to allow interaction */
 }
 
 .dither-background-wrapper {
@@ -16,6 +17,7 @@
     height: 100vh;
     z-index: -1;
     pointer-events: none;
+    /* Changed from none to auto to allow interaction */
     overflow: hidden;
 }
 

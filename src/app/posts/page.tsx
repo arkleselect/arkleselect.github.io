@@ -1,36 +1,32 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Link from "next/link";
+import { getAllPosts } from "@/lib/content";
 
-const posts = [
-  {
-    title: "简单开头",
-    description: "这是一个新的开始",
-    date: "2024-01-01",
-    slug: "hello",
-  },
-];
-
-export default function PostsPage() {
+export default async function PostsPage() {
+  const posts = await getAllPosts();
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-8">
-      <h1 className="mb-6 text-xl font-semibold">合集</h1>
-      <div className="grid gap-4">
+    <div className="container mx-auto max-w-5xl px-4 py-8">
+      {/* Posts List */}
+      <section className="mx-auto max-w-3xl space-y-2.5">
         {posts.map((post) => (
-          <Link key={post.slug} href={`/posts/${post.slug}`}>
-            <Card className="transition-colors hover:bg-accent">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>{post.title}</CardTitle>
-                  <span className="text-sm text-muted-foreground">
-                    {post.date}
-                  </span>
+          <a key={post.slug} href={`/posts/${post.slug}`} className="block">
+            <Card className="rounded border-white/10 bg-white/[0.03] py-3 hover:bg-white/[0.05] transition-colors">
+              <CardHeader className="gap-1.5 px-4 py-1">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex flex-col gap-2">
+                    <CardTitle className="text-base text-white/90">{post.title}</CardTitle>
+                    <CardDescription className="text-white/40 text-[13px]">
+                      {post.description}
+                    </CardDescription>
+                    <span className="mt-1 text-[10px] font-mono uppercase tracking-widest text-white/40">
+                      {post.date}
+                    </span>
+                  </div>
                 </div>
-                <CardDescription>{post.description}</CardDescription>
               </CardHeader>
             </Card>
-          </Link>
+          </a>
         ))}
-      </div>
+      </section>
     </div>
   );
 }

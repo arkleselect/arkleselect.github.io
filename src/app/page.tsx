@@ -70,9 +70,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 方案3: Daily Quote 像素风一言 - 去边框去背景 */}
+      {/* 方案3: Daily Quote 像素风一言 */}
       <section className="mb-24 flex flex-col items-center">
-        <div className="max-w-xl w-full p-8 relative group">
+        <div className="max-w-xl w-full p-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent relative group">
           <FiCommand className="absolute top-4 left-4 w-4 h-4 text-white/20" />
           <p className="font-press-start text-xs leading-loose text-center text-white/80 p-4">
             "DARKNESS IS BOUNDLESS, YET HUMANITY FOOLISHLY YEARNS FOR LIGHT."

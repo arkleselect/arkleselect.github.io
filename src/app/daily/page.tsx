@@ -1,14 +1,7 @@
-// import { Card, CardContent, CardHeader } from "@/components/ui/card"; // Removing shadcn Card
+import { getDailyEntries } from "@/lib/content";
 
-const dailyPosts = [
-  {
-    id: 1,
-    content: "今天开始搭建新博客，使用 Next.js + shadcn/ui，感觉很棒！",
-    date: "2024-01-01",
-  },
-];
-
-export default function DailyPage() {
+export default async function DailyPage() {
+  const dailyPosts = await getDailyEntries();
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12">
       {/* Terminal Header */}
@@ -19,8 +12,8 @@ export default function DailyPage() {
       </div>
 
       <div className="space-y-8 font-mono">
-        {dailyPosts.map((post) => (
-          <div key={post.id} className="group">
+        {dailyPosts.map((post, index) => (
+          <div key={`${post.date}-${index}`} className="group">
             {/* Command Line */}
             <div className="flex items-center gap-3 text-sm text-green-500/80 mb-2">
               <span>➜</span>
@@ -30,11 +23,22 @@ export default function DailyPage() {
 
             {/* Output Content */}
             <div className="pl-6 border-l-2 border-white/5 mx-1">
-              <p className="text-sm text-white/90 leading-relaxed whitespace-pre-wrap">
-                {post.content}
-              </p>
+              {post.image ? (
+                <img
+                  src={post.image}
+                  alt={post.title || post.date}
+                  className="mb-3 w-full rounded border border-white/10"
+                />
+              ) : null}
+              {post.title ? (
+                <div className="mb-2 text-sm text-white/90">{post.title}</div>
+              ) : null}
+              <div
+                className="prose prose-invert max-w-none text-sm leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: post.html }}
+              />
               <div className="mt-2 text-[10px] text-white/20">
-                id: {post.id} | status: archived
+                status: archived
               </div>
             </div>
           </div>

@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import Dock from './dock/Dock';
-import { VscHome, VscArchive, VscTag, VscNote, VscAccount } from 'react-icons/vsc';
+import { VscHome, VscArchive, VscNote, VscAccount } from 'react-icons/vsc';
+import Image from 'next/image';
 
 export function DockNav() {
   const router = useRouter();
@@ -10,17 +11,23 @@ export function DockNav() {
   const items = [
     { icon: <VscHome size={18} />, label: '首页', onClick: () => router.push('/') },
     { icon: <VscArchive size={18} />, label: '合集', onClick: () => router.push('/posts') },
-    { icon: <VscTag size={18} />, label: '分类', onClick: () => router.push('/categories') },
+    {
+      icon: <Image src="/icon3.svg" alt="分类" width={50} height={50} className="opacity-90 invert" />,
+      label: '分类',
+      onClick: () => {}
+    },
     { icon: <VscNote size={18} />, label: '日常', onClick: () => router.push('/daily') },
     { icon: <VscAccount size={18} />, label: '关于', onClick: () => router.push('/about') },
   ];
 
   return (
-    <Dock
-      items={items}
-      panelHeight={70}
-      baseItemSize={50}
-      magnification={70}
-    />
+    <>
+      <Dock
+        items={items}
+        panelHeight={70}
+        baseItemSize={50}
+        magnification={70}
+      />
+    </>
   );
 }

@@ -1,10 +1,16 @@
+'use client';
+
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 
 const navItems = [
   { name: "首页", href: "/" },
   { name: "合集", href: "/posts" },
-  { name: "分类", href: "/categories" },
+  {
+    name: "分类",
+    icon: <Image src="/icon3.svg" alt="分类" width={42} height={42} className="opacity-90 invert" />,
+  },
   { name: "日常", href: "/daily" },
   { name: "关于", href: "/about" },
 ];
@@ -17,10 +23,15 @@ export function Header() {
           {navItems.map((item) => (
             <Link
               key={item.name}
-              href={item.href}
+              href={item.href ?? "#"}
               className="px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              aria-label={item.name}
+              title={item.name}
+              onClick={(event) => {
+                if (!item.href) event.preventDefault();
+              }}
             >
-              {item.name}
+              {"icon" in item && item.icon ? item.icon : item.name}
             </Link>
           ))}
         </nav>

@@ -135,3 +135,17 @@
         rgb(0, 0, 0) 100%);
   }
 }
+
+@layer base {
+  .prose pre {
+    @apply rounded border border-white/10 bg-white/[0.03] p-4;
+  }
+
+  .prose code {
+    @apply rounded-sm bg-white/[0.06] px-1 py-0.5;
+  }
+
+  .hljs {
+    background: transparent;
+  }
+}
