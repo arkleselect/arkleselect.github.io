@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className="dark bg-black">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} antialiased min-h-screen flex flex-col relative`}
+        className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} antialiased min-h-screen flex flex-col relative bg-transparent`}
       >
         <div className="dither-background-wrapper">
           <Dither
@@ -46,13 +46,6 @@ export default function RootLayout({
             waveAmplitude={0.3}
             waveFrequency={3}
             waveSpeed={0.05}
-          />
-          {/* 背景固定平滑渐变遮罩 */}
-          <div
-            className="fixed inset-0 pointer-events-none z-0"
-            style={{
-              background: 'linear-gradient(to bottom, transparent 0%, transparent 30%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 85%, black 100%)'
-            }}
           />
         </div>
         <Header />

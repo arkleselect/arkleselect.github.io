@@ -86,7 +86,7 @@ function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, trans
                         className="carousel-item-link"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        查看项目 →
+                        查看 →
                     </a>
                 )}
             </div>
