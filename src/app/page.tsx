@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { HeroTitle, HeroSubtitle } from "@/components/hero-title";
 import { FiFileText, FiLayers, FiRefreshCw, FiCode, FiMapPin, FiMusic, FiCommand } from "react-icons/fi";
+import Dither from "@/components/dither/Dither";
 
 const tools = [
   {
@@ -28,6 +29,18 @@ const tools = [
 export default function Home() {
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8">
+      <div className="dither-background-wrapper">
+        <Dither
+          waveColor={[0.5, 0.5, 0.5]}
+          disableAnimation={false}
+          enableMouseInteraction={true}
+          mouseRadius={0.3}
+          colorNum={4}
+          waveAmplitude={0.3}
+          waveFrequency={3}
+          waveSpeed={0.05}
+        />
+      </div>
       {/* Hero Section */}
       <section className="mb-16 flex min-h-[40vh] flex-col items-center justify-center text-center">
         <HeroTitle />

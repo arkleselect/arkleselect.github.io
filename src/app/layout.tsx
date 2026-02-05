@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import Dither from "@/components/dither/Dither";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,18 +36,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} antialiased min-h-screen flex flex-col relative bg-transparent`}
       >
-        <div className="dither-background-wrapper">
-          <Dither
-            waveColor={[0.5, 0.5, 0.5]}
-            disableAnimation={false}
-            enableMouseInteraction={true}
-            mouseRadius={0.3}
-            colorNum={4}
-            waveAmplitude={0.3}
-            waveFrequency={3}
-            waveSpeed={0.05}
-          />
-        </div>
+
         <Header />
         <main className="flex-1 relative z-10">{children}</main>
         <Footer />
