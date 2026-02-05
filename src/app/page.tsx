@@ -25,21 +25,6 @@ const tools = [
   },
 ];
 
-const categories = [
-  { title: "开发日记", count: 12, icon: <FiCode /> },
-  { title: "设计思考", count: 5, icon: <FiLayers /> },
-  { title: "生活碎片", count: 8, icon: <FiFileText /> },
-];
-
-const recentPosts = [
-  {
-    title: "简单开头",
-    description: "这是一个新的开始",
-    date: "2024-01-01",
-    slug: "hello",
-  },
-];
-
 export default function Home() {
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8">
@@ -72,79 +57,97 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 方案3: Daily Quote 像素风一言 */}
+      {/* 方案3: Daily Quote 像素风一言 - 去边框去背景 */}
       <section className="mb-24 flex flex-col items-center">
-        <div className="max-w-xl w-full p-8 rounded-2xl border border-white/5 bg-gradient-to-br from-white/5 to-transparent relative group">
+        <div className="max-w-xl w-full p-8 relative group">
           <FiCommand className="absolute top-4 left-4 w-4 h-4 text-white/20" />
           <p className="font-press-start text-xs leading-loose text-center text-white/80 p-4">
             "DARKNESS IS BOUNDLESS, YET HUMANITY FOOLISHLY YEARNS FOR LIGHT."
           </p>
-          <div className="text-[10px] text-right text-white/20 font-mono mt-4">— SYSTEM_OVERRIDE</div>
+          <div className="text-[10px] text-right text-white/20 font-mono mt-4">— OVERRIDE</div>
         </div>
       </section>
 
-      <div className="flex gap-12 relative">
-        {/* 纵向结构线 */}
-        <div className="hidden md:block absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-white/10 via-white/5 to-transparent"></div>
+      <div className="space-y-24">
+        {/* 方案4: GitHub Contribution 模拟贡献墙 - HUD 风格 - 去边框去背景 */}
+        <section className="relative p-6 group">
+          {/* HUD Corner Accents */}
+          <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20"></span>
+          <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20"></span>
+          <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/20"></span>
+          <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20"></span>
 
-        <div className="flex-1 md:pl-8 space-y-24">
-          {/* 方案4: GitHub Contribution 模拟贡献墙 - 重构为纹理风格 */}
-          <section>
-            <div className="flex items-baseline justify-between mb-2 border-b border-white/5 pb-2">
-              <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Footprints</h2>
-              <span className="text-[10px] text-white/20 font-mono uppercase tracking-widest">ArkleSelect // 2024-2025</span>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="h-1 w-1 bg-white animate-pulse"></div>
+              <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 font-mono">足迹</h2>
             </div>
-            <div className="rounded-sm border border-white/5 bg-black/10 overflow-hidden p-1">
-              <div className="grid grid-cols-[repeat(52,1fr)]">
-                {Array.from({ length: 52 * 7 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`aspect-square ${Math.random() > 0.8 ? 'bg-white/30' :
-                      Math.random() > 0.6 ? 'bg-white/15' :
-                        Math.random() > 0.4 ? 'bg-white/5' : 'bg-transparent'
-                      }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
+            {/* <span className="text-[10px] text-white/20 font-mono">ARC_SEC // STABLE</span> */}
+          </div>
 
-          {/* 工具集 Section - 重构为侧标设计 */}
-          <section>
-            <div className="flex items-baseline justify-between mb-6 border-b border-white/5 pb-2">
-              <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Core_Tools</h2>
-              <span className="text-[10px] text-white/20 font-mono uppercase tracking-widest">V.1.0.4 // SYSTEM_ACTIVE</span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {tools.map((tool) => (
+          <div className="overflow-hidden p-1">
+            <div className="grid grid-cols-[repeat(52,1fr)] gap-[2px]">
+              {Array.from({ length: 52 * 7 }).map((_, i) => (
                 <div
-                  key={tool.name}
-                  className="group relative flex flex-col justify-between p-4 border-l border-white/10 hover:border-white transition-all duration-500"
-                >
-                  <div className="flex flex-col gap-3">
-                    <div className="text-white/30 group-hover:text-white transition-colors">
+                  key={i}
+                  className={`aspect-square rounded-[1px] transition-colors duration-500 ${Math.random() > 0.8 ? 'bg-white/40' :
+                    Math.random() > 0.6 ? 'bg-white/20' :
+                      Math.random() > 0.4 ? 'bg-white/10' : 'bg-white/[0.03]'
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 flex justify-between items-center text-[9px] font-mono text-white/10 uppercase tracking-tighter">
+            <span>Data_Stream_Initialized</span>
+            <span>Check_sum: OK</span>
+          </div>
+        </section>
+
+        {/* 工具集 Section - HUD 风格 - 去边框去背景 */}
+        <section>
+          <div className="flex items-baseline justify-between mb-6 border-b border-white/5 pb-2">
+            <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">工具</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {tools.map((tool) => (
+              <div
+                key={tool.name}
+                className="group relative p-5 transition-all duration-300"
+              >
+                {/* Minimal Corner */}
+                <span className="absolute top-0 right-0 w-1 h-1 bg-white/10 group-hover:bg-white/40 transition-colors"></span>
+
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-start justify-between">
+                    <div className="text-white/40 group-hover:text-white transition-colors">
                       {tool.icon}
                     </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-white/80 group-hover:text-white mb-1 transition-colors uppercase tracking-tight">{tool.name}</h3>
-                      <p className="text-[10px] text-white/30 leading-relaxed font-mono">{tool.description.toUpperCase()}</p>
-                    </div>
+                    <span className="text-[9px] font-mono text-white/10 group-hover:text-white/30">0x{Math.floor(Math.random() * 100).toString(16).toUpperCase()}</span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-sm font-bold text-white/90 mb-1 tracking-tight">{tool.name}</h3>
+                    <p className="text-[10px] text-white/30 leading-relaxed font-mono uppercase">{tool.description}</p>
                   </div>
 
                   <a
                     href={tool.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 text-[10px] font-mono text-white/20 hover:text-white flex items-center gap-1 transition-all"
+                    className="flex items-center justify-between text-[10px] font-mono text-white/20 hover:text-white pt-4 mt-2 group/btn"
                   >
-                    ACCESS_URL <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    <span>LAUNCH_MODULE</span>
+                    <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                   </a>
                 </div>
-              ))}
-            </div>
-          </section>
-        </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
 }
+
