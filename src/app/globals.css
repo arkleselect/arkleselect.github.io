@@ -120,6 +120,18 @@
   }
 
   body {
-    @apply bg-transparent text-foreground;
+    @apply bg-black text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-fade-to-bottom {
+    background: linear-gradient(to bottom,
+        transparent 0,
+        transparent 40vh,
+        rgba(0, 0, 0, 0.45) 65vh,
+        rgba(0, 0, 0, 0.9) 85vh,
+        rgb(0, 0, 0) 100vh,
+        rgb(0, 0, 0) 100%);
   }
 }

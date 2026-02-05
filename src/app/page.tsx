@@ -51,7 +51,7 @@ export default function Home() {
 
       {/* 最近文章 Section */}
       <section className="mb-24">
-        <h2 className="mb-5 text-xl font-semibold text-center md:text-left">最近文章</h2>
+        <h2 className="mb-5 text-xl font-semibold text-center md:text-left">最近</h2>
         <div className="grid gap-4">
           {recentPosts.map((post) => (
             <Card key={post.slug} className="transition-colors hover:bg-accent border-border/50 bg-card/50 backdrop-blur-sm">

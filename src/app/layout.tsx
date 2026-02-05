@@ -40,19 +40,25 @@ export default function RootLayout({
           <Dither
             waveColor={[0.5, 0.5, 0.5]}
             disableAnimation={false}
-            enableMouseInteraction
+            enableMouseInteraction={true}
             mouseRadius={0.3}
             colorNum={4}
             waveAmplitude={0.3}
             waveFrequency={3}
             waveSpeed={0.05}
           />
+          {/* 背景固定平滑渐变遮罩 */}
+          <div
+            className="fixed inset-0 pointer-events-none z-0"
+            style={{
+              background: 'linear-gradient(to bottom, transparent 0%, transparent 30%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 85%, black 100%)'
+            }}
+          />
         </div>
         <Header />
-        <main className="flex-1 z-10">{children}</main>
+        <main className="flex-1 relative z-10">{children}</main>
         <Footer />
       </body>
     </html>
   );
 }
-
