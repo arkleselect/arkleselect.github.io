@@ -5,15 +5,15 @@ export default async function MomentsPage() {
     const moments = await getMomentsEntries();
 
     return (
-        <div className="container mx-auto max-w-4xl px-4 py-12">
-            {/* Header Info - Optional Instagram style header */}
-            <div className="mb-12 flex flex-col items-center gap-4 border-b border-white/5 pb-12">
+        <div className="w-full py-0">
+            {/* 暂时注释 */}
+            {/* <div className="mb-12 flex flex-col items-center gap-4 border-b border-white/5 pb-12 px-4">
                 <h1 className="font-press-start text-lg tracking-tighter text-white/90">MOMENTS</h1>
                 <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20">Archiving the fragments of light</p>
-            </div>
+            </div> */}
 
-            {/* Natural Aspect Ratio Grid with 1px gap */}
-            <div className="columns-2 md:columns-3 gap-[1px] space-y-[1px]">
+            {/* Full Width Adaptive Waterfall Grid with 1px gap */}
+            <div className="columns-2 md:columns-3 lg:columns-4 xl:columns-5 2xl:columns-6 gap-px space-y-px">
                 {moments.map((moment, index) => (
                     <div key={`${moment.date}-${index}`} className="group relative overflow-hidden bg-white/5 break-inside-avoid">
                         {moment.image ? (
