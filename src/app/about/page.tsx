@@ -1,53 +1,173 @@
+"use client";
+
+import { useState, useEffect } from 'react';
+import Dither from "@/components/dither/Dither";
+import { FiCommand, FiActivity, FiGlobe, FiCpu, FiMessageCircle } from "react-icons/fi";
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiThreedotjs, SiFramer, SiVercel } from 'react-icons/si';
+import _LogoLoop from '@/components/logo-loop/LogoLoop';
 
 export default function AboutPage() {
+  const sections = [
+    {
+      id: "INTEL_SOURCE",
+      title: "站点含义",
+      icon: <FiGlobe className="w-4 h-4" />,
+      content: [
+        "在这个信息的荒原中，此站点旨在作为一个极简的锚点。",
+        "名字源于对效率与留白的某种执念，或者仅仅是一个随机生成的 ID。",
+        "我们在此记录碎片，在黑暗中寻找微弱的逻辑连线。"
+      ]
+    },
+    {
+      id: "SYSTEM_CORE",
+      title: "搭建环境",
+      icon: <FiCpu className="w-4 h-4" />,
+      content: [
+        "核心引擎基于 Next.js 15+ 构建，采用最新的 React Server Components 架构。",
+        "视觉层由 Tailwind CSS v4 驱动，融合了战术 HUD 与 8-bit 像素美学。",
+        "部署于 Cloudflare 边缘节点，确保数据流的高速传输与稳定。"
+      ]
+    },
+    {
+      id: "BUILD_PROCESS",
+      title: "搭建过程",
+      icon: <FiActivity className="w-4 h-4" />,
+      content: [
+        "本项目从 0 开始搭建，使用 ReactBits 组件库的设计。",
+        "全过程在 Warp 环境下完成，期间借助 Manus 生成初始 UI 原型。",
+        "在 AI 生成的基础上进行手工操作与逻辑重构，以确保视觉的独特性。"
+      ]
+    },
+    {
+      id: "COMM_PORT",
+      title: "通信协议",
+      icon: <FiMessageCircle className="w-4 h-4" />,
+      items: [
+        { label: "EMAIL", value: "wa1ybzg@duck.com" },
+        { label: "X_PLATFORM", value: "@warsixsixsix" },
+        { label: "TG_PLATFORM", value: "@hyfffmi" }
+      ]
+    }
+  ];
+
   return (
-    <div className="container mx-auto max-w-5xl px-4 py-8">
-      <div className="space-y-3">
-        <section className="rounded border border-white/10 bg-white/[0.03] p-6">
-          <div className="flex items-center gap-3">
-            {/* <span className="h-5 w-1 bg-white/60"></span> */}
-            <h2 className="text-base font-semibold text-white/90">站点含义</h2>
-          </div>
-          <div className="mt-4 space-y-3 text-sm text-white/70">
-            <p>在这里写你的站点名字来源、含义、故事背景。</p>
-            <p>可以写一两段更长的文字，解释为什么做这个站点。</p>
-          </div>
-        </section>
+    <div className="container mx-auto max-w-5xl px-4 py-16 relative">
 
-        <section className="rounded border border-white/10 bg-white/[0.03] p-6">
-          <div className="flex items-center gap-3">
-            {/* <span className="h-5 w-1 bg-white/60"></span> */}
-            <h2 className="text-base font-semibold text-white/90">搭建环境</h2>
-          </div>
-          <div className="mt-4 space-y-3 text-sm text-white/70">
-            <p>写你使用的技术栈、部署方式、站点结构。</p>
-            <p>如果有开源地址或代码仓库，也可以在这里加上。</p>
-          </div>
-        </section>
 
-        <section className="rounded border border-white/10 bg-white/[0.03] p-6">
-          <div className="flex items-center gap-3">
-            {/* <span className="h-5 w-1 bg-white/60"></span> */}
-            <h2 className="text-base font-semibold text-white/90">字体 / 视觉</h2>
-          </div>
-          <div className="mt-4 space-y-3 text-sm text-white/70">
-            <p>写你使用的字体、配色逻辑、视觉风格。</p>
-            <p>也可以解释为什么选择这种风格。</p>
-          </div>
-        </section>
+      {/* Header Section */}
+      <section className="mb-13 space-y-4">
+        <div className="flex items-center gap-4 text-white/13 font-mono text-[10px] tracking-widest uppercase">
+          <span className="h-px flex-1 bg-white/10"></span>
+          <span>Security_Level: CLEARANCE_REQ</span>
+          <span className="h-px flex-1 bg-white/10"></span>
+        </div>
 
-        <section className="rounded border border-white/10 bg-white/[0.03] p-6">
-          <div className="flex items-center gap-3">
-            {/* <span className="h-5 w-1 bg-white/60"></span> */}
-            <h2 className="text-base font-semibold text-white/90">联系方式</h2>
-          </div>
-          <div className="mt-4 space-y-2 text-sm text-white/70">
-            <div>邮箱：yourname@email.com</div>
-            <div>GitHub：github.com/yourname</div>
-            <div>微博 / X / 其他社交：@yourhandle</div>
-          </div>
-        </section>
+        <div>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {sections.map((section) => (
+          <AboutSection key={section.id} section={section} />
+        ))}
       </div>
+
+      {/* Tactical Footer Decoration */}
+      <section className="mt-24 flex flex-col items-center">
+        <div className="relative group">
+          {/* Corner Accents */}
+          <div className="absolute -top-2 -left-2 w-2 h-2 border-t border-l border-white/20"></div>
+          <div className="absolute -top-2 -right-2 w-2 h-2 border-t border-r border-white/20"></div>
+          <div className="absolute -bottom-2 -left-2 w-2 h-2 border-b border-l border-white/20"></div>
+          <div className="absolute -bottom-2 -right-2 w-2 h-2 border-b border-r border-white/20"></div>
+
+          <div className="px-10 py-6 border border-white/5 bg-transparent backdrop-blur-[2px]">
+            <div className="flex flex-col items-center gap-3">
+              <FiCommand className="w-3 h-3 text-white/20 animate-pulse" />
+              <p className="font-press-start text-[7px] text-white/40 text-center tracking-[0.2em] leading-relaxed max-w-[300px]">
+                "YOUR IDENTITY IS TRANSITORY, BUT DATA PERSISTS."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-16 border-t border-white/5 pt-12 overflow-hidden mx-auto max-w-full">
+        <div className="relative w-full">
+          <LogoLoop
+            logos={techLogos as any}
+            speed={20}
+            direction="left"
+            logoHeight={20}
+            gap={44}
+            fadeOut
+            fadeOutColor="#0a0a0a"
+          />
+        </div>
+      </section>
     </div>
   );
 }
+
+const LogoLoop = _LogoLoop as any;
+
+function AboutSection({ section }: { section: any }) {
+  const [hexId, setHexId] = useState("");
+
+  useEffect(() => {
+    setHexId(`0x${Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0')}`);
+  }, []);
+
+  return (
+    <section
+      key={section.id}
+      className="group relative p-8 bg-white/[0.02] transition-all duration-500 hover:bg-white/[0.04] border border-transparent hover:border-white/5"
+    >
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="text-white/40 group-hover:text-white transition-colors">
+            {section.icon}
+          </div>
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-white/80 font-mono">
+            {section.title}
+          </h2>
+        </div>
+        <span className="text-[9px] font-mono text-white/10 group-hover:text-white/30 min-w-10 text-right">
+          {hexId || "----"}
+        </span>
+      </div>
+
+      <div className="space-y-4 text-sm text-white/60 leading-relaxed font-sans">
+        {section.content?.map((p: string, i: number) => (
+          <p key={i}>{p}</p>
+        ))}
+        {section.items && (
+          <div className="grid gap-2 border-t border-white/5 pt-4">
+            {section.items.map((item: any, i: number) => (
+              <div key={i} className="flex items-center justify-between group/line">
+                <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest">{item.label}</span>
+                <span className="text-[11px] font-mono text-white/60 group-hover/line:text-white transition-colors">{item.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="mt-8 flex justify-end">
+        <span className="text-[8px] font-mono text-white/5 uppercase tracking-[0.4em] group-hover:text-white/20 transition-colors">
+          ACC_PROTO // {section.id}
+        </span>
+      </div>
+    </section>
+  );
+}
+
+const techLogos = [
+  { node: <SiReact />, title: "React", href: "https://react.dev" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+  { node: <SiThreedotjs />, title: "Three.js", href: "https://threejs.org" },
+  { node: <SiFramer />, title: "Framer Motion", href: "https://www.framer.com/motion/" },
+  { node: <SiVercel />, title: "Vercel", href: "https://vercel.com" },
+];

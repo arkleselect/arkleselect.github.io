@@ -5,11 +5,11 @@ export default async function DailyPage() {
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12">
       {/* Terminal Header */}
-      <div className="mb-12 font-mono text-xs text-white/40">
+      {/* <div className="mb-12 font-mono text-xs text-white/40">
         <p>login: user@arkle-system</p>
         <p>last login: {new Date().toLocaleDateString()} on ttys001</p>
         <p className="mt-2">Loading daily_logs.txt...</p>
-      </div>
+      </div> */}
 
       <div className="space-y-8 font-mono">
         {dailyPosts.map((post, index) => (

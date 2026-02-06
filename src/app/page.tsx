@@ -71,7 +71,7 @@ export default function Home() {
       </section>
 
       {/* 方案3: Daily Quote 像素风一言 */}
-      <section className="mb-24 flex flex-col items-center">
+      <section className="flex flex-col items-center" style={{ marginBottom: 'calc(var(--spacing) * 50)' }}>
         <div className="max-w-xl w-full p-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent relative group">
           <FiCommand className="absolute top-4 left-4 w-4 h-4 text-white/20" />
           <p className="font-press-start text-xs leading-loose text-center text-white/80 p-4">
@@ -83,19 +83,10 @@ export default function Home() {
 
       <div className="space-y-24">
         {/* 方案4: GitHub Contribution 模拟贡献墙 - HUD 风格 - 去边框去背景 */}
-        <section className="relative p-6 group">
-          {/* HUD Corner Accents */}
-          <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/20"></span>
-          <span className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/20"></span>
-          <span className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/20"></span>
-          <span className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/20"></span>
-
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="h-1 w-1 bg-white animate-pulse"></div>
-              <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 font-mono">足迹</h2>
-            </div>
-            {/* <span className="text-[10px] text-white/20 font-mono">ARC_SEC // STABLE</span> */}
+        <section className="relative group">
+          <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-2">
+            <div className="h-1 w-1 bg-white animate-pulse"></div>
+            <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">足迹</h2>
           </div>
 
           <div className="overflow-hidden p-1">
@@ -118,8 +109,9 @@ export default function Home() {
         </section>
 
         {/* 工具集 Section - HUD 风格 - 去边框去背景 */}
-        <section>
-          <div className="flex items-baseline justify-between mb-6 border-b border-white/5 pb-2">
+        <section className="relative group">
+          <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-2">
+            <div className="h-1 w-1 bg-white animate-pulse"></div>
             <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">工具</h2>
           </div>
 
