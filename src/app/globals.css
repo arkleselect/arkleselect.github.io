@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -137,6 +138,69 @@
 }
 
 @layer base {
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    @apply text-white/90 font-semibold;
+  }
+
+  .prose h2 {
+    @apply mt-6 text-lg;
+  }
+
+  .prose h3 {
+    @apply mt-5 text-base;
+  }
+
+  .prose h2 a,
+  .prose h3 a {
+    @apply no-underline text-inherit;
+    pointer-events: none;
+  }
+
+  .prose p {
+    @apply text-white/70;
+  }
+
+  .prose a {
+    @apply text-white/90 underline decoration-white/30 underline-offset-4;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply pl-5 text-white/70;
+  }
+
+  .prose ul {
+    list-style: disc;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li {
+    @apply my-1;
+  }
+
+  .prose blockquote {
+    @apply border-l border-white/20 pl-4 text-white/60;
+  }
+
+  .prose table {
+    @apply w-full border-collapse text-white/70;
+  }
+
+  .prose th,
+  .prose td {
+    @apply border border-white/10 px-2 py-1 text-sm;
+  }
+
+  .prose th {
+    @apply text-white/90;
+  }
+
   .prose pre {
     @apply rounded border border-white/10 bg-white/[0.03] p-4;
   }
@@ -147,6 +211,75 @@
 
   .hljs {
     background: transparent;
+    color: #e5e5e5;
+  }
+
+  pre code.hljs {
+    background: transparent;
+  }
+
+  .code-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 9px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+
+  .code-copy-btn:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .code-copy-btn[data-copied='true'] {
+    border-color: rgba(125, 211, 252, 0.6);
+    color: rgba(125, 211, 252, 0.9);
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-title,
+  .hljs-section,
+  .hljs-type {
+    color: #7dd3fc !important;
+  }
+
+  .hljs-string,
+  .hljs-attr,
+  .hljs-symbol,
+  .hljs-name {
+    color: #a7f3d0 !important;
+  }
+
+  .hljs-number,
+  .hljs-literal,
+  .hljs-built_in,
+  .hljs-doctag {
+    color: #fbbf24 !important;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #6b7280 !important;
+  }
+
+  .hljs-function,
+  .hljs-params {
+    color: #fca5a5 !important;
+  }
+
+  .prose pre code,
+  .prose pre code * {
+    background: transparent !important;
+    color: inherit;
   }
 }
 

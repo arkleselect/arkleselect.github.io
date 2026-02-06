@@ -13,7 +13,6 @@ description: 用于测试 Markdown 渲染、目录、代码高亮与表格
 - 无序列表 1
 - 无序列表 2
 - 无序列表 3
-
 1. 有序列表 1
 2. 有序列表 2
 3. 有序列表 3
@@ -28,11 +27,11 @@ description: 用于测试 Markdown 渲染、目录、代码高亮与表格
 
 ## 表格（GFM）
 
-| 功能 | 状态 | 备注 |
-| --- | --- | --- |
-| Markdown 渲染 | ✅ | 基础渲染 | 
-| 目录生成 | ✅ | H2/H3 | 
-| 代码高亮 | ✅ | rehype-highlight |
+| 功能          | 状态  | 备注               |
+| ----------- | --- | ---------------- |
+| Markdown 渲染 | ✅   | 基础渲染             |
+| 目录生成        | ✅   | H2/H3            |
+| 代码高亮        | ✅   | rehype-highlight |
 
 ## 代码块（JS）
 
@@ -66,7 +65,9 @@ console.log(user);
 
 ## 图片
 
-![示例图片](/icon3.png)
+
+
+![](https://raw.githubusercontent.com/arkleselect/blog/main/img/Normalized.jpg)
 
 ## 三段落
 

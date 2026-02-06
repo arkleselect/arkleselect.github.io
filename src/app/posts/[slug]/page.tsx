@@ -1,4 +1,5 @@
 import { getPostBySlug, getPostSlugs } from "@/lib/content";
+import MarkdownContent from "@/components/markdown-content";
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
@@ -45,10 +46,10 @@ export default async function PostPage({
 
         <div className="mt-6 border-t border-white/10 pt-6">
           <div className="relative">
-            <div
-              className="prose prose-invert max-w-none text-sm leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: post.html }}
-            />
+          <MarkdownContent
+            html={post.html}
+            className="prose prose-invert max-w-none text-sm leading-relaxed"
+          />
             {post.toc.length > 0 ? (
               <div className="toc-rail hidden md:flex">
                 <div className="toc-ticks">

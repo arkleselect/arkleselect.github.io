@@ -6,7 +6,6 @@ import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
@@ -36,12 +35,17 @@ async function renderMarkdown(markdown: string) {
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, { behavior: 'wrap' })
-    .use(rehypeHighlight)
+    .use(rehypeHighlight, { detect: true, ignoreMissing: true })
     .use(rehypeStringify)
     .process(markdown);
 
-  return { html: html.toString(), toc };
+  const htmlString = html.toString();
+  if (process.env.NODE_ENV !== 'production') {
+    // Basic debug: check if highlight spans are present
+    console.log('[md] highlight spans:', htmlString.includes('hljs-'));
+  }
+
+  return { html: htmlString, toc };
 }
 
 function normalizeDate(value?: unknown) {
