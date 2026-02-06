@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Press_Start_2P } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
+const pressStart2P = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-press-start",
+});
 
 const geistSans = localFont({
   variable: "--font-geist-sans",
@@ -47,23 +53,18 @@ const geistMono = localFont({
   ],
 });
 
-const pressStart2P = localFont({
-  variable: "--font-press-start",
-  src: [
-    {
-      path: "../../public/overpass-desktop-fonts/overpass-mono/overpass-mono-bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-});
-
 export const metadata: Metadata = {
-  title: "Wpprqi",
+  title: "MiniLoad",
   description: "The darkness is boundless",
   icons: {
     icon: [
       { url: "/icon3-white.svg", type: "image/svg+xml", sizes: "any" },
+      { url: "/icon3.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon3.png", type: "image/png", sizes: "16x16" },
+      { url: "/icon3.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [
+      { url: "/icon3.png", sizes: "180x180", type: "image/png" },
     ],
   },
 };

@@ -10,13 +10,15 @@
 
 .hero-title-style {
   font-size: 4rem;
-  font-family: var(--font-press-start), 'Press Start 2P', monospace;
+  font-family: var(--font-press-start), 'Press Start 2P', system-ui;
+  text-transform: uppercase;
 }
 
 .hero-subtitle-style {
   font-size: 1.125rem;
-  font-family: var(--font-press-start), 'Press Start 2P', monospace;
+  font-family: var(--font-press-start), 'Press Start 2P', system-ui;
   opacity: 0.8;
+  text-transform: uppercase;
 }
 
 .shuffle-parent.is-ready {
