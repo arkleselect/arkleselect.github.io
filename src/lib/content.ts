@@ -65,7 +65,7 @@ function safeDate(value?: unknown) {
 export async function getPostSlugs() {
   const dir = path.join(contentRoot, 'posts');
   const files = await fs.readdir(dir);
-  return files.filter((file) => file.endsWith('.md')).map((file) => file.replace(/\.md$/, ''));
+  return files.filter((file) => file.endsWith('.md') && !file.startsWith('.')).map((file) => file.replace(/\.md$/, ''));
 }
 
 export async function getAllPosts() {

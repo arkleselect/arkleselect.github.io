@@ -65,8 +65,6 @@ console.log(user);
 
 ## 图片
 
-
-
 ![](https://raw.githubusercontent.com/arkleselect/blog/main/img/Normalized.jpg)
 
 ## 三段落

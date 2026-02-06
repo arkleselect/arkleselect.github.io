@@ -138,6 +138,7 @@
 }
 
 @layer base {
+
   .prose h1,
   .prose h2,
   .prose h3,
@@ -201,48 +202,75 @@
     @apply text-white/90;
   }
 
+  /* 代码块包装器重构 */
+  .code-block-wrapper {
+    @apply relative my-6 rounded-lg border border-white/10 bg-[#0a0a0a] overflow-hidden flex flex-col;
+  }
+
+  .code-block-header {
+    @apply flex items-center justify-end px-4 py-1 bg-white/[0.01] border-b border-white/2;
+    z-index: 10;
+  }
+
   .prose pre {
-    @apply rounded border border-white/10 bg-white/[0.03] p-4;
+    @apply border-none bg-transparent p-4;
+    margin: 0 !important;
+    padding-top: 10px !important;
+    max-height: none;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    flex: 1;
+  }
+
+  .code-block-wrapper[data-collapsed="true"] pre {
+    max-height: 400px;
+    padding-bottom: 44px;
+  }
+
+  .code-block-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: linear-gradient(to top, #0a0a0a 40%, rgba(10, 10, 10, 0.8) 70%, transparent);
+  }
+
+  .code-block-wrapper[data-collapsed="false"] .code-block-footer {
+    position: relative;
+    background: #0a0a0a;
+  }
+
+  .code-expand-btn {
+    @apply w-full h-10 bg-transparent text-white/50 text-[10px] uppercase font-mono tracking-widest cursor-pointer flex items-center justify-center transition-all;
+  }
+
+  .code-expand-btn:hover {
+    @apply text-white bg-white/[0.05];
+  }
+
+  .code-copy-btn {
+    @apply text-[9px] uppercase font-mono tracking-widest px-2 py-1 rounded border border-white/10 text-white/40 hover:text-white hover:border-white/30 transition-all bg-white/[0.02];
+  }
+
+  .code-copy-btn[data-copied='true'] {
+    @apply border-emerald-500/50 text-emerald-400;
+  }
+
+  .prose pre code {
+    white-space: pre !important;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    display: inline-block;
+    min-width: 100%;
   }
 
   .prose code {
     @apply rounded-sm bg-white/[0.06] px-1 py-0.5;
   }
 
-  .hljs {
-    background: transparent;
-    color: #e5e5e5;
-  }
 
-  pre code.hljs {
-    background: transparent;
-  }
-
-  .code-copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.03);
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 9px;
-    padding: 4px 6px;
-    border-radius: 4px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-  }
-
-  .code-copy-btn:hover {
-    color: rgba(255, 255, 255, 0.9);
-    border-color: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .code-copy-btn[data-copied='true'] {
-    border-color: rgba(125, 211, 252, 0.6);
-    color: rgba(125, 211, 252, 0.9);
-  }
 
   .hljs-keyword,
   .hljs-selector-tag,

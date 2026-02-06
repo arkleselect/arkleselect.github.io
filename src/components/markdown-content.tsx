@@ -17,37 +17,74 @@ export default function MarkdownContent({ html, className = '' }: MarkdownConten
     const pres = Array.from(container.querySelectorAll('pre'));
 
     pres.forEach((pre) => {
-      if (pre.getAttribute('data-copy-ready') === 'true') return;
-      pre.setAttribute('data-copy-ready', 'true');
+      if (pre.closest('.code-block-wrapper')) return;
 
       const code = pre.querySelector('code');
       if (!code) return;
 
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'code-copy-btn';
-      button.textContent = '复制';
+      // 创建包装容器
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      pre.parentNode?.insertBefore(wrapper, pre);
 
-      button.addEventListener('click', async () => {
-        const text = code.textContent ?? '';
+      // 创建页眉 (放置复制按钮)
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
+
+      const copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'code-copy-btn';
+      copyBtn.textContent = '复制';
+      copyBtn.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(text);
-          button.textContent = '已复制';
-          button.setAttribute('data-copied', 'true');
+          await navigator.clipboard.writeText(code.textContent ?? '');
+          copyBtn.textContent = '已复制';
+          copyBtn.setAttribute('data-copied', 'true');
           setTimeout(() => {
-            button.textContent = '复制';
-            button.removeAttribute('data-copied');
-          }, 1200);
-        } catch {
-          button.textContent = '失败';
-          setTimeout(() => {
-            button.textContent = '复制';
-          }, 1200);
+            copyBtn.textContent = '复制';
+            copyBtn.removeAttribute('data-copied');
+          }, 1500);
+        } catch (err) {
+          copyBtn.textContent = '失败';
         }
       });
 
-      pre.style.position = 'relative';
-      pre.appendChild(button);
+      header.appendChild(copyBtn);
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+
+      // 处理折叠逻辑
+      const MAX_HEIGHT = 400;
+      requestAnimationFrame(() => {
+        if (pre.scrollHeight > MAX_HEIGHT + 50) {
+          wrapper.setAttribute('data-collapsed', 'true');
+
+          const footer = document.createElement('div');
+          footer.className = 'code-block-footer';
+
+          const expandBtn = document.createElement('button');
+          expandBtn.type = 'button';
+          expandBtn.className = 'code-expand-btn';
+          expandBtn.textContent = '展开全部';
+
+          expandBtn.addEventListener('click', () => {
+            const isCollapsed = wrapper.getAttribute('data-collapsed') === 'true';
+            if (isCollapsed) {
+              wrapper.setAttribute('data-collapsed', 'false');
+              expandBtn.textContent = '收起代码';
+              expandBtn.classList.add('is-expanded');
+            } else {
+              wrapper.setAttribute('data-collapsed', 'true');
+              expandBtn.textContent = '展开全部';
+              expandBtn.classList.remove('is-expanded');
+              wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+
+          footer.appendChild(expandBtn);
+          wrapper.appendChild(footer);
+        }
+      });
     });
   }, [html]);
 
