@@ -1,24 +1,61 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 
 
-const geistSans = Geist({
+const geistSans = localFont({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  src: [
+    {
+      path: "../../public/overpass-desktop-fonts/overpass/overpass-regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/overpass-desktop-fonts/overpass/overpass-semibold.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/overpass-desktop-fonts/overpass/overpass-bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  src: [
+    {
+      path: "../../public/overpass-desktop-fonts/overpass-mono/overpass-mono-regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/overpass-desktop-fonts/overpass-mono/overpass-mono-semibold.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/overpass-desktop-fonts/overpass-mono/overpass-mono-bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
-const pressStart2P = Press_Start_2P({
-  weight: "400",
+const pressStart2P = localFont({
   variable: "--font-press-start",
-  subsets: ["latin"],
+  src: [
+    {
+      path: "../../public/overpass-desktop-fonts/overpass-mono/overpass-mono-bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
