@@ -1,7 +1,6 @@
 'use client';
 
-/* eslint-disable react/no-unknown-property */
-import { useRef, useEffect, forwardRef, useMemo } from 'react';
+import { useRef, useEffect, forwardRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer, wrapEffect } from '@react-three/postprocessing';
 import { Effect } from 'postprocessing';
@@ -138,18 +137,20 @@ void mainImage(in vec4 inputColor, in vec2 uv, out vec4 outputColor) {
 `;
 
 class RetroEffectImpl extends Effect {
-    uniforms: Map<string, THREE.Uniform<any>>;
+    uniforms: Map<string, THREE.IUniform>;
     constructor() {
-        const uniforms = new Map<string, THREE.Uniform<any>>([
+        const uniforms = new Map<string, THREE.IUniform>([
             ['colorNum', new THREE.Uniform(4.0)],
             ['pixelSize', new THREE.Uniform(2.0)],
             ['resolution', new THREE.Uniform(new THREE.Vector2(0, 0))]
         ]);
-        super('RetroEffect', ditherFragmentShader, { uniforms: uniforms as any });
+        super('RetroEffect', ditherFragmentShader, { uniforms });
         this.uniforms = uniforms;
     }
 
-    update(renderer: THREE.WebGLRenderer, _inputBuffer: THREE.WebGLRenderTarget | null, _deltaTime: number) {
+    update(renderer: THREE.WebGLRenderer, inputBuffer: THREE.WebGLRenderTarget | null, deltaTime: number) {
+        void inputBuffer;
+        void deltaTime;
         const res = this.uniforms.get('resolution')?.value;
         if (res) renderer.getSize(res);
     }
@@ -162,9 +163,13 @@ class RetroEffectImpl extends Effect {
 
 const WrappedRetro = wrapEffect(RetroEffectImpl);
 
-const RetroEffect = forwardRef((props: any, ref) => {
-    const { colorNum, pixelSize } = props;
-    return <WrappedRetro ref={ref} colorNum={colorNum} pixelSize={pixelSize} />;
+type RetroEffectProps = {
+    colorNum: number;
+    pixelSize: number;
+};
+
+const RetroEffect = forwardRef<THREE.Object3D, RetroEffectProps>(({ colorNum, pixelSize }, ref) => {
+    return <WrappedRetro ref={ref as never} colorNum={colorNum} pixelSize={pixelSize} />;
 });
 RetroEffect.displayName = 'RetroEffect';
 
@@ -195,7 +200,7 @@ function DitheredWaves({
     const mouseRef = useRef(new THREE.Vector2());
     const { viewport, size, gl } = useThree();
 
-    const waveUniforms = useMemo(() => ({
+    const waveUniformsRef = useRef({
         time: { value: 0 },
         resolution: { value: new THREE.Vector2() },
         waveSpeed: { value: waveSpeed },
@@ -205,7 +210,8 @@ function DitheredWaves({
         mousePos: { value: new THREE.Vector2() },
         enableMouseInteraction: { value: enableMouseInteraction ? 1 : 0 },
         mouseRadius: { value: mouseRadius }
-    }), []);
+    });
+    const waveUniforms = waveUniformsRef.current;
 
     useEffect(() => {
         const dpr = gl.getPixelRatio();
@@ -214,7 +220,7 @@ function DitheredWaves({
 
     useFrame(({ clock }) => {
         if (!disableAnimation) {
-            waveUniforms.time.value = clock.getElapsedTime();
+        waveUniforms.time.value = clock.getElapsedTime();
         }
         waveUniforms.waveSpeed.value = waveSpeed;
         waveUniforms.waveFrequency.value = waveFrequency;

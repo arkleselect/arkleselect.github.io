@@ -414,7 +414,11 @@ const Shuffle: React.FC<ShuffleProps> = ({
   const classes = useMemo(() => `shuffle-parent ${ready ? 'is-ready' : ''} ${className}`, [ready, className]);
 
   const Tag = tag as keyof JSX.IntrinsicElements;
-  return React.createElement(Tag, { ref, className: classes, style: commonStyle }, text);
+  return (
+    <Tag ref={ref as React.Ref<HTMLElement>} className={classes} style={commonStyle}>
+      {text}
+    </Tag>
+  );
 };
 
 export default Shuffle;

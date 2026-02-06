@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
@@ -27,7 +26,6 @@ export function Header() {
   const isAdminPage = pathname?.startsWith("/admin");
   const [viewCount, setViewCount] = useState(0);
 
-  if (isAdminPage) return null;
   const currentCols = searchParams.get('cols') || '4';
 
   const handleLayoutChange = useCallback((cols: string) => {
@@ -46,6 +44,8 @@ export function Header() {
       setViewCount(newCount);
     }
   }, [isMomentsPage]);
+
+  if (isAdminPage) return null;
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isMomentsPage

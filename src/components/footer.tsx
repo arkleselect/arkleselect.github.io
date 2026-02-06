@@ -1,5 +1,3 @@
-import { Separator } from "@/components/ui/separator";
-
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-white/5 bg-black/50 backdrop-blur-md">

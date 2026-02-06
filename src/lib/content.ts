@@ -15,16 +15,19 @@ import GithubSlugger from 'github-slugger';
 const contentRoot = path.join(process.cwd(), 'content');
 
 type TocItem = { depth: number; text: string; id: string };
+type HeadingNode = { depth?: number };
+type ElementNode = { tagName?: string; properties?: Record<string, unknown> };
 
 async function renderMarkdown(markdown: string) {
   const slugger = new GithubSlugger();
   const tree = unified().use(remarkParse).use(remarkGfm).parse(markdown);
   const toc: TocItem[] = [];
 
-  visit(tree, 'heading', (node: any) => {
-    const depth = node.depth ?? 0;
+  visit(tree, 'heading', (node: unknown) => {
+    const heading = node as HeadingNode;
+    const depth = typeof heading.depth === 'number' ? heading.depth : 0;
     if (depth < 2 || depth > 3) return;
-    const text = toString(node).trim();
+    const text = toString(node as never).trim();
     if (!text) return;
     const id = slugger.slug(text);
     toc.push({ depth, text, id });
@@ -35,13 +38,14 @@ async function renderMarkdown(markdown: string) {
     .use(remarkGfm)
     .use(remarkRehype)
     .use(() => (tree) => {
-      visit(tree, 'element', (node: any) => {
-        if (node.tagName === 'a' && node.properties?.href) {
-          const href = node.properties.href;
+      visit(tree, 'element', (node: unknown) => {
+        const element = node as ElementNode;
+        if (element.tagName === 'a' && element.properties?.href) {
+          const href = element.properties.href;
           // 如果是外部链接（以 http 开头）
-          if (href.startsWith('http') || href.startsWith('//')) {
-            node.properties.target = '_blank';
-            node.properties.rel = 'noopener noreferrer';
+          if (typeof href === 'string' && (href.startsWith('http') || href.startsWith('//'))) {
+            element.properties.target = '_blank';
+            element.properties.rel = 'noopener noreferrer';
           }
         }
       });

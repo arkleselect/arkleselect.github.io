@@ -26,6 +26,24 @@ const tools = [
   },
 ];
 
+const noise = (seed: number) => {
+  const x = Math.sin(seed * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+const cellShade = (seed: number) => {
+  const r = noise(seed);
+  if (r > 0.8) return 'bg-white/40';
+  if (r > 0.6) return 'bg-white/20';
+  if (r > 0.4) return 'bg-white/10';
+  return 'bg-white/[0.03]';
+};
+
+const hexTag = (seed: number) => {
+  const value = Math.floor(noise(seed) * 256);
+  return value.toString(16).toUpperCase().padStart(2, '0');
+};
+
 export default function Home() {
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8">
@@ -94,10 +112,7 @@ export default function Home() {
               {Array.from({ length: 52 * 7 }).map((_, i) => (
                 <div
                   key={i}
-                  className={`aspect-square rounded-[1px] transition-colors duration-500 ${Math.random() > 0.8 ? 'bg-white/40' :
-                    Math.random() > 0.6 ? 'bg-white/20' :
-                      Math.random() > 0.4 ? 'bg-white/10' : 'bg-white/[0.03]'
-                    }`}
+                  className={`aspect-square rounded-[1px] transition-colors duration-500 ${cellShade(i + 1)}`}
                 />
               ))}
             </div>
@@ -129,7 +144,9 @@ export default function Home() {
                     <div className="text-white/40 group-hover/item:text-white transition-colors">
                       {tool.icon}
                     </div>
-                    <span className="text-[9px] font-mono text-white/10 group-hover/item:text-white/30">0x{Math.floor(Math.random() * 100).toString(16).toUpperCase()}</span>
+                    <span className="text-[9px] font-mono text-white/10 group-hover/item:text-white/30">
+                      0x{hexTag(tool.name.length + tool.description.length)}
+                    </span>
                   </div>
 
                   <div>
@@ -155,4 +172,3 @@ export default function Home() {
     </div>
   );
 }
-

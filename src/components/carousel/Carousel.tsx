@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { ReactNode } from 'react';
 import { motion, useMotionValue, useTransform } from 'motion/react';
+import type { MotionValue, PanInfo, Transition } from 'motion/react';
 // replace icons with your own if needed
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from 'react-icons/fi';
 
@@ -45,14 +47,22 @@ const VELOCITY_THRESHOLD = 500;
 const GAP = 16;
 const SPRING_OPTIONS = { type: 'spring' as const, stiffness: 300, damping: 30 };
 
+interface CarouselItemData {
+    id?: number | string;
+    title: string;
+    description: string;
+    icon: ReactNode;
+    link?: string;
+}
+
 interface CarouselItemProps {
-    item: any;
+    item: CarouselItemData;
     index: number;
     itemWidth: number;
     round: boolean;
     trackItemOffset: number;
-    x: any;
-    transition: any;
+    x: MotionValue<number>;
+    transition: Transition;
 }
 
 function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, transition }: CarouselItemProps) {
@@ -95,7 +105,7 @@ function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, trans
 }
 
 interface CarouselProps {
-    items?: any[];
+    items?: CarouselItemData[];
     baseWidth?: number;
     autoplay?: boolean;
     autoplayDelay?: number;
@@ -104,7 +114,7 @@ interface CarouselProps {
     round?: boolean;
 }
 
-export default function Carousel({
+function CarouselInner({
     items = DEFAULT_ITEMS,
     baseWidth = 300,
     autoplay = false,
@@ -122,8 +132,9 @@ export default function Carousel({
         return [items[items.length - 1], ...items, items[0]];
     }, [items, loop]);
 
-    const [position, setPosition] = useState(loop ? 1 : 0);
-    const x = useMotionValue(0);
+    const initialPosition = loop ? 1 : 0;
+    const [position, setPosition] = useState(initialPosition);
+    const x = useMotionValue(-initialPosition * trackItemOffset);
     const [isHovered, setIsHovered] = useState(false);
     const [isJumping, setIsJumping] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
@@ -154,17 +165,9 @@ export default function Carousel({
         return () => clearInterval(timer);
     }, [autoplay, autoplayDelay, isHovered, pauseOnHover, itemsForRender.length]);
 
-    useEffect(() => {
-        const startingPosition = loop ? 1 : 0;
-        setPosition(startingPosition);
-        x.set(-startingPosition * trackItemOffset);
-    }, [items.length, loop, trackItemOffset, x]);
-
-    useEffect(() => {
-        if (!loop && position > itemsForRender.length - 1) {
-            setPosition(Math.max(0, itemsForRender.length - 1));
-        }
-    }, [itemsForRender.length, loop, position]);
+    const effectivePosition = loop
+        ? position
+        : Math.max(0, Math.min(position, Math.max(itemsForRender.length - 1, 0)));
 
     const effectiveTransition = isJumping ? { duration: 0 } : SPRING_OPTIONS;
 
@@ -206,7 +209,7 @@ export default function Carousel({
         setIsAnimating(false);
     };
 
-    const handleDragEnd = (_: any, info: any) => {
+    const handleDragEnd = (_event: PointerEvent, info: PanInfo) => {
         const { offset, velocity } = info;
         const direction =
             offset.x < -DRAG_BUFFER || velocity.x < -VELOCITY_THRESHOLD
@@ -234,7 +237,11 @@ export default function Carousel({
         };
 
     const activeIndex =
-        items.length === 0 ? 0 : loop ? (position - 1 + items.length) % items.length : Math.min(position, items.length - 1);
+        items.length === 0
+            ? 0
+            : loop
+                ? (effectivePosition - 1 + items.length) % items.length
+                : Math.min(effectivePosition, items.length - 1);
 
     return (
         <div
@@ -253,11 +260,11 @@ export default function Carousel({
                     width: itemWidth,
                     gap: `${GAP}px`,
                     perspective: 1000,
-                    perspectiveOrigin: `${position * trackItemOffset + itemWidth / 2}px 50%`,
+                    perspectiveOrigin: `${effectivePosition * trackItemOffset + itemWidth / 2}px 50%`,
                     x
                 }}
                 onDragEnd={handleDragEnd}
-                animate={{ x: -(position * trackItemOffset) }}
+                animate={{ x: -(effectivePosition * trackItemOffset) }}
                 transition={effectiveTransition}
                 onAnimationStart={handleAnimationStart}
                 onAnimationComplete={handleAnimationComplete}
@@ -292,4 +299,10 @@ export default function Carousel({
             </div>
         </div>
     );
+}
+
+export default function Carousel(props: CarouselProps) {
+    const { items = DEFAULT_ITEMS, loop = false } = props;
+    const resetKey = `${items.length}-${loop}`;
+    return <CarouselInner key={resetKey} {...props} items={items} loop={loop} />;
 }
