@@ -14,7 +14,7 @@ export default function MarkdownContent({ html, className = '' }: MarkdownConten
     const container = containerRef.current;
     if (!container) return;
 
-    const pres = Array.from(container.querySelectorAll('pre'));
+    const pres = Array.from(container.querySelectorAll<HTMLPreElement>('pre'));
 
     pres.forEach((pre) => {
       if (pre.closest('.code-block-wrapper')) return;
