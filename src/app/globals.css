@@ -162,10 +162,23 @@
 
   .prose p {
     @apply text-white/70;
+    white-space: pre-wrap;
   }
 
-  .prose a {
-    @apply text-white/90 underline decoration-white/30 underline-offset-4;
+  /* 最终强力覆盖：解决样式不生效、显示白色或黑色、以及 hover 失效问题 */
+  .prose.prose-invert a {
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: underline !important;
+    text-decoration-color: rgba(255, 255, 255, 0.2) !important;
+    text-underline-offset: 4px !important;
+    transition: all 0.2s ease !important;
+    font-weight: 400 !important;
+  }
+
+  .prose.prose-invert a:hover {
+    color: #38bdf8 !important;
+    /* 天蓝色 */
+    text-decoration-color: rgba(48, 97, 118, 0.5) !important;
   }
 
   .prose ul,

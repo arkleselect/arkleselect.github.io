@@ -34,6 +34,18 @@ async function renderMarkdown(markdown: string) {
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
+    .use(() => (tree) => {
+      visit(tree, 'element', (node: any) => {
+        if (node.tagName === 'a' && node.properties?.href) {
+          const href = node.properties.href;
+          // 如果是外部链接（以 http 开头）
+          if (href.startsWith('http') || href.startsWith('//')) {
+            node.properties.target = '_blank';
+            node.properties.rel = 'noopener noreferrer';
+          }
+        }
+      });
+    })
     .use(rehypeSlug)
     .use(rehypeHighlight, { detect: true, ignoreMissing: true })
     .use(rehypeStringify)
