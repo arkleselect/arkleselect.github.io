@@ -145,7 +145,8 @@ const Shuffle: React.FC<ShuffleProps> = ({
         const rolls = Math.max(1, Math.floor(shuffleTimes));
         const rand = (set: string) => set.charAt(Math.floor(Math.random() * set.length)) || '';
 
-        (chars as HTMLElement[]).forEach((ch) => {
+        chars.forEach((ch_any) => {
+          const ch = ch_any as HTMLElement;
           const parent = ch.parentElement;
           if (!parent) return;
 
