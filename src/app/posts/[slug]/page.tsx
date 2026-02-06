@@ -44,26 +44,30 @@ export default async function PostPage({
         </h1>
 
         <div className="mt-6 border-t border-white/10 pt-6">
-          {post.toc.length > 0 ? (
-            <div className="mb-6 rounded border border-white/10 bg-white/[0.02] p-4">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-white/40">
-                目录
-              </div>
-              <ul className="mt-3 space-y-1 text-sm text-white/70">
-                {post.toc.map((item) => (
-                  <li key={item.id} className={item.depth === 3 ? "ml-4" : ""}>
-                    <a href={`#${item.id}`} className="hover:text-white">
-                      {item.text}
+          <div className="relative">
+            <div
+              className="prose prose-invert max-w-none text-sm leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: post.html }}
+            />
+            {post.toc.length > 0 ? (
+              <div className="toc-rail hidden md:flex">
+                <div className="toc-ticks">
+                  {post.toc.map((item, index) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="toc-tick"
+                      data-title={item.text}
+                      data-depth={item.depth}
+                      aria-label={`${index + 1}. ${item.text}`}
+                    >
+                      <span className="toc-line" />
                     </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-          <div
-            className="prose prose-invert max-w-none text-sm leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
