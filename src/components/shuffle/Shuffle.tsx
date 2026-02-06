@@ -1,7 +1,7 @@
 'use client';
 
 /* eslint-disable react-hooks/set-state-in-effect */
-import React, { useRef, useEffect, useState, useMemo, JSX } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
@@ -10,7 +10,7 @@ import './Shuffle.css';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
-interface ShuffleProps {
+interface ShuffleProps<T extends keyof JSX.IntrinsicElements = 'p'> {
   text: string;
   className?: string;
   style?: React.CSSProperties;
@@ -20,7 +20,7 @@ interface ShuffleProps {
   ease?: string;
   threshold?: number;
   rootMargin?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: T;
   textAlign?: 'left' | 'center' | 'right';
   onShuffleComplete?: () => void;
   shuffleTimes?: number;
@@ -36,7 +36,7 @@ interface ShuffleProps {
   triggerOnHover?: boolean;
 }
 
-const Shuffle: React.FC<ShuffleProps> = ({
+const Shuffle = <T extends keyof JSX.IntrinsicElements = 'p'>({
   text,
   className = '',
   style = {},
@@ -60,7 +60,7 @@ const Shuffle: React.FC<ShuffleProps> = ({
   triggerOnce = true,
   respectReducedMotion = true,
   triggerOnHover = true
-}) => {
+}: ShuffleProps<T>) => {
   const ref = useRef<HTMLElement>(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [ready, setReady] = useState(false);
@@ -421,7 +421,7 @@ const Shuffle: React.FC<ShuffleProps> = ({
 
   const classes = useMemo(() => `shuffle-parent ${ready ? 'is-ready' : ''} ${className}`, [ready, className]);
 
-  const Tag = tag as keyof JSX.IntrinsicElements;
+  const Tag = (tag ?? 'p') as T;
   return (
     <Tag ref={ref as React.Ref<HTMLElement>} className={classes} style={commonStyle}>
       {text}
