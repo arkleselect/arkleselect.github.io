@@ -1,5 +1,6 @@
 import { getMomentsEntries } from "@/lib/content";
 import { MomentsGrid } from "@/components/moments-grid";
+import { Suspense } from "react";
 
 export default async function MomentsPage() {
     const moments = await getMomentsEntries();
@@ -7,7 +8,9 @@ export default async function MomentsPage() {
     return (
         <div className="w-full py-0">
             {/* Dynamic Waterfall Grid controlled by Header */}
-            <MomentsGrid moments={moments} />
+            <Suspense fallback={<div className="min-h-screen animate-pulse bg-white/5" />}>
+                <MomentsGrid moments={moments} />
+            </Suspense>
 
             {/* Bottom info */}
             <div className="mt-16 text-center text-[10px] font-mono text-white/10 uppercase tracking-[0.2em]">
