@@ -212,7 +212,7 @@ function DitheredWaves({
             enableMouseInteraction: { value: enableMouseInteraction ? 1 : 0 },
             mouseRadius: { value: mouseRadius }
         }),
-        []
+        [enableMouseInteraction, mouseRadius, waveAmplitude, waveColor, waveFrequency, waveSpeed]
     );
 
     useEffect(() => {

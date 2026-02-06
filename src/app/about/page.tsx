@@ -1,13 +1,33 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import Dither from "@/components/dither/Dither";
+import { useMemo } from 'react';
+import type { ComponentType } from 'react';
 import { FiCommand, FiActivity, FiGlobe, FiCpu, FiMessageCircle } from "react-icons/fi";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiThreedotjs, SiFramer, SiVercel } from 'react-icons/si';
 import _LogoLoop from '@/components/logo-loop/LogoLoop';
 
+type AboutItem = { label: string; value: string };
+type AboutSectionData = {
+  id: string;
+  title: string;
+  icon: JSX.Element;
+  content?: string[];
+  items?: AboutItem[];
+};
+
+type LogoItem = { node: JSX.Element; title: string; href: string };
+type LogoLoopProps = {
+  logos: LogoItem[];
+  speed?: number;
+  direction?: 'left' | 'right' | 'up' | 'down';
+  logoHeight?: number;
+  gap?: number;
+  fadeOut?: boolean;
+  fadeOutColor?: string;
+};
+
 export default function AboutPage() {
-  const sections = [
+  const sections: AboutSectionData[] = [
     {
       id: "INTEL_SOURCE",
       title: "站点含义",
@@ -35,7 +55,7 @@ export default function AboutPage() {
       content: [
         "本项目从 0 开始搭建，使用 ReactBits 组件库的设计。",
         "全过程在 Warp 环境下完成，期间借助 Manus 生成初始 UI 原型。",
-        "在 AI 生成的基础上进行手工操作与逻辑重构，以确保视觉的独特性。"
+                "在 AI 生成的基础上进行手工操作与逻辑重构，以确保视觉的独特性。"
       ]
     },
     {
@@ -85,7 +105,7 @@ export default function AboutPage() {
             <div className="flex flex-col items-center gap-3">
               <FiCommand className="w-3 h-3 text-white/20 animate-pulse" />
               <p className="font-press-start text-[7px] text-white/40 text-center tracking-[0.2em] leading-relaxed max-w-[300px]">
-                "YOUR IDENTITY IS TRANSITORY, BUT DATA PERSISTS."
+                &ldquo;YOUR IDENTITY IS TRANSITORY, BUT DATA PERSISTS.&rdquo;
               </p>
             </div>
           </div>
@@ -95,7 +115,7 @@ export default function AboutPage() {
       <section className="mt-16 border-t border-white/5 pt-12 overflow-hidden mx-auto max-w-full">
         <div className="relative w-full">
           <LogoLoop
-            logos={techLogos as any}
+            logos={techLogos}
             speed={20}
             direction="left"
             logoHeight={20}
@@ -109,14 +129,19 @@ export default function AboutPage() {
   );
 }
 
-const LogoLoop = _LogoLoop as any;
+const LogoLoop = _LogoLoop as unknown as ComponentType<LogoLoopProps>;
 
-function AboutSection({ section }: { section: any }) {
-  const [hexId, setHexId] = useState("");
+const hashToHex = (input: string) => {
+  let hash = 0;
+  for (let i = 0; i < input.length; i += 1) {
+    hash = (hash * 31 + input.charCodeAt(i)) | 0;
+  }
+  const value = (hash >>> 0).toString(16).toUpperCase().padStart(4, '0');
+  return value.slice(-4);
+};
 
-  useEffect(() => {
-    setHexId(`0x${Math.floor(Math.random() * 0xFFFF).toString(16).toUpperCase().padStart(4, '0')}`);
-  }, []);
+function AboutSection({ section }: { section: AboutSectionData }) {
+  const hexId = useMemo(() => `0x${hashToHex(section.id)}`, [section.id]);
 
   return (
     <section
@@ -138,12 +163,12 @@ function AboutSection({ section }: { section: any }) {
       </div>
 
       <div className="space-y-4 text-sm text-white/60 leading-relaxed font-sans">
-        {section.content?.map((p: string, i: number) => (
+        {section.content?.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
         {section.items && (
           <div className="grid gap-2 border-t border-white/5 pt-4">
-            {section.items.map((item: any, i: number) => (
+            {section.items.map((item, i) => (
               <div key={i} className="flex items-center justify-between group/line">
                 <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest">{item.label}</span>
                 <span className="text-[11px] font-mono text-white/60 group-hover/line:text-white transition-colors">{item.value}</span>

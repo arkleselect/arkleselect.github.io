@@ -16,8 +16,9 @@ export async function POST(request: Request) {
             res.headers.set('Cache-Control', 'no-store');
             return res;
         }
-    } catch (error: any) {
-        const res = NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        const res = NextResponse.json({ error: message }, { status: 500 });
         res.headers.set('Cache-Control', 'no-store');
         return res;
     }

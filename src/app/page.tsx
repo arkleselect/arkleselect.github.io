@@ -1,8 +1,5 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { HeroTitle, HeroSubtitle } from "@/components/hero-title";
-import { FiFileText, FiLayers, FiRefreshCw, FiCode, FiMapPin, FiMusic, FiCommand } from "react-icons/fi";
+import { FiFileText, FiLayers, FiRefreshCw, FiMapPin, FiMusic, FiCommand } from "react-icons/fi";
 import Dither from "@/components/dither/Dither";
 
 const tools = [
@@ -93,7 +90,7 @@ export default function Home() {
         <div className="max-w-xl w-full p-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent relative group">
           <FiCommand className="absolute top-4 left-4 w-4 h-4 text-white/20" />
           <p className="font-press-start text-xs leading-loose text-center text-white/80 p-4">
-            "DARKNESS IS BOUNDLESS, YET HUMANITY FOOLISHLY YEARNS FOR LIGHT."
+            &ldquo;DARKNESS IS BOUNDLESS, YET HUMANITY FOOLISHLY YEARNS FOR LIGHT.&rdquo;
           </p>
           <div className="text-[10px] text-right text-white/20 font-mono mt-4">— OVERRIDE</div>
         </div>

@@ -1,5 +1,6 @@
 'use client';
 
+/* eslint-disable react-hooks/set-state-in-effect */
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
@@ -41,7 +42,6 @@ export function Header() {
       const currentCount = storedCount ? parseInt(storedCount, 10) : 0;
       const newCount = currentCount + 1;
       localStorage.setItem("moments_view_count", newCount.toString());
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setViewCount(newCount);
     }
   }, [isMomentsPage]);

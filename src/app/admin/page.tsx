@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
     FiSave,
@@ -9,7 +8,6 @@ import {
     FiImage,
     FiEdit3,
     FiLock,
-    FiUnlock,
     FiAlertTriangle,
     FiHome,
     FiLogOut,
@@ -26,35 +24,70 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+type AdminType = 'post' | 'daily' | 'moment';
+
+type PostData = {
+    title: string;
+    date: string;
+    description: string;
+    content: string;
+    slug: string;
+};
+
+type DailyData = {
+    date: string;
+    imageUrl: string;
+    content: string;
+};
+
+type MomentData = {
+    title: string;
+    date: string;
+    imageUrl: string;
+    content: string;
+};
+
+type AdminItem = {
+    filename: string;
+    date: string;
+    title?: string;
+    description?: string;
+    content?: string;
+    slug?: string;
+    imageUrl?: string;
+};
+
+type StatusMessage = { text: string; isError: boolean };
 
 export default function AdminPage() {
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [password, setPassword] = useState('');
     const [authError, setAuthError] = useState(false);
     const [checkingAuth, setCheckingAuth] = useState(true);
-    const [type, setType] = useState<'post' | 'daily' | 'moment'>('post');
+    const [type, setType] = useState<AdminType>('post');
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState<{ text: string; isError: boolean } | null>(null);
+    const [message, setMessage] = useState<StatusMessage | null>(null);
 
     // Form states
     const today = new Date().toISOString().split('T')[0];
     const defaultSlug = today.replace(/-/g, '').slice(2); // YYMMDD
 
-    const [postData, setPostData] = useState({ title: '', date: today, description: '', content: '', slug: defaultSlug });
+    const [postData, setPostData] = useState<PostData>({ title: '', date: today, description: '', content: '', slug: defaultSlug });
     const [isSlugModified, setIsSlugModified] = useState(false);
-    const [dailyData, setDailyData] = useState({ date: today, imageUrl: '', content: '' });
-    const [momentData, setMomentData] = useState({ title: '', date: today, imageUrl: '', content: '' });
-    const [existingPosts, setExistingPosts] = useState<any[]>([]);
+    const [dailyData, setDailyData] = useState<DailyData>({ date: today, imageUrl: '', content: '' });
+    const [momentData, setMomentData] = useState<MomentData>({ title: '', date: today, imageUrl: '', content: '' });
+    const [existingPosts, setExistingPosts] = useState<AdminItem[]>([]);
     const [isEditing, setIsEditing] = useState(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<'edit' | 'list'>('edit');
 
     // Delete Confirmation State
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-    const [deleteTarget, setDeleteTarget] = useState<{ type: string, filename: string } | null>(null);
+    const [deleteTarget, setDeleteTarget] = useState<{ type: AdminType; filename: string } | null>(null);
 
     // Helper to format date to slug
     const dateToSlug = (dateStr: string) => {
@@ -89,7 +122,7 @@ export default function AdminPage() {
         }
     };
 
-    const fetchPosts = async (token?: string) => {
+    const fetchPosts = useCallback(async (token?: string) => {
         try {
             const adminKey = token || localStorage.getItem('admin_key') || '';
             console.log('[Admin] Fetching with key:', adminKey ? 'Key exists' : 'No key');
@@ -107,7 +140,7 @@ export default function AdminPage() {
         } catch (e) {
             console.error('Failed to fetch posts', e);
         }
-    };
+    }, [type]);
 
     useEffect(() => {
         const key = localStorage.getItem('admin_key');
@@ -117,7 +150,7 @@ export default function AdminPage() {
             fetchPosts(key);
         }
         setCheckingAuth(false);
-    }, []);
+    }, [fetchPosts]);
 
     // Refresh posts when switching to list view
     // Refresh posts when switching to list view OR changing type
@@ -125,29 +158,29 @@ export default function AdminPage() {
         if (viewMode === 'list' && isAuthorized) {
             fetchPosts();
         }
-    }, [viewMode, isAuthorized, type]);
+    }, [viewMode, isAuthorized, type, fetchPosts]);
 
-    const handleEditPost = (item: any) => {
+    const handleEditPost = (item: AdminItem) => {
         if (type === 'post') {
             setPostData({
-                title: item.title,
+                title: item.title || '',
                 date: item.date,
-                description: item.description,
-                content: item.content,
-                slug: item.slug
+                description: item.description || '',
+                content: item.content || '',
+                slug: item.slug || defaultSlug
             });
         } else if (type === 'daily') {
             setDailyData({
                 date: item.date,
-                content: item.content,
+                content: item.content || '',
                 imageUrl: item.imageUrl || ''
             });
         } else if (type === 'moment') {
             setMomentData({
-                title: item.title,
+                title: item.title || '',
                 date: item.date,
                 imageUrl: item.imageUrl || '',
-                content: item.content
+                content: item.content || ''
             });
         }
 
@@ -169,7 +202,7 @@ export default function AdminPage() {
         setLoading(true);
         setMessage(null);
 
-        let data: any = {};
+        let data: PostData | DailyData | MomentData | { [key: string]: unknown } = {};
         if (type === 'post') {
             data = { ...postData, filename: currentFilename };
         }
@@ -208,14 +241,14 @@ export default function AdminPage() {
             } else {
                 setMessage({ text: `ERROR: ${result.error}`, isError: true });
             }
-        } catch (error) {
+        } catch (_error) {
             setMessage({ text: 'NETWORK ERROR: CONNECTION LOST', isError: true });
         } finally {
             setLoading(false);
         }
     };
 
-    const handleDelete = (e: React.MouseEvent, type: string, filename: string) => {
+    const handleDelete = (e: React.MouseEvent, type: AdminType, filename: string) => {
         e.stopPropagation();
         setDeleteTarget({ type, filename });
         setDeleteConfirmOpen(true);

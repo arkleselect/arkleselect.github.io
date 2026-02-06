@@ -99,9 +99,10 @@ export async function POST(request: Request) {
         const res = NextResponse.json({ success: true, filePath });
         res.headers.set('Cache-Control', 'no-store');
         return res;
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Save error:', error);
-        const res = NextResponse.json({ error: error.message }, { status: 500 });
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        const res = NextResponse.json({ error: message }, { status: 500 });
         res.headers.set('Cache-Control', 'no-store');
         return res;
     }
