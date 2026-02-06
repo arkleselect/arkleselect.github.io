@@ -2,6 +2,7 @@
 
 /* eslint-disable react-hooks/set-state-in-effect */
 import React, { useRef, useEffect, useState, useMemo } from 'react';
+import type { ElementType } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
@@ -10,7 +11,7 @@ import './Shuffle.css';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
-interface ShuffleProps<T extends keyof JSX.IntrinsicElements = 'p'> {
+interface ShuffleProps {
   text: string;
   className?: string;
   style?: React.CSSProperties;
@@ -20,7 +21,7 @@ interface ShuffleProps<T extends keyof JSX.IntrinsicElements = 'p'> {
   ease?: string;
   threshold?: number;
   rootMargin?: string;
-  tag?: T;
+  tag?: ElementType;
   textAlign?: 'left' | 'center' | 'right';
   onShuffleComplete?: () => void;
   shuffleTimes?: number;
@@ -36,7 +37,7 @@ interface ShuffleProps<T extends keyof JSX.IntrinsicElements = 'p'> {
   triggerOnHover?: boolean;
 }
 
-const Shuffle = <T extends keyof JSX.IntrinsicElements = 'p'>({
+const Shuffle = ({
   text,
   className = '',
   style = {},
@@ -46,7 +47,7 @@ const Shuffle = <T extends keyof JSX.IntrinsicElements = 'p'>({
   ease = 'power3.out',
   threshold = 0.1,
   rootMargin = '-100px',
-  tag = 'p',
+  tag,
   textAlign = 'center',
   onShuffleComplete,
   shuffleTimes = 1,
@@ -60,7 +61,7 @@ const Shuffle = <T extends keyof JSX.IntrinsicElements = 'p'>({
   triggerOnce = true,
   respectReducedMotion = true,
   triggerOnHover = true
-}: ShuffleProps<T>) => {
+}: ShuffleProps) => {
   const ref = useRef<HTMLElement>(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [ready, setReady] = useState(false);
@@ -421,9 +422,18 @@ const Shuffle = <T extends keyof JSX.IntrinsicElements = 'p'>({
 
   const classes = useMemo(() => `shuffle-parent ${ready ? 'is-ready' : ''} ${className}`, [ready, className]);
 
-  const Tag = (tag ?? 'p') as T;
+  const TagElement = (tag ?? 'p') as React.ElementType;
+
+  // Use a simple dynamic tag instead of React.createElement to satisfy react-hooks/refs
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Tag = TagElement as any;
+
   return (
-    <Tag ref={ref as React.Ref<HTMLElement>} className={classes} style={commonStyle}>
+    <Tag
+      ref={ref}
+      className={classes}
+      style={commonStyle}
+    >
       {text}
     </Tag>
   );

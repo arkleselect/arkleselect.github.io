@@ -44,7 +44,7 @@ export default function MarkdownContent({ html, className = '' }: MarkdownConten
             copyBtn.textContent = '复制';
             copyBtn.removeAttribute('data-copied');
           }, 1500);
-        } catch (_err) {
+        } catch {
           copyBtn.textContent = '失败';
         }
       });
