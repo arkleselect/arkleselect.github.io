@@ -24,6 +24,11 @@ const pressStart2P = Press_Start_2P({
 export const metadata: Metadata = {
   title: "Wpprqi",
   description: "The darkness is boundless",
+  icons: {
+    icon: [
+      { url: "/icon3-white.svg", type: "image/svg+xml", sizes: "any" },
+    ],
+  },
 };
 
 export default function RootLayout({

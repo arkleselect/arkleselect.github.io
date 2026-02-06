@@ -139,13 +139,13 @@ const Shuffle: React.FC<ShuffleProps> = ({
           reduceWhiteSpace: false
         });
 
-        const chars = splitRef.current.chars || [];
+        const chars = (splitRef.current.chars || []) as HTMLElement[];
         wrappersRef.current = [];
 
         const rolls = Math.max(1, Math.floor(shuffleTimes));
         const rand = (set: string) => set.charAt(Math.floor(Math.random() * set.length)) || '';
 
-        chars.forEach((ch: HTMLElement) => {
+        (chars as HTMLElement[]).forEach((ch) => {
           const parent = ch.parentElement;
           if (!parent) return;
 
