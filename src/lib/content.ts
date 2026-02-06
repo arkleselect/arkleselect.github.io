@@ -52,10 +52,6 @@ async function renderMarkdown(markdown: string) {
     .process(markdown);
 
   const htmlString = html.toString();
-  if (process.env.NODE_ENV !== 'production') {
-    // Basic debug: check if highlight spans are present
-    console.log('[md] highlight spans:', htmlString.includes('hljs-'));
-  }
 
   return { html: htmlString, toc };
 }

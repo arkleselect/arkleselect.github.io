@@ -24,7 +24,10 @@ export function Header() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isMomentsPage = pathname === "/moments";
+  const isAdminPage = pathname?.startsWith("/admin");
   const [viewCount, setViewCount] = useState(0);
+
+  if (isAdminPage) return null;
   const currentCols = searchParams.get('cols') || '4';
 
   const handleLayoutChange = useCallback((cols: string) => {
@@ -73,8 +76,8 @@ export function Header() {
                     key={cols}
                     onClick={() => handleLayoutChange(cols.toString())}
                     className={`h-6 w-6 rounded flex items-center justify-center transition-all ${currentCols === cols.toString()
-                        ? "bg-white/10 text-white/90 shadow-sm"
-                        : "text-white/20 hover:text-white/40 hover:bg-white/5"
+                      ? "bg-white/10 text-white/90 shadow-sm"
+                      : "text-white/20 hover:text-white/40 hover:bg-white/5"
                       }`}
                     title={`Switch to ${cols} columns`}
                   >

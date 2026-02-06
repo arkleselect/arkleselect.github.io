@@ -1,0 +1,24 @@
+import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
+
+export async function POST(request: Request) {
+    try {
+        const { password } = await request.json();
+        const adminPassword = process.env.ADMIN_PASSWORD || 'admin';
+
+        if (password === adminPassword) {
+            const res = NextResponse.json({ success: true });
+            res.headers.set('Cache-Control', 'no-store');
+            return res;
+        } else {
+            const res = NextResponse.json({ error: 'Invalid security key' }, { status: 401 });
+            res.headers.set('Cache-Control', 'no-store');
+            return res;
+        }
+    } catch (error: any) {
+        const res = NextResponse.json({ error: error.message }, { status: 500 });
+        res.headers.set('Cache-Control', 'no-store');
+        return res;
+    }
+}
