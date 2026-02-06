@@ -2,6 +2,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { getAllPosts } from "@/lib/content";
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 interface Post {
   slug: string;

@@ -3,11 +3,13 @@ import MarkdownContent from "@/components/markdown-content";
 
 export const dynamicParams = true;
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
-export async function generateStaticParams() {
-  const slugs = await getPostSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
+// 移除 generateStaticParams，因为它与 runtime = 'edge' + force-dynamic 冲突
+// export async function generateStaticParams() {
+//   const slugs = await getPostSlugs();
+//   return slugs.map((slug: string) => ({ slug }));
+// }
 
 export default async function PostPage({
   params,

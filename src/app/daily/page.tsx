@@ -1,5 +1,6 @@
 import { getDailyEntries } from "@/lib/content";
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export default async function DailyPage() {
   const dailyPosts = await getDailyEntries();
@@ -13,7 +14,7 @@ export default async function DailyPage() {
       </div> */}
 
       <div className="space-y-8 font-mono">
-        {dailyPosts.map((post, index) => (
+        {dailyPosts.map((post: any, index: number) => (
           <div key={`${post.date}-${index}`} className="group">
             {/* Command Line */}
             <div className="flex items-center gap-3 text-sm text-green-500/80 mb-2">

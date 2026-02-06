@@ -1,5 +1,6 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+// 移除顶级 Node.js 导入以适配 Edge Runtime
+// import fs from 'node:fs/promises';
+// import path from 'node:path';
 import matter from 'gray-matter';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
@@ -13,7 +14,11 @@ import { toString } from 'mdast-util-to-string';
 import GithubSlugger from 'github-slugger';
 import { getRequestContext } from '@cloudflare/next-on-pages';
 
-const contentRoot = path.join(process.cwd(), 'content');
+// 在 Edge Runtime 下，我们不在顶级作用域计算内容路径
+const getContentRoot = () => {
+  const path = eval('require')('path');
+  return path.join(process.cwd(), 'content');
+};
 
 type TocItem = { depth: number; text: string; id: string };
 type HeadingNode = { depth?: number };
@@ -92,9 +97,11 @@ export async function getPostSlugs() {
     const { results } = await db.prepare('SELECT slug FROM posts').all();
     return results.map((r: Record<string, unknown>) => r.slug as string);
   }
-  const dir = path.join(contentRoot, 'posts');
+  const path = eval('require')('path');
+  const fs = eval('require')('fs/promises');
+  const dir = path.join(getContentRoot(), 'posts');
   const files = await fs.readdir(dir);
-  return files.filter((file) => file.endsWith('.md') && !file.startsWith('.')).map((file) => file.replace(/\.md$/, ''));
+  return files.filter((file: string) => file.endsWith('.md') && !file.startsWith('.')).map((file: string) => file.replace(/\.md$/, ''));
 }
 
 export async function getAllPosts() {
@@ -110,10 +117,12 @@ export async function getAllPosts() {
     }));
   }
 
-  const dir = path.join(contentRoot, 'posts');
+  const path = eval('require')('path');
+  const fs = eval('require')('fs/promises');
+  const dir = path.join(getContentRoot(), 'posts');
   const files = await fs.readdir(dir);
   const posts = await Promise.all(
-    files.filter((file) => file.endsWith('.md')).map(async (file) => {
+    files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
       const slug = file.replace(/\.md$/, '');
       const raw = await fs.readFile(path.join(dir, file), 'utf8');
       const { data, content } = matter(raw);
@@ -155,7 +164,9 @@ export async function getPostBySlug(slug: string) {
     };
   }
 
-  const filePath = path.join(contentRoot, 'posts', `${slug}.md`);
+  const path = eval('require')('path');
+  const fs = eval('require')('fs/promises');
+  const filePath = path.join(getContentRoot(), 'posts', `${slug}.md`);
   const raw = await fs.readFile(filePath, 'utf8');
   const { data, content } = matter(raw);
   const { html, toc } = await renderMarkdown(content);
@@ -186,10 +197,12 @@ export async function getDailyEntries() {
     }));
   }
 
-  const dir = path.join(contentRoot, 'daily');
+  const path = eval('require')('path');
+  const fs = eval('require')('fs/promises');
+  const dir = path.join(getContentRoot(), 'daily');
   const files = await fs.readdir(dir);
   const entries = await Promise.all(
-    files.filter((file) => file.endsWith('.md')).map(async (file) => {
+    files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
       const raw = await fs.readFile(path.join(dir, file), 'utf8');
       const { data, content } = matter(raw);
       const { html } = await renderMarkdown(content);
@@ -226,7 +239,9 @@ export async function getMomentsEntries() {
     }));
   }
 
-  const dir = path.join(contentRoot, 'moments');
+  const path = eval('require')('path');
+  const fs = eval('require')('fs/promises');
+  const dir = path.join(getContentRoot(), 'moments');
   try {
     await fs.access(dir);
   } catch {
@@ -235,7 +250,7 @@ export async function getMomentsEntries() {
 
   const files = await fs.readdir(dir);
   const entries = await Promise.all(
-    files.filter((file) => file.endsWith('.md')).map(async (file) => {
+    files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
       const raw = await fs.readFile(path.join(dir, file), 'utf8');
       const { data, content } = matter(raw);
       const { html } = await renderMarkdown(content);
