@@ -144,3 +144,31 @@ export async function getDailyEntries() {
 
   return entries.sort((a, b) => b._ts - a._ts).map(({ _ts, ...entry }) => entry);
 }
+
+export async function getMomentsEntries() {
+  const dir = path.join(contentRoot, 'moments');
+  try {
+    await fs.access(dir);
+  } catch {
+    return [];
+  }
+
+  const files = await fs.readdir(dir);
+  const entries = await Promise.all(
+    files.filter((file) => file.endsWith('.md')).map(async (file) => {
+      const raw = await fs.readFile(path.join(dir, file), 'utf8');
+      const { data, content } = matter(raw);
+      const { html } = await renderMarkdown(content);
+      const date = normalizeDate(data.date) || file.replace(/\.md$/, '');
+      return {
+        date,
+        title: typeof data.title === 'string' ? data.title : '',
+        image: typeof data.image === 'string' ? data.image : '',
+        html,
+        _ts: safeDate(date)
+      };
+    })
+  );
+
+  return entries.sort((a, b) => b._ts - a._ts).map(({ _ts, ...entry }) => entry);
+}

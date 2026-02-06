@@ -9,6 +9,8 @@ const navItems = [
   { name: "合集", href: "/posts" },
   {
     name: "分类",
+    href: "/moments",
+    target: "_blank",
     icon: <Image src="/icon3.svg" alt="分类" width={42} height={42} className="opacity-90 invert" />,
   },
   { name: "日常", href: "/daily" },
@@ -24,6 +26,8 @@ export function Header() {
             <Link
               key={item.name}
               href={item.href ?? "#"}
+              target={item.target}
+              rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
               className="px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
               aria-label={item.name}
               title={item.name}
@@ -31,7 +35,7 @@ export function Header() {
                 if (!item.href) event.preventDefault();
               }}
             >
-              {"icon" in item && item.icon ? item.icon : item.name}
+              {item.icon ? item.icon : item.name}
             </Link>
           ))}
         </nav>

@@ -109,7 +109,7 @@ export default function Home() {
         </section>
 
         {/* 工具集 Section - HUD 风格 - 去边框去背景 */}
-        <section className="relative group">
+        <section className="relative">
           <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-2">
             <div className="h-1 w-1 bg-white animate-pulse"></div>
             <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">工具</h2>
@@ -119,21 +119,21 @@ export default function Home() {
             {tools.map((tool) => (
               <div
                 key={tool.name}
-                className="group relative p-5 transition-all duration-300"
+                className="group/item relative p-5 transition-all duration-500"
               >
                 {/* Minimal Corner */}
-                <span className="absolute top-0 right-0 w-1 h-1 bg-white/10 group-hover:bg-white/40 transition-colors"></span>
+                <span className="absolute top-0 right-0 w-1 h-1 bg-white/10 group-hover/item:bg-white/40 transition-colors"></span>
 
                 <div className="flex flex-col gap-4">
                   <div className="flex items-start justify-between">
-                    <div className="text-white/40 group-hover:text-white transition-colors">
+                    <div className="text-white/40 group-hover/item:text-white transition-colors">
                       {tool.icon}
                     </div>
-                    <span className="text-[9px] font-mono text-white/10 group-hover:text-white/30">0x{Math.floor(Math.random() * 100).toString(16).toUpperCase()}</span>
+                    <span className="text-[9px] font-mono text-white/10 group-hover/item:text-white/30">0x{Math.floor(Math.random() * 100).toString(16).toUpperCase()}</span>
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-bold text-white/90 mb-1 tracking-tight">{tool.name}</h3>
+                    <h3 className="text-sm font-bold text-white/40 group-hover/item:text-white/90 mb-1 tracking-tight transition-colors">{tool.name}</h3>
                     <p className="text-[10px] text-white/30 leading-relaxed font-mono uppercase">{tool.description}</p>
                   </div>
 

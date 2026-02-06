@@ -13,8 +13,8 @@ export function DockNav() {
     { icon: <VscArchive size={18} />, label: '合集', onClick: () => router.push('/posts') },
     {
       icon: <Image src="/icon3.svg" alt="分类" width={50} height={50} className="opacity-90 invert" />,
-      label: '分类',
-      onClick: () => {}
+      label: '瞬间',
+      onClick: () => window.open('/moments', '_blank')
     },
     { icon: <VscNote size={18} />, label: '日常', onClick: () => router.push('/daily') },
     { icon: <VscAccount size={18} />, label: '关于', onClick: () => router.push('/about') },
