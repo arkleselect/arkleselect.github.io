@@ -72,9 +72,19 @@ const Shuffle: React.FC<ShuffleProps> = ({
 
   useEffect(() => {
     if ('fonts' in document) {
-      if (document.fonts.status === 'loaded') setFontsLoaded(true);
-      else document.fonts.ready.then(() => setFontsLoaded(true));
-    } else setFontsLoaded(true);
+      if (document.fonts.status === 'loaded') {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setFontsLoaded(true);
+      } else {
+        document.fonts.ready.then(() => {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setFontsLoaded(true);
+        });
+      }
+    } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFontsLoaded(true);
+    }
   }, []);
 
   const scrollTriggerStart = useMemo(() => {

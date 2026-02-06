@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, forwardRef } from 'react';
+import { useRef, useEffect, forwardRef, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer, wrapEffect } from '@react-three/postprocessing';
 import { Effect } from 'postprocessing';
@@ -200,27 +200,30 @@ function DitheredWaves({
     const mouseRef = useRef(new THREE.Vector2());
     const { viewport, size, gl } = useThree();
 
-    const waveUniformsRef = useRef({
-        time: { value: 0 },
-        resolution: { value: new THREE.Vector2() },
-        waveSpeed: { value: waveSpeed },
-        waveFrequency: { value: waveFrequency },
-        waveAmplitude: { value: waveAmplitude },
-        waveColor: { value: new THREE.Color(...waveColor) },
-        mousePos: { value: new THREE.Vector2() },
-        enableMouseInteraction: { value: enableMouseInteraction ? 1 : 0 },
-        mouseRadius: { value: mouseRadius }
-    });
-    const waveUniforms = waveUniformsRef.current;
+    const waveUniforms = useMemo(
+        () => ({
+            time: { value: 0 },
+            resolution: { value: new THREE.Vector2() },
+            waveSpeed: { value: waveSpeed },
+            waveFrequency: { value: waveFrequency },
+            waveAmplitude: { value: waveAmplitude },
+            waveColor: { value: new THREE.Color(...waveColor) },
+            mousePos: { value: new THREE.Vector2() },
+            enableMouseInteraction: { value: enableMouseInteraction ? 1 : 0 },
+            mouseRadius: { value: mouseRadius }
+        }),
+        []
+    );
 
     useEffect(() => {
         const dpr = gl.getPixelRatio();
         waveUniforms.resolution.value.set(size.width * dpr, size.height * dpr);
     }, [size, gl, waveUniforms]);
 
+    /* eslint-disable react-hooks/immutability */
     useFrame(({ clock }) => {
         if (!disableAnimation) {
-        waveUniforms.time.value = clock.getElapsedTime();
+            waveUniforms.time.value = clock.getElapsedTime();
         }
         waveUniforms.waveSpeed.value = waveSpeed;
         waveUniforms.waveFrequency.value = waveFrequency;
@@ -230,6 +233,7 @@ function DitheredWaves({
         waveUniforms.mouseRadius.value = mouseRadius;
         waveUniforms.mousePos.value.copy(mouseRef.current);
     });
+    /* eslint-enable react-hooks/immutability */
 
     useEffect(() => {
         const handlePointerMove = (e: MouseEvent) => {

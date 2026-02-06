@@ -103,7 +103,11 @@ export async function getAllPosts() {
     })
   );
 
-  return posts.sort((a, b) => b._ts - a._ts).map(({ _ts, ...post }) => post);
+  return posts.sort((a, b) => b._ts - a._ts).map((post) => {
+    const { _ts, ...rest } = post;
+    void _ts;
+    return rest;
+  });
 }
 
 export async function getPostBySlug(slug: string) {
@@ -142,7 +146,11 @@ export async function getDailyEntries() {
     })
   );
 
-  return entries.sort((a, b) => b._ts - a._ts).map(({ _ts, ...entry }) => entry);
+  return entries.sort((a, b) => b._ts - a._ts).map((entry) => {
+    const { _ts, ...rest } = entry;
+    void _ts;
+    return rest;
+  });
 }
 
 export async function getMomentsEntries() {
@@ -170,5 +178,9 @@ export async function getMomentsEntries() {
     })
   );
 
-  return entries.sort((a, b) => b._ts - a._ts).map(({ _ts, ...entry }) => entry);
+  return entries.sort((a, b) => b._ts - a._ts).map((entry) => {
+    const { _ts, ...rest } = entry;
+    void _ts;
+    return rest;
+  });
 }
