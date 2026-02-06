@@ -1,8 +1,17 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllPosts } from "@/lib/content";
 
+export const dynamic = 'force-dynamic';
+
+interface Post {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+}
+
 export default async function PostsPage() {
-  const posts = await getAllPosts();
+  const posts = await getAllPosts() as Post[];
   return (
     <div className="container mx-auto max-w-5xl px-4 py-8">
       {/* Posts List */}

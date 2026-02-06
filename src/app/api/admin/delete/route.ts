@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
 export async function DELETE(request: Request) {
-    const isNode = process.env.NEXT_RUNTIME === 'nodejs';
+    const isNode = typeof process.versions?.node !== 'undefined';
     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
     let db: any = null;
 

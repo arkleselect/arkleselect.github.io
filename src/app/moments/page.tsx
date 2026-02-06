@@ -1,6 +1,7 @@
 import { getMomentsEntries } from "@/lib/content";
 import { MomentsGrid } from "@/components/moments-grid";
 import { Suspense } from "react";
+export const dynamic = 'force-dynamic';
 
 export default async function MomentsPage() {
     const moments = await getMomentsEntries();

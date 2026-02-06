@@ -1,7 +1,8 @@
 import { getPostBySlug, getPostSlugs } from "@/lib/content";
 import MarkdownContent from "@/components/markdown-content";
 
-export const dynamicParams = false;
+export const dynamicParams = true;
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();

@@ -7,8 +7,8 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
 export async function POST(request: Request) {
-    const isNode = process.env.NEXT_RUNTIME === 'nodejs';
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    // 更加稳健的环境识别
+    const isNode = typeof process.versions?.node !== 'undefined';
     let db: any = null;
 
     if (!isNode) {
