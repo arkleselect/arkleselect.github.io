@@ -74,7 +74,7 @@ export async function POST(request: Request) {
                 }
                 if (fs.existsSync(filePath)) {
                     const existing = fs.readFileSync(filePath, 'utf8');
-                    fileContent = existing + `\n---\n${newContent}`;
+                    fileContent = newContent + `\n---\n${existing}`;
                 } else {
                     fileContent = newContent;
                 }
@@ -115,7 +115,7 @@ export async function POST(request: Request) {
                 const existing: any = await db.prepare('SELECT content FROM daily WHERE filename = ?').bind(filename).first();
                 let finalContent = content;
                 if (existing) {
-                    finalContent = existing.content + '\n---\n' + content;
+                    finalContent = content + '\n---\n' + existing.content;
                 }
                 await db.prepare(`
                     INSERT INTO daily (filename, date, content, image_url)

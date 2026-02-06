@@ -87,6 +87,14 @@ function normalizeDate(value?: unknown) {
 function safeDate(value?: unknown) {
   const normalized = normalizeDate(value);
   if (!normalized) return 0;
+  // 支持 YYMMDD 格式 (例如 250724 -> 2025-07-24)
+  if (/^\d{6}$/.test(normalized)) {
+    const year = 2000 + parseInt(normalized.slice(0, 2));
+    const month = parseInt(normalized.slice(2, 4)) - 1;
+    const day = parseInt(normalized.slice(4, 6));
+    const d = new Date(year, month, day);
+    return isNaN(d.getTime()) ? 0 : d.getTime();
+  }
   const ts = Date.parse(normalized);
   return Number.isNaN(ts) ? 0 : ts;
 }
