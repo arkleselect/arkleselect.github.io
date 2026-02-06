@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export async function DELETE(request: Request) {
     try {

@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
 
 export async function POST(request: Request) {
     try {

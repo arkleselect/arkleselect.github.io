@@ -5,6 +5,9 @@ import matter from 'gray-matter';
 
 const contentRoot = path.join(process.cwd(), 'content');
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
 export async function GET(req: NextRequest) {
     try {
         const authHeader = req.headers.get('Authorization');
