@@ -1,19 +1,24 @@
 import { NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
+
+type AdminType = 'post' | 'daily' | 'moment';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
 export async function POST(request: Request) {
-    if (process.env.NEXT_RUNTIME !== 'nodejs') {
-        return NextResponse.json(
-            { error: 'Management API is only available in local development environment.' },
-            { status: 501 }
-        );
-    }
+    const isNode = process.env.NEXT_RUNTIME === 'nodejs';
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let db: any = null;
 
-    const fs = eval('require')('fs');
-    const path = eval('require')('path');
-    const matter = eval('require')('gray-matter');
+    if (!isNode) {
+        try {
+            const { env } = getRequestContext();
+            db = (env as any).DB;
+        } catch (e) {
+            console.error('Failed to get D1 binding:', e);
+        }
+    }
 
     try {
         const authHeader = request.headers.get('Authorization');
@@ -25,7 +30,8 @@ export async function POST(request: Request) {
             return res;
         }
 
-        const { type, data } = await request.json();
+        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+        const { type, data } = await request.json() as { type: AdminType; data: any };
 
         if (!type || !data) {
             const res = NextResponse.json({ error: 'Missing type or data' }, { status: 400 });
@@ -33,77 +39,101 @@ export async function POST(request: Request) {
             return res;
         }
 
-        const contentDir = path.join(process.cwd(), 'content');
-        let filePath = '';
-        let fileContent = '';
+        // --- 本地文件操作 (仅在 Node 环境下) ---
+        if (isNode) {
+            const fs = eval('require')('fs');
+            const path = eval('require')('path');
+            const matter = eval('require')('gray-matter');
+            const contentDir = path.join(process.cwd(), 'content');
+            let filePath = '';
+            let fileContent = '';
 
-        if (type === 'post') {
-            const { title, date, description, content, slug, filename } = data;
-
-            if (filename) {
-                // Editing mode
-                filePath = path.join(contentDir, 'posts', filename);
-            } else {
-                // New post mode
-                const baseFileName = slug || date.replace(/-/g, '');
-                let fileName = `${baseFileName}.md`;
-                filePath = path.join(contentDir, 'posts', fileName);
-
-                let counter = 1;
-                while (fs.existsSync(filePath)) {
-                    fileName = `${baseFileName}_${counter}.md`;
+            if (type === 'post') {
+                const { title, date, description, content, slug, filename } = data;
+                if (filename) {
+                    filePath = path.join(contentDir, 'posts', filename);
+                } else {
+                    const baseFileName = slug || date.replace(/-/g, '');
+                    let fileName = `${baseFileName}.md`;
                     filePath = path.join(contentDir, 'posts', fileName);
-                    counter++;
+                    let counter = 1;
+                    while (fs.existsSync(filePath)) {
+                        fileName = `${baseFileName}_${counter}.md`;
+                        filePath = path.join(contentDir, 'posts', fileName);
+                        counter++;
+                    }
                 }
+                fileContent = matter.stringify(content, { title, date, description });
+            } else if (type === 'daily') {
+                const { date, content, imageUrl } = data;
+                const fileName = `${date.replace(/-/g, '').slice(2)}.md`;
+                filePath = path.join(contentDir, 'daily', fileName);
+                let newContent = `\n\n${content}\n`;
+                if (imageUrl && imageUrl.trim() !== '') {
+                    newContent += `\n![Daily Image](${imageUrl})\n`;
+                }
+                if (fs.existsSync(filePath)) {
+                    const existing = fs.readFileSync(filePath, 'utf8');
+                    fileContent = existing + `\n---\n${newContent}`;
+                } else {
+                    fileContent = newContent;
+                }
+            } else if (type === 'moment') {
+                const { title, date, imageUrl, content } = data;
+                const timestamp = new Date().getTime();
+                const fileName = `moment_${timestamp}.md`;
+                filePath = path.join(contentDir, 'moments', fileName);
+                fileContent = matter.stringify(content || '', {
+                    title: title || `Moment_${timestamp}`,
+                    date,
+                    image: imageUrl,
+                });
             }
 
-            fileContent = matter.stringify(content, {
-                title,
-                date,
-                description,
-            });
-        } else if (type === 'daily') {
-            const { date, content, imageUrl } = data;
-            const fileName = `${date.replace(/-/g, '').slice(2)}.md`;
-            filePath = path.join(contentDir, 'daily', fileName);
-
-            let newContent = `\n\n${content}\n`;
-            if (imageUrl && imageUrl.trim() !== '') {
-                newContent += `\n![Daily Image](${imageUrl})\n`;
+            if (filePath) {
+                const dir = path.dirname(filePath);
+                if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+                fs.writeFileSync(filePath, fileContent, 'utf8');
             }
-
-            if (fs.existsSync(filePath)) {
-                const existing = fs.readFileSync(filePath, 'utf8');
-                fileContent = existing + `\n---\n${newContent}`;
-            } else {
-                fileContent = newContent;
-            }
-        } else if (type === 'moment') {
-            const { title, date, imageUrl, content } = data;
-            const timestamp = new Date().getTime();
-            const fileName = `moment_${timestamp}.md`;
-            filePath = path.join(contentDir, 'moments', fileName);
-
-            fileContent = matter.stringify(content || '', {
-                title: title || `Moment_${timestamp}`,
-                date,
-                image: imageUrl,
-            });
-        } else {
-            const res = NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-            res.headers.set('Cache-Control', 'no-store');
-            return res;
         }
 
-        // Ensure directory exists
-        const dir = path.dirname(filePath);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
+        // --- 数据库操作 (可在 Edge 环境下运行) ---
+        if (db) {
+            if (type === 'post') {
+                const { title, date, description, content, slug } = data;
+                await db.prepare(`
+                    INSERT INTO posts (slug, title, date, description, content) 
+                    VALUES (?, ?, ?, ?, ?)
+                    ON CONFLICT(slug) DO UPDATE SET
+                    title=excluded.title, date=excluded.date, description=excluded.description, content=excluded.content
+                `).bind(slug, title, date, description, content).run();
+            } else if (type === 'daily') {
+                const { date, content, imageUrl } = data;
+                const filename = `${date.replace(/-/g, '').slice(2)}.md`;
+                // 由于 daily 是追加模式，先尝试获取
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                const existing: any = await db.prepare('SELECT content FROM daily WHERE filename = ?').bind(filename).first();
+                let finalContent = content;
+                if (existing) {
+                    finalContent = existing.content + '\n---\n' + content;
+                }
+                await db.prepare(`
+                    INSERT INTO daily (filename, date, content, image_url)
+                    VALUES (?, ?, ?, ?)
+                    ON CONFLICT(filename) DO UPDATE SET
+                    content=excluded.content, image_url=excluded.image_url
+                `).bind(filename, date, finalContent, imageUrl || '').run();
+            } else if (type === 'moment') {
+                const { title, date, imageUrl, content } = data;
+                const filename = `moment_${new Date().getTime()}.md`;
+                await db.prepare(`
+                    INSERT INTO moments (filename, title, date, image_url, content)
+                    VALUES (?, ?, ?, ?, ?)
+                `).bind(filename, title || '', date, imageUrl || '', content || '').run();
+            }
         }
 
-        fs.writeFileSync(filePath, fileContent, 'utf8');
-
-        const res = NextResponse.json({ success: true, filePath });
+        const res = NextResponse.json({ success: true });
         res.headers.set('Cache-Control', 'no-store');
         return res;
     } catch (error: unknown) {

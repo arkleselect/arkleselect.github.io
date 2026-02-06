@@ -11,12 +11,25 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import { toString } from 'mdast-util-to-string';
 import GithubSlugger from 'github-slugger';
+import { getRequestContext } from '@cloudflare/next-on-pages';
 
 const contentRoot = path.join(process.cwd(), 'content');
 
 type TocItem = { depth: number; text: string; id: string };
 type HeadingNode = { depth?: number };
 type ElementNode = { tagName?: string; properties?: Record<string, unknown> };
+
+// 获取 D1 数据库实例
+function getDB() {
+  if (process.env.NEXT_RUNTIME === 'nodejs') return null;
+  try {
+    const { env } = getRequestContext();
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    return (env as any).DB;
+  } catch {
+    return null;
+  }
+}
 
 async function renderMarkdown(markdown: string) {
   const slugger = new GithubSlugger();
@@ -42,7 +55,6 @@ async function renderMarkdown(markdown: string) {
         const element = node as ElementNode;
         if (element.tagName === 'a' && element.properties?.href) {
           const href = element.properties.href;
-          // 如果是外部链接（以 http 开头）
           if (typeof href === 'string' && (href.startsWith('http') || href.startsWith('//'))) {
             element.properties.target = '_blank';
             element.properties.rel = 'noopener noreferrer';
@@ -75,12 +87,29 @@ function safeDate(value?: unknown) {
 }
 
 export async function getPostSlugs() {
+  const db = getDB();
+  if (db) {
+    const { results } = await db.prepare('SELECT slug FROM posts').all();
+    return results.map((r: Record<string, unknown>) => r.slug as string);
+  }
   const dir = path.join(contentRoot, 'posts');
   const files = await fs.readdir(dir);
   return files.filter((file) => file.endsWith('.md') && !file.startsWith('.')).map((file) => file.replace(/\.md$/, ''));
 }
 
 export async function getAllPosts() {
+  const db = getDB();
+  if (db) {
+    const { results } = await db.prepare('SELECT slug, title, date, description FROM posts ORDER BY date DESC').all();
+    return results.map((post: Record<string, unknown>) => ({
+      slug: post.slug as string,
+      title: post.title as string,
+      date: post.date as string,
+      description: post.description as string,
+      _ts: safeDate(post.date)
+    }));
+  }
+
   const dir = path.join(contentRoot, 'posts');
   const files = await fs.readdir(dir);
   const posts = await Promise.all(
@@ -111,6 +140,21 @@ export async function getAllPosts() {
 }
 
 export async function getPostBySlug(slug: string) {
+  const db = getDB();
+  if (db) {
+    const post = await db.prepare('SELECT * FROM posts WHERE slug = ?').bind(slug).first() as Record<string, unknown> | null;
+    if (!post) throw new Error('Post not found');
+    const { html, toc } = await renderMarkdown(post.content as string);
+    return {
+      slug: post.slug as string,
+      title: post.title as string,
+      date: post.date as string,
+      description: post.description as string,
+      html,
+      toc
+    };
+  }
+
   const filePath = path.join(contentRoot, 'posts', `${slug}.md`);
   const raw = await fs.readFile(filePath, 'utf8');
   const { data, content } = matter(raw);
@@ -128,6 +172,20 @@ export async function getPostBySlug(slug: string) {
 }
 
 export async function getDailyEntries() {
+  const db = getDB();
+  if (db) {
+    const { results } = await db.prepare('SELECT * FROM daily ORDER BY date DESC').all();
+    return Promise.all(results.map(async (entry: Record<string, unknown>) => {
+      const { html } = await renderMarkdown(entry.content as string);
+      return {
+        date: entry.date as string,
+        title: (entry.title as string) || '',
+        image: (entry.image_url as string) || '',
+        html
+      };
+    }));
+  }
+
   const dir = path.join(contentRoot, 'daily');
   const files = await fs.readdir(dir);
   const entries = await Promise.all(
@@ -154,6 +212,20 @@ export async function getDailyEntries() {
 }
 
 export async function getMomentsEntries() {
+  const db = getDB();
+  if (db) {
+    const { results } = await db.prepare('SELECT * FROM moments ORDER BY date DESC').all();
+    return Promise.all(results.map(async (entry: Record<string, unknown>) => {
+      const { html } = await renderMarkdown(entry.content as string);
+      return {
+        date: entry.date as string,
+        title: (entry.title as string) || '',
+        image: (entry.image_url as string) || '',
+        html
+      };
+    }));
+  }
+
   const dir = path.join(contentRoot, 'moments');
   try {
     await fs.access(dir);

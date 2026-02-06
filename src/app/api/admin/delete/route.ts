@@ -1,18 +1,24 @@
 import { NextResponse } from 'next/server';
+import { getRequestContext } from '@cloudflare/next-on-pages';
+
+type AdminType = 'post' | 'daily' | 'moment';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
 export async function DELETE(request: Request) {
-    if (process.env.NEXT_RUNTIME !== 'nodejs') {
-        return NextResponse.json(
-            { error: 'Management API is only available in local development environment.' },
-            { status: 501 }
-        );
-    }
+    const isNode = process.env.NEXT_RUNTIME === 'nodejs';
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    let db: any = null;
 
-    const fs = eval('require')('fs');
-    const path = eval('require')('path');
+    if (!isNode) {
+        try {
+            const { env } = getRequestContext();
+            db = (env as any).DB;
+        } catch (e) {
+            console.error('Failed to get D1 binding:', e);
+        }
+    }
 
     try {
         const authHeader = request.headers.get('Authorization');
@@ -24,7 +30,7 @@ export async function DELETE(request: Request) {
             return res;
         }
 
-        const { type, filename } = await request.json();
+        const { type, filename } = await request.json() as { type: AdminType; filename: string };
 
         if (!type || !filename) {
             const res = NextResponse.json({ error: 'Missing type or filename' }, { status: 400 });
@@ -32,39 +38,37 @@ export async function DELETE(request: Request) {
             return res;
         }
 
-        const contentDir = path.join(process.cwd(), 'content');
-        let filePath = '';
+        // --- 本地文件操作 ---
+        if (isNode) {
+            const fs = eval('require')('fs');
+            const path = eval('require')('path');
+            const contentDir = path.join(process.cwd(), 'content');
+            let filePath = '';
 
-        if (type === 'post') {
-            filePath = path.join(contentDir, 'posts', filename);
-        } else if (type === 'daily') {
-            filePath = path.join(contentDir, 'daily', filename);
-        } else if (type === 'moment') {
-            filePath = path.join(contentDir, 'moments', filename);
-        } else {
-            const res = NextResponse.json({ error: 'Invalid type' }, { status: 400 });
-            res.headers.set('Cache-Control', 'no-store');
-            return res;
+            if (type === 'post') filePath = path.join(contentDir, 'posts', filename);
+            else if (type === 'daily') filePath = path.join(contentDir, 'daily', filename);
+            else if (type === 'moment') filePath = path.join(contentDir, 'moments', filename);
+
+            if (filePath && fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+            }
         }
 
-        // Security check
-        const resolvedPath = path.resolve(filePath);
-        if (!resolvedPath.startsWith(contentDir)) {
-            const res = NextResponse.json({ error: 'Invalid file path' }, { status: 403 });
-            res.headers.set('Cache-Control', 'no-store');
-            return res;
+        // --- 数据库操作 ---
+        if (db) {
+            if (type === 'post') {
+                const slug = filename.replace('.md', '');
+                await db.prepare('DELETE FROM posts WHERE slug = ?').bind(slug).run();
+            } else if (type === 'daily') {
+                await db.prepare('DELETE FROM daily WHERE filename = ?').bind(filename).run();
+            } else if (type === 'moment') {
+                await db.prepare('DELETE FROM moments WHERE filename = ?').bind(filename).run();
+            }
         }
 
-        if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
-            const res = NextResponse.json({ success: true });
-            res.headers.set('Cache-Control', 'no-store');
-            return res;
-        } else {
-            const res = NextResponse.json({ error: 'File not found' }, { status: 404 });
-            res.headers.set('Cache-Control', 'no-store');
-            return res;
-        }
+        const res = NextResponse.json({ success: true });
+        res.headers.set('Cache-Control', 'no-store');
+        return res;
 
     } catch (error: unknown) {
         console.error('Delete error:', error);

@@ -125,26 +125,22 @@ export default function AdminPage() {
     const fetchPosts = useCallback(async (token?: string) => {
         try {
             const adminKey = token || localStorage.getItem('admin_key') || '';
-            console.log('[Admin] Fetching with key:', adminKey ? 'Key exists' : 'No key');
             const res = await fetch(`/api/admin/list?type=${type}`, {
                 headers: { 'Authorization': adminKey }
             });
             if (res.ok) {
-                const data = await res.json();
-                console.log('[Admin] Fetch success, items:', data.items?.length);
-                setExistingPosts(data.items);
+                const data = await res.json() as { items: AdminItem[] };
+                setExistingPosts(data.items || []);
             } else {
-                console.error('[Admin] Fetch failed:', res.status);
-                if (res.status === 401) setIsAuthorized(false); // Force logout on 401
+                if (res.status === 401) setIsAuthorized(false);
             }
-        } catch (_error) {
-            console.error('Failed to fetch posts');
+        } catch (error) {
+            console.error('Failed to fetch posts', error);
         }
     }, [type]);
 
     useEffect(() => {
         const key = localStorage.getItem('admin_key');
-        console.log('[Admin] Checking auth on mount. Key:', key);
         if (key) {
             setIsAuthorized(true);
             fetchPosts(key);
@@ -152,13 +148,11 @@ export default function AdminPage() {
         setCheckingAuth(false);
     }, [fetchPosts]);
 
-    // Refresh posts when switching to list view
-    // Refresh posts when switching to list view OR changing type
     useEffect(() => {
         if (viewMode === 'list' && isAuthorized) {
             fetchPosts();
         }
-    }, [viewMode, isAuthorized, type, fetchPosts]);
+    }, [viewMode, isAuthorized, fetchPosts]);
 
     const handleEditPost = (item: AdminItem) => {
         if (type === 'post') {
@@ -202,7 +196,7 @@ export default function AdminPage() {
         setLoading(true);
         setMessage(null);
 
-        let data: PostData | DailyData | MomentData | { [key: string]: unknown } = {};
+        let data: any = {};
         if (type === 'post') {
             data = { ...postData, filename: currentFilename };
         }
@@ -227,7 +221,7 @@ export default function AdminPage() {
                 return;
             }
 
-            const result = await res.json();
+            const result = await res.json() as { success?: boolean; error?: string };
             if (result.success) {
                 setMessage({ text: `SUCCESS: ${type.toUpperCase()} SAVED`, isError: false });
                 if (type === 'post') {
@@ -241,16 +235,16 @@ export default function AdminPage() {
             } else {
                 setMessage({ text: `ERROR: ${result.error}`, isError: true });
             }
-        } catch (_error) {
+        } catch (error) {
             setMessage({ text: 'NETWORK ERROR: CONNECTION LOST', isError: true });
         } finally {
             setLoading(false);
         }
     };
 
-    const handleDelete = (e: React.MouseEvent, type: AdminType, filename: string) => {
+    const handleDelete = (e: React.MouseEvent, targetType: AdminType, filename: string) => {
         e.stopPropagation();
-        setDeleteTarget({ type, filename });
+        setDeleteTarget({ type: targetType, filename });
         setDeleteConfirmOpen(true);
     };
 
@@ -275,17 +269,16 @@ export default function AdminPage() {
             });
 
             if (res.ok) {
-                // Remove locally
-                if (deleteTarget.type === 'post') {
-                    setExistingPosts(prev => prev.filter(p => p.filename !== deleteTarget.filename));
-                }
+                setExistingPosts(prev => prev.filter(p => p.filename !== deleteTarget.filename));
                 setMessage({ text: 'SUCCESS: ITEM_DELETED', isError: false });
                 setDeleteConfirmOpen(false);
                 setDeleteTarget(null);
             } else {
-                const err = await res.json();
+                const err = await res.json() as { error?: string };
                 setMessage({ text: `ERROR: ${err.error || 'Failed to delete'}`, isError: true });
             }
+        } catch (error) {
+            console.error('Delete error:', error);
         } finally {
             setLoading(false);
         }
