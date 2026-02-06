@@ -115,7 +115,7 @@ export default function AdminPage() {
                 setAuthError(true);
                 setPassword('');
             }
-        } catch (error) {
+        } catch (_error) {
             setAuthError(true);
         } finally {
             setLoading(false);
@@ -137,8 +137,8 @@ export default function AdminPage() {
                 console.error('[Admin] Fetch failed:', res.status);
                 if (res.status === 401) setIsAuthorized(false); // Force logout on 401
             }
-        } catch (e) {
-            console.error('Failed to fetch posts', e);
+        } catch (_error) {
+            console.error('Failed to fetch posts');
         }
     }, [type]);
 

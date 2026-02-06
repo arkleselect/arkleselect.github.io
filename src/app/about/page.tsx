@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from 'react';
-import type { ComponentType } from 'react';
+import type { ComponentType, ReactElement } from 'react';
 import { FiCommand, FiActivity, FiGlobe, FiCpu, FiMessageCircle } from "react-icons/fi";
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiThreedotjs, SiFramer, SiVercel } from 'react-icons/si';
 import _LogoLoop from '@/components/logo-loop/LogoLoop';
@@ -10,12 +10,12 @@ type AboutItem = { label: string; value: string };
 type AboutSectionData = {
   id: string;
   title: string;
-  icon: JSX.Element;
+  icon: ReactElement;
   content?: string[];
   items?: AboutItem[];
 };
 
-type LogoItem = { node: JSX.Element; title: string; href: string };
+type LogoItem = { node: ReactElement; title: string; href: string };
 type LogoLoopProps = {
   logos: LogoItem[];
   speed?: number;
