@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx @cloudflare/next-on-pages@1",
+    "build": "next build",
+    "pages:build": "HOME=$PWD/.home XDG_CONFIG_HOME=$PWD/.home/.config VERCEL_CONFIG_DIR=$PWD/.vercel npx @cloudflare/next-on-pages@1",
     "start": "next start",
     "lint": "eslint"
   },
