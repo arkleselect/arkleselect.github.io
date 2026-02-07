@@ -9,6 +9,7 @@ interface DockItemProps {
   children: ReactElement | ReactElement[];
   className?: string;
   onClick?: () => void;
+  active?: boolean;
   mouseX: ReturnType<typeof useMotionValue<number>>;
   spring: { mass: number; stiffness: number; damping: number };
   distance: number;
@@ -16,7 +17,7 @@ interface DockItemProps {
   baseItemSize: number;
 }
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize }: DockItemProps) {
+function DockItem({ children, className = '', onClick, active, mouseX, spring, distance, magnification, baseItemSize }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
 
@@ -43,7 +44,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       onFocus={() => isHovered.set(1)}
       onBlur={() => isHovered.set(0)}
       onClick={onClick}
-      className={`dock-item ${className}`}
+      className={`dock-item ${className} ${active ? 'active' : ''}`}
       tabIndex={0}
       role="button"
       aria-haspopup="true"
@@ -103,6 +104,7 @@ export interface DockItemData {
   label: string;
   onClick?: () => void;
   className?: string;
+  active?: boolean;
 }
 
 interface DockProps {
@@ -156,6 +158,7 @@ export default function Dock({
           <DockItem
             key={index}
             onClick={item.onClick}
+            active={item.active}
             className={item.className}
             mouseX={mouseX}
             spring={spring}

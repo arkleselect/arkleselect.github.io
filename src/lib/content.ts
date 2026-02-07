@@ -120,11 +120,19 @@ export async function getPostSlugs() {
     const { results } = await db.prepare('SELECT slug FROM posts').all();
     return results.map((r: Record<string, unknown>) => r.slug as string);
   }
-  const path = eval('require')('path');
-  const fs = eval('require')('fs/promises');
-  const dir = path.join(getContentRoot(), 'posts');
-  const files = await fs.readdir(dir);
-  return files.filter((file: string) => file.endsWith('.md') && !file.startsWith('.')).map((file: string) => file.replace(/\.md$/, ''));
+  if (process.env.NEXT_RUNTIME === 'edge') return [];
+
+  try {
+    if (typeof eval('require') !== 'function') return [];
+    const path = eval('require')('path');
+    const fs = eval('require')('fs/promises');
+    const dir = path.join(getContentRoot(), 'posts');
+    const files = await fs.readdir(dir);
+    return files.filter((file: string) => file.endsWith('.md') && !file.startsWith('.')).map((file: string) => file.replace(/\.md$/, ''));
+  } catch (error) {
+    console.error('Error fetching post slugs from filesystem:', error);
+    return [];
+  }
 }
 
 export async function getAllPosts() {
@@ -140,35 +148,43 @@ export async function getAllPosts() {
     }));
   }
 
-  const path = eval('require')('path');
-  const fs = eval('require')('fs/promises');
-  const dir = path.join(getContentRoot(), 'posts');
-  const files = await fs.readdir(dir);
-  const posts = await Promise.all(
-    files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
-      const slug = file.replace(/\.md$/, '');
-      const raw = await fs.readFile(path.join(dir, file), 'utf8');
-      const { data, content } = matter(raw);
-      const description =
-        typeof data.description === 'string'
-          ? data.description
-          : content.replace(/\s+/g, ' ').trim().slice(0, 120);
-      const date = normalizeDate(data.date);
-      return {
-        slug,
-        title: typeof data.title === 'string' ? data.title : slug,
-        date,
-        description,
-        _ts: safeDate(date)
-      };
-    })
-  );
+  if (process.env.NEXT_RUNTIME === 'edge') return [];
 
-  return posts.sort((a, b) => b._ts - a._ts).map((post) => {
-    const { _ts, ...rest } = post;
-    void _ts;
-    return rest;
-  });
+  try {
+    if (typeof eval('require') !== 'function') return [];
+    const path = eval('require')('path');
+    const fs = eval('require')('fs/promises');
+    const dir = path.join(getContentRoot(), 'posts');
+    const files = await fs.readdir(dir);
+    const posts = await Promise.all(
+      files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
+        const slug = file.replace(/\.md$/, '');
+        const raw = await fs.readFile(path.join(dir, file), 'utf8');
+        const { data, content } = matter(raw);
+        const description =
+          typeof data.description === 'string'
+            ? data.description
+            : content.replace(/\s+/g, ' ').trim().slice(0, 120);
+        const date = normalizeDate(data.date);
+        return {
+          slug,
+          title: typeof data.title === 'string' ? data.title : slug,
+          date,
+          description,
+          _ts: safeDate(date)
+        };
+      })
+    );
+
+    return posts.sort((a, b) => b._ts - a._ts).map((post) => {
+      const { _ts, ...rest } = post;
+      void _ts;
+      return rest;
+    });
+  } catch (error) {
+    console.error('Error fetching all posts from filesystem:', error);
+    return [];
+  }
 }
 
 export async function getPostBySlug(slug: string) {
@@ -187,22 +203,34 @@ export async function getPostBySlug(slug: string) {
     };
   }
 
-  const path = eval('require')('path');
-  const fs = eval('require')('fs/promises');
-  const filePath = path.join(getContentRoot(), 'posts', `${slug}.md`);
-  const raw = await fs.readFile(filePath, 'utf8');
-  const { data, content } = matter(raw);
-  const { html, toc } = await renderMarkdown(content);
+  if (process.env.NEXT_RUNTIME === 'edge') {
+    throw new Error('FileSystem access not available in Edge Runtime');
+  }
 
-  const date = normalizeDate(data.date);
-  return {
-    slug,
-    title: typeof data.title === 'string' ? data.title : slug,
-    date,
-    description: typeof data.description === 'string' ? data.description : '',
-    html,
-    toc
-  };
+  try {
+    if (typeof eval('require') !== 'function') {
+      throw new Error('Require not available');
+    }
+    const path = eval('require')('path');
+    const fs = eval('require')('fs/promises');
+    const filePath = path.join(getContentRoot(), 'posts', `${slug}.md`);
+    const raw = await fs.readFile(filePath, 'utf8');
+    const { data, content } = matter(raw);
+    const { html, toc } = await renderMarkdown(content);
+
+    const date = normalizeDate(data.date);
+    return {
+      slug,
+      title: typeof data.title === 'string' ? data.title : slug,
+      date,
+      description: typeof data.description === 'string' ? data.description : '',
+      html,
+      toc
+    };
+  } catch (error) {
+    console.error(`Error fetching post by slug ${slug} from filesystem:`, error);
+    throw error;
+  }
 }
 
 export async function getDailyEntries() {

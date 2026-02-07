@@ -46,6 +46,31 @@
   background-color: #1a1a1a;
 }
 
+.dock-item.active {
+  background-color: #1a1a1a;
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dock-item.active .dock-icon {
+  color: #fff;
+}
+
+.dock-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 8px #fff;
+}
+
 .dock-icon {
   display: flex;
   align-items: center;
