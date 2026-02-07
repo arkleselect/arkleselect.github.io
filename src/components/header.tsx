@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 
 const navItems = [
   { name: "首页", href: "/" },
@@ -26,6 +27,11 @@ export function Header() {
   const isMomentsPage = pathname === "/moments";
   const isAdminPage = pathname?.startsWith("/admin");
   const [viewCount, setViewCount] = useState(0);
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   const currentCols = searchParams.get('cols') || '4';
 
@@ -104,22 +110,32 @@ export function Header() {
         ) : (
           // Standard Global Navigation
           <nav className="flex items-center gap-2 mx-auto">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href ?? "#"}
-                target={item.target}
-                rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                className="px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                aria-label={item.name}
-                title={item.name}
-                onClick={(event) => {
-                  if (!item.href) event.preventDefault();
-                }}
-              >
-                {item.icon ? item.icon : item.name}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href ?? "#"}
+                  target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                  className={`relative px-3 py-1.5 text-sm transition-colors ${active ? 'text-foreground font-medium' : 'text-muted-foreground hover:text-foreground'}`}
+                  aria-label={item.name}
+                  title={item.name}
+                  onClick={(event) => {
+                    if (!item.href) event.preventDefault();
+                  }}
+                >
+                  {item.icon ? item.icon : item.name}
+                  {active && (
+                    <motion.div
+                      layoutId="nav-active"
+                      className="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
         )}
       </div>
