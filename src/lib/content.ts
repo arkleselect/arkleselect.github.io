@@ -16,8 +16,13 @@ import { getRequestContext } from '@cloudflare/next-on-pages';
 
 // 在 Edge Runtime 下，我们不在顶级作用域计算内容路径
 const getContentRoot = () => {
-  const path = eval('require')('path');
-  return path.join(process.cwd(), 'content');
+  if (process.env.NEXT_RUNTIME === 'edge') return '';
+  try {
+    const path = eval('require')('path');
+    return path.join(process.cwd(), 'content');
+  } catch {
+    return '';
+  }
 };
 
 type TocItem = { depth: number; text: string; id: string };
@@ -87,6 +92,15 @@ function normalizeDate(value?: unknown) {
 function safeDate(value?: unknown) {
   const normalized = normalizeDate(value);
   if (!normalized) return 0;
+
+  // 支持 M.D 或 M-D 格式 (例如 2.7 -> 2026-02-07)
+  if (/^\d{1,2}[.-]\d{1,2}$/.test(normalized)) {
+    const [m, d] = normalized.split(/[.-]/).map(Number);
+    const now = new Date();
+    const date = new Date(now.getFullYear(), m - 1, d);
+    return isNaN(date.getTime()) ? 0 : date.getTime();
+  }
+
   // 支持 YYMMDD 格式 (例如 250724 -> 2025-07-24)
   if (/^\d{6}$/.test(normalized)) {
     const year = 2000 + parseInt(normalized.slice(0, 2));
@@ -193,43 +207,55 @@ export async function getPostBySlug(slug: string) {
 export async function getDailyEntries() {
   const db = getDB();
   if (db) {
-    const { results } = await db.prepare('SELECT * FROM daily ORDER BY date DESC').all();
-    return Promise.all(results.map(async (entry: Record<string, unknown>) => {
+    const { results } = await db.prepare('SELECT * FROM daily').all();
+    const entries = await Promise.all(results.map(async (entry: Record<string, unknown>) => {
       const { html } = await renderMarkdown(entry.content as string);
-      return {
-        date: entry.date as string,
-        title: (entry.title as string) || '',
-        image: (entry.image_url as string) || '',
-        html
-      };
-    }));
-  }
-
-  const path = eval('require')('path');
-  const fs = eval('require')('fs/promises');
-  const dir = path.join(getContentRoot(), 'daily');
-  const files = await fs.readdir(dir);
-  const entries = await Promise.all(
-    files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
-      const raw = await fs.readFile(path.join(dir, file), 'utf8');
-      const { data, content } = matter(raw);
-      const { html } = await renderMarkdown(content);
-      const date = normalizeDate(data.date) || file.replace(/\.md$/, '');
+      const date = entry.date as string;
       return {
         date,
-        title: typeof data.title === 'string' ? data.title : '',
-        image: typeof data.image === 'string' ? data.image : '',
+        title: (entry.title as string) || '',
+        image: (entry.image_url as string) || '',
         html,
         _ts: safeDate(date)
       };
-    })
-  );
+    }));
+    // 统一排序：按时间戳降序
+    return entries.sort((a, b) => b._ts - a._ts).map(({ _ts, ...rest }) => rest);
+  }
 
-  return entries.sort((a, b) => b._ts - a._ts).map((entry) => {
-    const { _ts, ...rest } = entry;
-    void _ts;
-    return rest;
-  });
+
+  if (process.env.NEXT_RUNTIME === 'edge') return [];
+
+  try {
+    const path = eval('require')('path');
+    const fs = eval('require')('fs/promises');
+    const dir = path.join(getContentRoot(), 'daily');
+    const files = await fs.readdir(dir);
+    const entries = await Promise.all(
+      files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
+        const raw = await fs.readFile(path.join(dir, file), 'utf8');
+        const { data, content } = matter(raw);
+        const { html } = await renderMarkdown(content);
+        const date = normalizeDate(data.date) || file.replace(/\.md$/, '');
+        return {
+          date,
+          title: typeof data.title === 'string' ? data.title : '',
+          image: typeof data.image === 'string' ? data.image : '',
+          html,
+          _ts: safeDate(date)
+        };
+      })
+    );
+
+    return entries.sort((a, b) => b._ts - a._ts).map((entry) => {
+      const { _ts, ...rest } = entry;
+      void _ts;
+      return rest;
+    });
+  } catch (error) {
+    console.error('Error fetching daily entries from filesystem:', error);
+    return [];
+  }
 }
 
 export async function getMomentsEntries() {
@@ -247,35 +273,42 @@ export async function getMomentsEntries() {
     }));
   }
 
-  const path = eval('require')('path');
-  const fs = eval('require')('fs/promises');
-  const dir = path.join(getContentRoot(), 'moments');
+  if (process.env.NEXT_RUNTIME === 'edge') return [];
+
   try {
-    await fs.access(dir);
-  } catch {
+    const path = eval('require')('path');
+    const fs = eval('require')('fs/promises');
+    const dir = path.join(getContentRoot(), 'moments');
+    try {
+      await fs.access(dir);
+    } catch {
+      return [];
+    }
+
+    const files = await fs.readdir(dir);
+    const entries = await Promise.all(
+      files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
+        const raw = await fs.readFile(path.join(dir, file), 'utf8');
+        const { data, content } = matter(raw);
+        const { html } = await renderMarkdown(content);
+        const date = normalizeDate(data.date) || file.replace(/\.md$/, '');
+        return {
+          date,
+          title: typeof data.title === 'string' ? data.title : '',
+          image: typeof data.image === 'string' ? data.image : '',
+          html,
+          _ts: safeDate(date)
+        };
+      })
+    );
+
+    return entries.sort((a, b) => b._ts - a._ts).map((entry) => {
+      const { _ts, ...rest } = entry;
+      void _ts;
+      return rest;
+    });
+  } catch (error) {
+    console.error('Error fetching moments entries from filesystem:', error);
     return [];
   }
-
-  const files = await fs.readdir(dir);
-  const entries = await Promise.all(
-    files.filter((file: string) => file.endsWith('.md')).map(async (file: string) => {
-      const raw = await fs.readFile(path.join(dir, file), 'utf8');
-      const { data, content } = matter(raw);
-      const { html } = await renderMarkdown(content);
-      const date = normalizeDate(data.date) || file.replace(/\.md$/, '');
-      return {
-        date,
-        title: typeof data.title === 'string' ? data.title : '',
-        image: typeof data.image === 'string' ? data.image : '',
-        html,
-        _ts: safeDate(date)
-      };
-    })
-  );
-
-  return entries.sort((a, b) => b._ts - a._ts).map((entry) => {
-    const { _ts, ...rest } = entry;
-    void _ts;
-    return rest;
-  });
 }

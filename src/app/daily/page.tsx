@@ -1,6 +1,6 @@
 import { getDailyEntries } from "@/lib/content";
 export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export default async function DailyPage() {
   const dailyPosts = await getDailyEntries();

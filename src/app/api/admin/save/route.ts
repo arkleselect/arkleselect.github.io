@@ -65,7 +65,24 @@ export async function POST(request: Request) {
                 }
                 fileContent = matter.stringify(content, { title, date, description });
             } else if (type === 'daily') {
-                const { date, content, imageUrl } = data;
+                let { date, content, imageUrl } = data;
+
+                // 规范化日期格式为 YYYY-MM-DD
+                if (date) {
+                    // 处理 M.D 或 M-D 格式
+                    if (/^\d{1,2}[.-]\d{1,2}$/.test(date)) {
+                        const [m, d] = date.split(/[.-]/).map(Number);
+                        const now = new Date();
+                        const year = now.getFullYear();
+                        date = `${year}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                    } else if (/^\d{6}$/.test(date)) {
+                        const year = 2000 + parseInt(date.slice(0, 2));
+                        const month = date.slice(2, 4);
+                        const day = date.slice(4, 6);
+                        date = `${year}-${month}-${day}`;
+                    }
+                }
+
                 const fileName = `${date.replace(/-/g, '').slice(2)}.md`;
                 filePath = path.join(contentDir, 'daily', fileName);
                 let newContent = `\n\n${content}\n`;
@@ -108,7 +125,23 @@ export async function POST(request: Request) {
                     title=excluded.title, date=excluded.date, description=excluded.description, content=excluded.content
                 `).bind(slug, title, date, description, content).run();
             } else if (type === 'daily') {
-                const { date, content, imageUrl } = data;
+                let { date, content, imageUrl } = data;
+
+                // 规范化日期格式为 YYYY-MM-DD
+                if (date) {
+                    if (/^\d{1,2}[.-]\d{1,2}$/.test(date)) {
+                        const [m, d] = date.split(/[.-]/).map(Number);
+                        const now = new Date();
+                        const year = now.getFullYear();
+                        date = `${year}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                    } else if (/^\d{6}$/.test(date)) {
+                        const year = 2000 + parseInt(date.slice(0, 2));
+                        const month = date.slice(2, 4);
+                        const day = date.slice(4, 6);
+                        date = `${year}-${month}-${day}`;
+                    }
+                }
+
                 const filename = `${date.replace(/-/g, '').slice(2)}.md`;
                 // 由于 daily 是追加模式，先尝试获取
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
