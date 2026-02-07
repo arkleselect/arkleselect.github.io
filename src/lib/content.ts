@@ -14,10 +14,11 @@ import { toString } from 'mdast-util-to-string';
 import GithubSlugger from 'github-slugger';
 import { getRequestContext } from '@cloudflare/next-on-pages';
 
-// 在 Edge Runtime 下，我们不在顶级作用域计算内容路径
 const getContentRoot = () => {
   if (process.env.NEXT_RUNTIME === 'edge') return '';
   try {
+    // 再次检查是否真的在 Node 环境
+    if (typeof eval('require') !== 'function') return '';
     const path = eval('require')('path');
     return path.join(process.cwd(), 'content');
   } catch {
@@ -223,10 +224,10 @@ export async function getDailyEntries() {
     return entries.sort((a, b) => b._ts - a._ts).map(({ _ts, ...rest }) => rest);
   }
 
-
   if (process.env.NEXT_RUNTIME === 'edge') return [];
 
   try {
+    if (typeof eval('require') !== 'function') return [];
     const path = eval('require')('path');
     const fs = eval('require')('fs/promises');
     const dir = path.join(getContentRoot(), 'daily');
@@ -276,6 +277,7 @@ export async function getMomentsEntries() {
   if (process.env.NEXT_RUNTIME === 'edge') return [];
 
   try {
+    if (typeof eval('require') !== 'function') return [];
     const path = eval('require')('path');
     const fs = eval('require')('fs/promises');
     const dir = path.join(getContentRoot(), 'moments');
