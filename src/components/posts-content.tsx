@@ -29,14 +29,9 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
     }, [initialPosts, selectedCategory]);
 
     return (
-        <div className="space-y-16">
-            {/* Tactical Header and Category Filter - About Page Style Layout */}
-            <section className="space-y-8">
-                <div className="flex items-center gap-4 text-white/13 font-mono text-[10px] tracking-widest uppercase">
-                    <span className="h-px flex-1 bg-white/10"></span>
-                    <span>Security_Level: CLEARANCE_REQ</span>
-                    <span className="h-px flex-1 bg-white/10"></span>
-                </div>
+        <div className="space-y-12">
+            {/* Category Filter - Simplified */}
+            <section className="mb-20">
 
                 <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 px-4">
                     {categories.map((category) => (
@@ -57,11 +52,6 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
                 {filteredPosts.map((post) => (
                     <a key={post.slug} href={`/posts/${post.slug}`} className="block group">
                         <Card className="rounded-none border-white/5 bg-transparent hover:bg-white/[0.02] transition-all duration-500 relative overflow-hidden p-1">
-                            {/* Corner Accents for HUD look */}
-                            <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-white/20 group-hover:border-white/40 transition-colors"></span>
-                            <span className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-white/20 group-hover:border-white/40 transition-colors"></span>
-                            <span className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-white/20 group-hover:border-white/40 transition-colors"></span>
-                            <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-white/20 group-hover:border-white/40 transition-colors"></span>
 
                             <CardHeader className="gap-2 px-6 py-4">
                                 <div className="flex items-start justify-between">

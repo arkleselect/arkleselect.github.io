@@ -55,7 +55,7 @@ export default function AboutPage() {
       content: [
         "本项目从 0 开始搭建，使用 ReactBits 组件库的设计。",
         "全过程在 Warp 环境下完成，期间借助 Manus 生成初始 UI 原型。",
-                "在 AI 生成的基础上进行手工操作与逻辑重构，以确保视觉的独特性。"
+        "在 AI 生成的基础上进行手工操作与逻辑重构，以确保视觉的独特性。"
       ]
     },
     {
@@ -78,7 +78,7 @@ export default function AboutPage() {
       <section className="mb-13 space-y-4">
         <div className="flex items-center gap-4 text-white/13 font-mono text-[10px] tracking-widest uppercase">
           <span className="h-px flex-1 bg-white/10"></span>
-          <span>Security_Level: CLEARANCE_REQ</span>
+          <span>About page</span>
           <span className="h-px flex-1 bg-white/10"></span>
         </div>
 
