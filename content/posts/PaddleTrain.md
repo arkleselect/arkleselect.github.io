@@ -54,7 +54,7 @@ $Total Loss = CTCLoss + NRTRLoss$
 
 ### 5. 模型收敛
 
-**收敛** 是训练进入“平稳”阶段，模型已基本学到数据规律，还未出现明显分歧。    
+**收敛** 是训练进入“平稳”阶段，模型已基本学到数据规律，还未出现明显分歧。
 
 &nbsp;
 
@@ -74,7 +74,7 @@ $Total Loss = CTCLoss + NRTRLoss$
 
 - 训练 loss 从 0.5 → 0.2 → 0.1 → 0.05；验证 loss 从 0.6 → 0.3 → 0.25 → 0.35。
 - 验证 loss 在第三次迭代后回升，说明模型开始记忆训练集噪声，泛化能力下降。
-- 
+-
 
 过拟合会导致什么？
 
@@ -133,7 +133,7 @@ python PPOCRLabel.py --lang ch
 
 ### **2.2.1 修改配置文件**
 
-![](https://raw.githubusercontent.com/arkleselect/blog/main/img/test.png) 
+![](https://raw.githubusercontent.com/arkleselect/blog/main/img/test.png)
 
 配置文件
 

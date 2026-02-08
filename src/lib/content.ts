@@ -138,12 +138,13 @@ export async function getPostSlugs() {
 export async function getAllPosts() {
   const db = getDB();
   if (db) {
-    const { results } = await db.prepare('SELECT slug, title, date, description FROM posts ORDER BY date DESC').all();
+    const { results } = await db.prepare('SELECT slug, title, date, description, category FROM posts ORDER BY date DESC').all();
     return results.map((post: Record<string, unknown>) => ({
       slug: post.slug as string,
       title: post.title as string,
       date: post.date as string,
       description: post.description as string,
+      category: (post.category as string) || '',
       _ts: safeDate(post.date)
     }));
   }
@@ -171,6 +172,7 @@ export async function getAllPosts() {
           title: typeof data.title === 'string' ? data.title : slug,
           date,
           description,
+          category: typeof data.category === 'string' ? data.category : '',
           _ts: safeDate(date)
         };
       })
@@ -198,6 +200,7 @@ export async function getPostBySlug(slug: string) {
       title: post.title as string,
       date: post.date as string,
       description: post.description as string,
+      category: (post.category as string) || '',
       html,
       toc
     };
@@ -224,6 +227,7 @@ export async function getPostBySlug(slug: string) {
       title: typeof data.title === 'string' ? data.title : slug,
       date,
       description: typeof data.description === 'string' ? data.description : '',
+      category: typeof data.category === 'string' ? data.category : '',
       html,
       toc
     };

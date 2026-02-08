@@ -8,7 +8,7 @@ date: 2025-07-21
 
 ### 1.1 安装 Anaconda
 
-如果你还没装，可以从官网安装：https://www.anaconda.com/
+如果你还没装，可以从官网安装：<https://www.anaconda.com/>
 
 ### 1.2 创建虚拟环境
 
@@ -141,7 +141,7 @@ python scripts/download_models.py
 
 如果无法自动下载，手动访问：
 
-https://github.com/OpenTalker/SadTalker#checkpoints
+<https://github.com/OpenTalker/SadTalker#checkpoints>
 
 将模型放入：
 
