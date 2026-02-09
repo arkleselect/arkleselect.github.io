@@ -16,7 +16,10 @@ export async function POST(request: Request) {
             const { env } = getRequestContext();
             db = (env as any).DB;
         } catch (e) {
-            console.error('Failed to get D1 binding:', e);
+            // Silence noisy logs in local development
+            if (process.env.NODE_ENV !== 'development') {
+                console.error('Failed to get D1 binding:', e);
+            }
         }
     }
 
@@ -49,7 +52,7 @@ export async function POST(request: Request) {
             let fileContent = '';
 
             if (type === 'post') {
-                const { title, date, description, content, slug, filename } = data;
+                const { title, date, description, category, content, slug, filename } = data;
                 if (filename) {
                     filePath = path.join(contentDir, 'posts', filename);
                 } else {
@@ -63,7 +66,7 @@ export async function POST(request: Request) {
                         counter++;
                     }
                 }
-                fileContent = matter.stringify(content, { title, date, description });
+                fileContent = matter.stringify(content, { title, date, description, category });
             } else if (type === 'daily') {
                 let { date, content, imageUrl } = data;
 
@@ -117,13 +120,13 @@ export async function POST(request: Request) {
         // --- 数据库操作 (可在 Edge 环境下运行) ---
         if (db) {
             if (type === 'post') {
-                const { title, date, description, content, slug } = data;
+                const { title, date, description, category, content, slug } = data;
                 await db.prepare(`
-                    INSERT INTO posts (slug, title, date, description, content) 
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT INTO posts (slug, title, date, description, category, content) 
+                    VALUES (?, ?, ?, ?, ?, ?)
                     ON CONFLICT(slug) DO UPDATE SET
-                    title=excluded.title, date=excluded.date, description=excluded.description, content=excluded.content
-                `).bind(slug, title, date, description, content).run();
+                    title=excluded.title, date=excluded.date, description=excluded.description, category=excluded.category, content=excluded.content
+                `).bind(slug, title, date, description, category || '', content).run();
             } else if (type === 'daily') {
                 let { date, content, imageUrl } = data;
 

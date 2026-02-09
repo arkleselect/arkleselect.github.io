@@ -36,6 +36,7 @@ type PostData = {
     description: string;
     content: string;
     slug: string;
+    category: string;
 };
 
 type DailyData = {
@@ -59,6 +60,7 @@ type AdminItem = {
     content?: string;
     slug?: string;
     imageUrl?: string;
+    category?: string;
 };
 
 type StatusMessage = { text: string; isError: boolean };
@@ -76,7 +78,7 @@ export default function AdminPage() {
     const today = new Date().toISOString().split('T')[0];
     const defaultSlug = today.replace(/-/g, '').slice(2); // YYMMDD
 
-    const [postData, setPostData] = useState<PostData>({ title: '', date: today, description: '', content: '', slug: defaultSlug });
+    const [postData, setPostData] = useState<PostData>({ title: '', date: today, description: '', content: '', slug: defaultSlug, category: '' });
     const [isSlugModified, setIsSlugModified] = useState(false);
     const [dailyData, setDailyData] = useState<DailyData>({ date: today, imageUrl: '', content: '' });
     const [momentData, setMomentData] = useState<MomentData>({ title: '', date: today, imageUrl: '', content: '' });
@@ -161,7 +163,8 @@ export default function AdminPage() {
                 date: item.date,
                 description: item.description || '',
                 content: item.content || '',
-                slug: item.slug || defaultSlug
+                slug: item.slug || defaultSlug,
+                category: item.category || ''
             });
         } else if (type === 'daily') {
             setDailyData({
@@ -184,7 +187,7 @@ export default function AdminPage() {
     };
 
     const handleNewPost = () => {
-        setPostData({ title: '', date: today, description: '', content: '', slug: defaultSlug });
+        setPostData({ title: '', date: today, description: '', content: '', slug: defaultSlug, category: '' });
         setIsSlugModified(false);
         setIsEditing(false);
         setCurrentFilename(null);
@@ -501,14 +504,18 @@ export default function AdminPage() {
                                                 <Input id="post-date" type="date" value={postData.date} onChange={(e) => { const val = e.target.value; setPostData(prev => ({ ...prev, date: val, slug: isSlugModified ? prev.slug : dateToSlug(val) })); }} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
                                             </div>
                                         </div>
+                                        <div className="space-y-1.5">
+                                            <Label htmlFor="post-desc" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Description</Label>
+                                            <Input id="post-desc" value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
+                                        </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                             <div className="space-y-1.5">
                                                 <Label htmlFor="post-slug" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Slug</Label>
                                                 <Input id="post-slug" value={postData.slug} onChange={(e) => { setPostData({ ...postData, slug: e.target.value }); setIsSlugModified(true); }} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs font-mono text-neutral-400 focus:bg-neutral-900" />
                                             </div>
                                             <div className="space-y-1.5">
-                                                <Label htmlFor="post-desc" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Description</Label>
-                                                <Input id="post-desc" value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
+                                                <Label htmlFor="post-category" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Category</Label>
+                                                <Input id="post-category" value={postData.category} onChange={(e) => setPostData({ ...postData, category: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
                                             </div>
                                         </div>
                                         <div className="space-y-1.5">

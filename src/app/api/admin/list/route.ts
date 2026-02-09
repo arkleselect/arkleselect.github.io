@@ -14,7 +14,10 @@ export async function GET(req: NextRequest) {
             const { env } = getRequestContext();
             db = (env as any).DB;
         } catch (e) {
-            console.error('Failed to get D1 binding:', e);
+            // Silence noisy logs in local development
+            if (process.env.NODE_ENV !== 'development') {
+                console.error('Failed to get D1 binding:', e);
+            }
         }
     }
 
@@ -34,7 +37,7 @@ export async function GET(req: NextRequest) {
         // --- 数据库模式 ---
         if (db) {
             if (type === 'post') {
-                const { results } = await db.prepare('SELECT slug, title, date, description, content FROM posts').all();
+                const { results } = await db.prepare('SELECT slug, title, date, description, category, content FROM posts').all();
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                 const posts = results.map((r: any) => ({ ...r, filename: `${r.slug}.md` }));
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -70,6 +73,7 @@ export async function GET(req: NextRequest) {
                             title: data.title || f,
                             date: String(data.date || '').split('T')[0],
                             description: data.description || '',
+                            category: data.category || '',
                             slug: f.replace('.md', ''),
                             content
                         };
