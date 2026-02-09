@@ -55,7 +55,7 @@ export function Header() {
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isMomentsPage
-      ? "bg-black/10 backdrop-blur-2xl [mask-image:linear-gradient(to_bottom,black_0%,transparent_100%)]"
+      ? "bg-background/10 backdrop-blur-2xl [mask-image:linear-gradient(to_bottom,black_0%,transparent_100%)]"
       : "bg-background/95 border-b border-border/40 backdrop-blur-md"
       }`}>
       <div className={`container mx-auto flex h-14 items-center ${isMomentsPage ? 'max-w-full px-6' : 'max-w-4xl px-4'}`}>
