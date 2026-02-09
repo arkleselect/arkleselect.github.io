@@ -431,9 +431,19 @@
     width: 10px;
   }
 
+  .toc-tick[data-depth='1'] .toc-line {
+    width: 14px;
+    opacity: 0.9;
+  }
+
   .toc-tick[data-depth='3'] .toc-line {
     width: 6px;
     opacity: 0.45;
+  }
+
+  .toc-tick[data-depth='4'] .toc-line {
+    width: 4px;
+    opacity: 0.3;
   }
 
   .toc-tick:nth-child(odd) .toc-line {

@@ -50,7 +50,7 @@ async function renderMarkdown(markdown: string) {
   visit(tree, 'heading', (node: unknown) => {
     const heading = node as HeadingNode;
     const depth = typeof heading.depth === 'number' ? heading.depth : 0;
-    if (depth < 2 || depth > 3) return;
+    if (depth < 1 || depth > 4) return;
     const text = toString(node as never).trim();
     if (!text) return;
     const id = slugger.slug(text);
