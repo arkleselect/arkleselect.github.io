@@ -153,7 +153,7 @@ function AboutSection({ section }: { section: AboutSectionData }) {
           <div className="text-white/40 group-hover:text-white transition-colors">
             {section.icon}
           </div>
-          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-white/80 font-mono">
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-neutral-200 font-mono">
             {section.title}
           </h2>
         </div>

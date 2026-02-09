@@ -57,7 +57,7 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
                                 <div className="flex items-start justify-between">
                                     <div className="flex flex-col gap-3 flex-1">
                                         <div className="flex items-center gap-4">
-                                            <CardTitle className="text-base font-bold text-white/80 group-hover:text-white transition-colors tracking-tight">
+                                            <CardTitle className="text-base font-bold text-neutral-200 group-hover:text-white transition-colors tracking-tight">
                                                 {post.title}
                                             </CardTitle>
                                             {post.category && (
