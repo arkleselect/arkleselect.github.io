@@ -185,11 +185,11 @@
   .prose h2,
   .prose h3,
   .prose h4 {
-    @apply text-neutral-200 font-semibold;
+    @apply text-neutral-300 font-semibold;
   }
 
   .prose strong {
-    @apply text-neutral-200 font-bold;
+    @apply text-neutral-300 font-bold;
   }
 
   .prose h2 {
@@ -263,11 +263,11 @@
 
   /* 代码块包装器重构 */
   .code-block-wrapper {
-    @apply relative my-6 rounded-lg border border-white/10 bg-[#0a0a0a] overflow-hidden flex flex-col;
+    @apply relative my-6 rounded-lg border border-white/10 bg-[#070707] overflow-hidden flex flex-col;
   }
 
   .code-block-header {
-    @apply flex items-center justify-end px-4 py-1 bg-white/[0.01] border-b border-white/2;
+    @apply flex items-center justify-end px-4 py-1 bg-transparent border-b border-white/2;
     z-index: 10;
   }
 
@@ -293,12 +293,12 @@
     left: 0;
     right: 0;
     z-index: 20;
-    background: linear-gradient(to top, #0a0a0a 40%, rgba(10, 10, 10, 0.8) 70%, transparent);
+    background: linear-gradient(to top, #070707 40%, rgba(7, 7, 7, 0.8) 70%, transparent);
   }
 
   .code-block-wrapper[data-collapsed="false"] .code-block-footer {
     position: relative;
-    background: #0a0a0a;
+    background: #070707;
   }
 
   .code-expand-btn {
@@ -326,7 +326,7 @@
   }
 
   .prose code {
-    @apply rounded-sm bg-white/[0.06] px-1 py-0.5 text-neutral-300;
+    @apply rounded-sm bg-white/[0.06] px-1 py-0.5 text-neutral-400;
   }
 
   .prose code::before,
