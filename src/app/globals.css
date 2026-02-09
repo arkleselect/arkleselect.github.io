@@ -323,7 +323,8 @@
   }
 
   .prose code {
-    @apply rounded-sm bg-white/[0.06] px-1 py-0.5 text-white/80;
+    @apply rounded-sm bg-white/[0.06] px-1 py-0.5;
+    color: rgba(255, 255, 255, 0.8) !important;
   }
 
   .prose code::before,
