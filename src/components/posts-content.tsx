@@ -31,7 +31,7 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
     return (
         <div className="space-y-12">
             {/* Category Filter - Simplified */}
-            <section className="mb-20">
+            <section className="mb-12">
 
                 <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 px-4">
                     {categories.map((category) => (
