@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neutral Dark Options Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #e5e7eb;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .font-pixel {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            min-height: 100vh;
+        }
+
+        .option {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Option 1: Charcoal #0a0a0a */
+        .opt-1 {
+            background-color: #0a0a0a;
+        }
+
+        /* Option 2: Basalt #0f0f0f */
+        .opt-2 {
+            background-color: #0f0f0f;
+        }
+
+        /* Option 3: Obsidian #121212 */
+        .opt-3 {
+            background-color: #121212;
+        }
+
+        .title-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .hex-code {
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 60px;
+        }
+
+        /* HUD Component Replica */
+        .hud-module {
+            width: 100%;
+            max-width: 240px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .hud-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 1px;
+        }
+
+        .hud-title {
+            font-size: 9px;
+            font-family: monospace;
+            text-transform: uppercase;
+            opacity: 0.4;
+            letter-spacing: 0.2em;
+        }
+
+        .mock-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+        }
+
+        .grid-cell {
+            aspect-square: 1/1;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .btn-select {
+            margin-top: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-family: monospace;
+            cursor: pointer;
+            background: transparent;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        .btn-select:hover {
+            background: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="preview-container">
+        <!-- Option 1 -->
+        <div class="option opt-1">
+            <span class="title-label">方案 A: 极致炭黑</span>
+            <span class="hex-code">#0A0A0A</span>
+
+            <div class="hud-module">
+                <div class="hud-header">
+                    <div class="dot" style="animation: pulse 2s infinite"></div>
+                    <span class="hud-title">足迹 / FOOTPRINTS</span>
+                </div>
+                <div class="mock-grid">
+                    <script>for (let i = 0; i < 40; i++) document.write('<div class="grid-cell" style="opacity:' + (Math.random() * 0.2) + '"></div>')</script>
+                </div>
+            </div>
+
+            <div class="hud-module"
+                style="border: 1px solid rgba(255,255,255,0.05); border-radius: 2px; background: rgba(255,255,255,0.02)">
+                <div class="hud-title" style="margin-bottom:8px">GENERATE_EXCEL</div>
+                <div style="font-size:10px; opacity:0.5; font-family:monospace">v0.1.0_STABLE</div>
+            </div>
+
+            <p style="text-align:center; font-size:12px; opacity:0.6; line-height:1.6">
+                非常接近纯黑<br>但在好的屏幕上能感觉到深度<br>极简主义的首选</p>
+        </div>
+
+        <!-- Option 2 -->
+        <div class="option opt-2">
+            <span class="title-label">方案 B: 极致玄武岩</span>
+            <span class="hex-code">#0C0C0C</span>
+
+            <div class="hud-module">
+                <div class="hud-header">
+                    <div class="dot" style="animation: pulse 2s infinite"></div>
+                    <span class="hud-title">足迹 / FOOTPRINTS</span>
+                </div>
+                <div class="mock-grid">
+                    <script>for (let i = 0; i < 40; i++) document.write('<div class="grid-cell" style="opacity:' + (Math.random() * 0.2) + '"></div>')</script>
+                </div>
+            </div>
+
+            <div class="hud-module"
+                style="border: 1px solid rgba(255,255,255,0.05); border-radius: 2px; background: rgba(255,255,255,0.03)">
+                <div class="hud-title" style="margin-bottom:8px">GENERATE_EXCEL</div>
+                <div style="font-size:10px; opacity:0.5; font-family:monospace">v0.1.0_STABLE</div>
+            </div>
+
+            <p style="text-align:center; font-size:12px; opacity:0.6; line-height:1.6">
+                有厚度的深灰<br>能明显拉开与卡片层的距离<br>让内容“浮”在背景上</p>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="option opt-3">
+            <span class="title-label">方案 C: 午夜深灰</span>
+            <span class="hex-code">#0F0F0F</span>
+
+            <div class="hud-module">
+                <div class="hud-header">
+                    <div class="dot" style="animation: pulse 2s infinite"></div>
+                    <span class="hud-title">足迹 / FOOTPRINTS</span>
+                </div>
+                <div class="mock-grid">
+                    <script>for (let i = 0; i < 40; i++) document.write('<div class="grid-cell" style="opacity:' + (Math.random() * 0.2) + '"></div>')</script>
+                </div>
+            </div>
+
+            <div class="hud-module"
+                style="border: 1px solid rgba(255,255,255,0.05); border-radius: 2px; background: rgba(255,255,255,0.04)">
+                <div class="hud-title" style="margin-bottom:8px">GENERATE_EXCEL</div>
+                <div style="font-size:10px; opacity:0.5; font-family:monospace">v0.1.0_STABLE</div>
+            </div>
+
+            <p style="text-align:center; font-size:12px; opacity:0.6; line-height:1.6">经典的深色模式背景<br>阅读压力最小<br>非常稳健的现代质感
+            </p>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+    </style>
+</body>
+
+</html>

@@ -77,9 +77,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className="dark bg-black">
+    <html lang="zh-CN" className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} antialiased min-h-screen flex flex-col relative bg-transparent`}
+        className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} antialiased min-h-screen flex flex-col relative bg-background`}
       >
 
         <Suspense fallback={null}>
