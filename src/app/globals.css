@@ -325,6 +325,11 @@
     @apply rounded-sm bg-white/[0.06] px-1 py-0.5;
   }
 
+  .prose code::before,
+  .prose code::after {
+    content: "" !important;
+  }
+
 
 
   .hljs-keyword,
