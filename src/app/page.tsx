@@ -89,7 +89,7 @@ export default function Home() {
       <section className="flex flex-col items-center" style={{ marginBottom: 'calc(var(--spacing) * 50)' }}>
         <div className="max-w-xl w-full p-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent relative group">
           <FiCommand className="absolute top-4 left-4 w-4 h-4 text-white/20" />
-          <p className="font-press-start text-xs leading-loose text-center text-white/80 p-4">
+          <p className="font-press-start text-[10px] leading-relaxed text-center text-white/80 p-4">
             &ldquo;DARKNESS IS BOUNDLESS, YET HUMANITY FOOLISHLY YEARNS FOR LIGHT.&rdquo;
           </p>
           <div className="text-[10px] text-right text-white/20 font-mono mt-4">— OVERRIDE</div>
