@@ -1,4 +1,13 @@
+'use client';
+
+import { usePathname } from "next/navigation";
+
 export function Footer() {
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith("/admin");
+
+  if (isAdminPage) return null;
+
   return (
     <footer className="mt-auto border-t border-white/5 bg-black/50 backdrop-blur-md">
       <div className="container mx-auto px-6 py-10">

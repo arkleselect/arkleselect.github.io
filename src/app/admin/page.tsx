@@ -86,6 +86,7 @@ export default function AdminPage() {
     const [isEditing, setIsEditing] = useState(false);
     const [currentFilename, setCurrentFilename] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<'edit' | 'list'>('edit');
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     // Delete Confirmation State
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -345,61 +346,58 @@ export default function AdminPage() {
     }
 
     return (
-        <div className="flex min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-white selection:text-black">
-            <aside className="w-60 border-r border-neutral-900 bg-neutral-950 flex flex-col sticky top-0 h-screen">
-                <div className="p-4">
-                    <div className="flex items-center gap-3 mb-6 px-1">
-                        <Avatar className="h-8 w-8 border border-neutral-800">
-                            <AvatarImage src="/icon3.svg" />
-                            <AvatarFallback>AD</AvatarFallback>
-                        </Avatar>
-                        <div className="flex flex-col">
-                            <span className="text-xs font-bold tracking-tight text-white">Admin Module</span>
-                            <span className="text-[9px] text-neutral-500 uppercase tracking-widest font-mono">Root_Access</span>
-                        </div>
-                    </div>
+        <div className="flex h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-white selection:text-black overflow-hidden">
+            <aside
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                className={`${isSidebarCollapsed ? 'w-16' : 'w-60'} border-r border-neutral-900 bg-neutral-950 flex flex-col h-full transition-all duration-300 relative group cursor-pointer`}
+            >
+                <div className="p-4" onClick={(e) => e.stopPropagation()}>
                     <nav className="space-y-1">
-                        <Label className="text-[9px] text-neutral-600 uppercase tracking-widest px-2 font-mono mb-2 block">Content Type</Label>
+                        {!isSidebarCollapsed && (
+                            <Label className="text-[9px] text-neutral-600 uppercase tracking-widest px-2 font-mono mb-2 block animate-in fade-in duration-300">Content Type</Label>
+                        )}
                         {(['post', 'daily', 'moment'] as const).map((t) => (
                             <button
                                 key={t}
-                                onClick={() => { setType(t); setViewMode('edit'); }}
-                                className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-xs transition-all ${type === t
+                                onClick={(e) => { e.stopPropagation(); setType(t); setViewMode('edit'); }}
+                                className={`w-full flex items-center gap-3 ${isSidebarCollapsed ? 'px-0 justify-center' : 'px-3'} py-2 rounded-md text-xs transition-all cursor-pointer ${type === t
                                     ? 'bg-neutral-900 text-white shadow-sm border border-neutral-800'
                                     : 'text-neutral-500 hover:text-neutral-300 hover:bg-neutral-900/50'
                                     }`}
                             >
-                                <span className={`p-1 rounded text-[10px] ${type === t ? 'bg-neutral-950 text-white shadow-inner' : 'bg-transparent text-neutral-600'}`}>
+                                <span className={`p-1 rounded text-[10px] shrink-0 ${type === t ? 'bg-neutral-950 text-white shadow-inner' : 'bg-transparent text-neutral-600'}`}>
                                     {t === 'post' && <FiEdit3 className="w-3 h-3" />}
                                     {t === 'daily' && <FiTerminal className="w-3 h-3" />}
                                     {t === 'moment' && <FiImage className="w-3 h-3" />}
                                 </span>
-                                <span className="font-medium capitalize tracking-wide">{t}</span>
-                                {type === t && <FiCheck className="ml-auto w-3 h-3 text-neutral-500" />}
+                                {!isSidebarCollapsed && (
+                                    <span className="font-medium capitalize tracking-wide truncate animate-in fade-in duration-300">{t}</span>
+                                )}
+                                {!isSidebarCollapsed && type === t && <FiCheck className="ml-auto w-3 h-3 text-neutral-500 shrink-0" />}
                             </button>
                         ))}
                     </nav>
                 </div>
-                <div className="mt-auto p-4 space-y-3">
+                <div className="mt-auto p-4 space-y-3" onClick={(e) => e.stopPropagation()}>
                     <Separator className="bg-neutral-900" />
-                    <div className="space-y-1">
-                        <Link href="/" className="flex items-center gap-3 px-3 py-2 text-xs text-neutral-500 hover:text-white transition-colors group rounded-md hover:bg-neutral-900/50">
-                            <FiHome className="w-3.5 h-3.5 group-hover:scale-105 transition-transform" />
-                            <span>View Site</span>
+                    <nav className="space-y-1">
+                        <Link href="/" className={`flex items-center gap-3 ${isSidebarCollapsed ? 'px-0 justify-center' : 'px-3'} py-2 text-xs text-neutral-500 hover:text-white transition-colors group rounded-md hover:bg-neutral-900/50 cursor-pointer`}>
+                            <FiHome className="w-3.5 h-3.5 group-hover:scale-105 transition-transform shrink-0" />
+                            {!isSidebarCollapsed && <span className="animate-in fade-in duration-300">View Site</span>}
                         </Link>
                         <button
-                            onClick={() => { localStorage.removeItem('admin_key'); window.location.reload(); }}
-                            className="w-full flex items-center gap-3 px-3 py-2 text-xs text-red-500/60 hover:text-red-500 transition-colors group rounded-md hover:bg-red-950/20"
+                            onClick={(e) => { e.stopPropagation(); localStorage.removeItem('admin_key'); window.location.reload(); }}
+                            className={`w-full flex items-center gap-3 ${isSidebarCollapsed ? 'px-0 justify-center' : 'px-3'} py-2 text-xs text-red-500/60 hover:text-red-500 transition-colors group rounded-md hover:bg-red-950/20 cursor-pointer`}
                         >
-                            <FiLogOut className="w-3.5 h-3.5" />
-                            <span>Logout</span>
+                            <FiLogOut className="w-3.5 h-3.5 shrink-0" />
+                            {!isSidebarCollapsed && <span className="animate-in fade-in duration-300">Logout</span>}
                         </button>
-                    </div>
+                    </nav>
                 </div>
             </aside>
 
-            <main className="flex-1 overflow-y-auto bg-neutral-950">
-                <div className="max-w-5xl mx-auto py-8 px-6 lg:px-10">
+            <main className="flex-1 overflow-y-auto bg-neutral-950 scroll-smooth">
+                <div className="max-w-5xl mx-auto py-8 px-1">
                     <div className="mb-6 flex justify-between items-end border-b border-neutral-900 pb-4">
                         <div>
                             <h1 className="text-lg font-bold tracking-tight text-white mb-1 capitalize flex items-center gap-2">
@@ -480,7 +478,7 @@ export default function AdminPage() {
                                 </div>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form onSubmit={handleSubmit} className="space-y-4">
                                 {type === 'post' && (
                                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
                                         {isEditing && (
@@ -494,33 +492,33 @@ export default function AdminPage() {
                                                 </Button>
                                             </div>
                                         )}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                            <div className="space-y-1.5">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <div className="space-y-1">
                                                 <Label htmlFor="post-title" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Title</Label>
                                                 <Input id="post-title" placeholder="New Entry..." value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-white placeholder:text-neutral-700" />
                                             </div>
-                                            <div className="space-y-1.5">
+                                            <div className="space-y-1">
                                                 <Label htmlFor="post-date" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Date</Label>
-                                                <Input id="post-date" type="date" value={postData.date} onChange={(e) => { const val = e.target.value; setPostData(prev => ({ ...prev, date: val, slug: isSlugModified ? prev.slug : dateToSlug(val) })); }} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
+                                                <Input id="post-date" type="date" value={postData.date} onChange={(e) => { const val = e.target.value; setPostData(prev => ({ ...prev, date: val, slug: isSlugModified ? prev.slug : dateToSlug(val) })); }} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-white [&::-webkit-calendar-picker-indicator]:invert" />
                                             </div>
                                         </div>
                                         <div className="space-y-1.5">
                                             <Label htmlFor="post-desc" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Description</Label>
                                             <Input id="post-desc" value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                            <div className="space-y-1.5">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <div className="space-y-1">
                                                 <Label htmlFor="post-slug" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Slug</Label>
                                                 <Input id="post-slug" value={postData.slug} onChange={(e) => { setPostData({ ...postData, slug: e.target.value }); setIsSlugModified(true); }} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs font-mono text-neutral-400 focus:bg-neutral-900" />
                                             </div>
-                                            <div className="space-y-1.5">
+                                            <div className="space-y-1">
                                                 <Label htmlFor="post-category" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Category</Label>
                                                 <Input id="post-category" value={postData.category} onChange={(e) => setPostData({ ...postData, category: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
                                             </div>
                                         </div>
                                         <div className="space-y-1.5">
                                             <Label htmlFor="post-content" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Content</Label>
-                                            <Textarea id="post-content" rows={15} value={postData.content} onChange={(e) => setPostData({ ...postData, content: e.target.value })} className="bg-neutral-900/50 border-neutral-800 min-h-[350px] resize-none leading-relaxed p-4 text-xs font-mono text-neutral-300 focus:bg-neutral-900" />
+                                            <Textarea id="post-content" rows={25} value={postData.content} onChange={(e) => setPostData({ ...postData, content: e.target.value })} className="bg-neutral-900/50 border-neutral-800 min-h-[550px] resize-none leading-relaxed p-4 text-xs font-mono text-neutral-300 focus:bg-neutral-900" />
                                         </div>
                                     </div>
                                 )}
@@ -529,7 +527,7 @@ export default function AdminPage() {
                                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
                                         <div className="space-y-1.5">
                                             <Label htmlFor="daily-date" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Date</Label>
-                                            <Input id="daily-date" type="date" className="max-w-[150px] bg-neutral-900/50 border-neutral-800 h-9 text-xs text-neutral-300" value={dailyData.date} onChange={(e) => setDailyData({ ...dailyData, date: e.target.value })} />
+                                            <Input id="daily-date" type="date" className="max-w-[150px] bg-neutral-900/50 border-neutral-800 h-9 text-xs text-white [&::-webkit-calendar-picker-indicator]:invert" value={dailyData.date} onChange={(e) => setDailyData({ ...dailyData, date: e.target.value })} />
                                         </div>
                                         <div className="space-y-1.5">
                                             <Label htmlFor="daily-url" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Image URL (Optional)</Label>
@@ -544,14 +542,14 @@ export default function AdminPage() {
 
                                 {type === 'moment' && (
                                     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                            <div className="space-y-1.5">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <div className="space-y-1">
                                                 <Label htmlFor="moment-title" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Title</Label>
                                                 <Input id="moment-title" value={momentData.title} onChange={(e) => setMomentData({ ...momentData, title: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-white" />
                                             </div>
-                                            <div className="space-y-1.5">
+                                            <div className="space-y-1">
                                                 <Label htmlFor="moment-date" className="text-[10px] text-neutral-500 font-semibold px-0.5 uppercase tracking-wider">Date</Label>
-                                                <Input id="moment-date" type="date" value={momentData.date} onChange={(e) => setMomentData({ ...momentData, date: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-neutral-300" />
+                                                <Input id="moment-date" type="date" value={momentData.date} onChange={(e) => setMomentData({ ...momentData, date: e.target.value })} className="bg-neutral-900/50 border-neutral-800 h-9 text-xs focus:bg-neutral-900 text-white [&::-webkit-calendar-picker-indicator]:invert" />
                                             </div>
                                         </div>
                                         <div className="space-y-1.5">
