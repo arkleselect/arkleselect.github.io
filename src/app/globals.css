@@ -186,7 +186,7 @@
   .prose h3,
   .prose h4,
   .prose strong {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
   }
 
   .prose h2 {
@@ -323,7 +323,7 @@
   }
 
   .prose code {
-    @apply rounded-sm bg-white/[0.06] px-1 py-0.5 text-neutral-400;
+    @apply rounded-sm bg-white/[0.06] px-1 py-0.5 text-white/80;
   }
 
   .prose code::before,

@@ -45,7 +45,7 @@ export default async function PostPage({
           </div>
         </div>
 
-        <h1 className="mt-6 text-2xl font-semibold text-white/90 md:text-3xl">
+        <h1 className="mt-6 text-2xl font-semibold text-white/80 md:text-3xl">
           {post.title}
         </h1>
 
