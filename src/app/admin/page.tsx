@@ -420,12 +420,6 @@ export default function AdminPage() {
                                     {viewMode === 'edit' ? 'Library' : `New_${type}`}
                                 </Button>
                             )}
-                            <div className="hidden md:block">
-                                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-neutral-900 bg-neutral-950 text-[9px] text-neutral-500 font-mono uppercase tracking-widest">
-                                    <span className="h-1 w-1 rounded-full bg-green-500 animate-pulse"></span>
-                                    Online
-                                </span>
-                            </div>
                         </div>
                     </div>
 
