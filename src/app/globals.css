@@ -185,11 +185,11 @@
   .prose h2,
   .prose h3,
   .prose h4 {
-    @apply text-neutral-300 font-semibold;
+    @apply text-white/70 font-semibold;
   }
 
   .prose strong {
-    @apply text-neutral-300 font-bold;
+    @apply text-white/70 font-bold;
   }
 
   .prose h2 {
