@@ -185,7 +185,11 @@
   .prose h2,
   .prose h3,
   .prose h4 {
-    @apply text-white/90 font-semibold;
+    @apply text-neutral-200 font-semibold;
+  }
+
+  .prose strong {
+    @apply text-neutral-200 font-bold;
   }
 
   .prose h2 {
@@ -322,7 +326,7 @@
   }
 
   .prose code {
-    @apply rounded-sm bg-white/[0.06] px-1 py-0.5;
+    @apply rounded-sm bg-white/[0.06] px-1 py-0.5 text-neutral-300;
   }
 
   .prose code::before,
