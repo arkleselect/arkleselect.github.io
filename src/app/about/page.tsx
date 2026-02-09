@@ -146,7 +146,7 @@ function AboutSection({ section }: { section: AboutSectionData }) {
   return (
     <section
       key={section.id}
-      className="group relative p-8 bg-white/[0.02] transition-all duration-500 hover:bg-white/[0.04] border border-transparent hover:border-white/5"
+      className="group relative p-8 bg-card transition-all duration-400 hover:bg-white/[0.03] border border-white/[0.05] hover:border-white/10"
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
