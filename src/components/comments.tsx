@@ -6,7 +6,10 @@ interface Comment {
     nickname: string;
     content: string;
     created_at: string;
+    is_admin?: number;
+    parent_id?: string;
 }
+
 
 interface CommentsProps {
     pageId: string;
@@ -21,8 +24,9 @@ export default function Comments({ pageId }: CommentsProps) {
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-
+    const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+
 
     const fetchComments = useCallback(async () => {
         setIsLoading(true);
@@ -57,16 +61,25 @@ export default function Comments({ pageId }: CommentsProps) {
             const res = await fetch('/api/comments', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ slug: pageId, nickname, contact, content }),
+                body: JSON.stringify({
+                    slug: pageId,
+                    nickname,
+                    contact,
+                    content,
+                    parent_id: replyTo?.id || null
+                }),
             });
+
 
 
             if (res.ok) {
                 setNickname('');
                 setContact('');
                 setContent('');
+                setReplyTo(null);
                 fetchComments();
             }
+
 
 
         } catch (error) {
@@ -92,7 +105,23 @@ export default function Comments({ pageId }: CommentsProps) {
                 <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
 
                 <form onSubmit={handleSubmit} className="space-y-8">
+                    {replyTo && (
+                        <div className="flex items-center gap-2 mb-[-1.5rem] animate-in slide-in-from-left duration-300">
+                            <span className="text-[9px] font-mono text-white/40 italic flex items-center gap-1">
+                                <span className="w-1 h-1 bg-white/20"></span>
+                                Replying to @{replyTo.name}
+                            </span>
+                            <button
+                                type="button"
+                                onClick={() => setReplyTo(null)}
+                                className="text-[9px] font-mono text-white/10 hover:text-white transition-colors"
+                            >
+                                [ CANCEL_REPLY ]
+                            </button>
+                        </div>
+                    )}
                     <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+
                         <div className="flex-1 border-b border-white/10 pb-2 group focus-within:border-white/30 transition-colors">
                             <label className="text-[8px] font-mono text-white/20 uppercase block mb-1 tracking-widest">
                                 Identity / 称呼
@@ -162,28 +191,70 @@ export default function Comments({ pageId }: CommentsProps) {
                     </div>
                 ) : comments.length > 0 ? (
                     <div className="space-y-12">
-                        {comments.map((comment, i) => (
-                            <div key={i} className="flex gap-6 group">
-                                {/* Ghost Dot */}
-                                <div className="mt-1.5 w-1 h-1 rounded-full bg-white/10 group-hover:bg-white/40 transition-colors shadow-[0_0_8px_rgba(255,255,255,0)] group-hover:shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
+                        {/* 渲染根级评论及其回复 */}
+                        {comments.filter(c => !c.parent_id).map((comment, i) => {
+                            const commentId = `${comment.created_at}-${comment.nickname}`;
+                            const replies = comments.filter(r => r.parent_id === commentId);
 
-                                <div className="flex-1">
-                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
-                                        <span className="text-[11px] font-bold text-white/40 uppercase tracking-widest">
-                                            {comment.nickname}
-                                        </span>
-                                        <span className="text-[9px] text-white/10 font-mono italic">
-                                            {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                        </span>
+                            return (
+                                <div key={i} className="space-y-6">
+                                    {/* Root Comment */}
+                                    <div className="flex gap-6 group">
+                                        <div className="mt-1.5 w-1 h-1 rounded-full bg-white/10 group-hover:bg-white/40 transition-colors shadow-[0_0_8px_rgba(255,255,255,0)] group-hover:shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
+
+                                        <div className="flex-1">
+                                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                                                <span className={`text-[11px] font-bold uppercase tracking-widest ${comment.is_admin ? 'text-green-500/60' : 'text-white/40'}`}>
+                                                    {comment.nickname} {comment.is_admin ? '[ADMIN]' : ''}
+                                                </span>
+                                                <span className="text-[9px] text-white/10 font-mono italic">
+                                                    {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                </span>
+                                                <button
+                                                    onClick={() => {
+                                                        setReplyTo({ id: commentId, name: comment.nickname });
+                                                        window.scrollTo({ top: document.querySelector('form')?.offsetTop ? (document.querySelector('form')!.offsetTop - 150) : 0, behavior: 'smooth' });
+                                                    }}
+                                                    className="text-[9px] font-mono text-white/10 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+                                                >
+                                                    [ REPLY ]
+                                                </button>
+                                            </div>
+                                            <p className="text-[13px] text-white/50 font-mono leading-relaxed group-hover:text-white/70 transition-colors">
+                                                {comment.content}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <p className="text-[13px] text-white/50 font-mono leading-relaxed group-hover:text-white/70 transition-colors">
-                                        {comment.content}
-                                    </p>
+
+                                    {/* Sub-Replies */}
+                                    {replies.length > 0 && (
+                                        <div className="ml-10 space-y-6 border-l border-white/5 pl-6">
+                                            {replies.map((reply, ri) => (
+                                                <div key={ri} className="flex gap-4 group/reply">
+                                                    <div className="mt-1.5 w-[2px] h-[2px] bg-white/10 group-hover/reply:bg-white/30" />
+                                                    <div className="flex-1">
+                                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-1">
+                                                            <span className={`text-[10px] font-bold uppercase tracking-widest ${reply.is_admin ? 'text-green-500/60' : 'text-white/30'}`}>
+                                                                {reply.nickname} {reply.is_admin ? '[ADMIN]' : ''}
+                                                            </span>
+                                                            <span className="text-[8px] text-white/10 font-mono italic">
+                                                                {new Date(reply.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-[12px] text-white/40 font-mono leading-relaxed">
+                                                            {reply.content}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 ) : (
+
                     <div className="py-16 text-center">
                         <span className="text-[9px] font-mono text-white/5 uppercase tracking-[0.5em] italic">
                             No_Input_Signals_Detected

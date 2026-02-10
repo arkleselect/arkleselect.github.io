@@ -16,8 +16,10 @@ import {
     FiList,
     FiTrash2,
     FiChevronRight,
-    FiMessageSquare
+    FiMessageSquare,
+    FiCornerUpLeft
 } from "react-icons/fi";
+
 
 
 import { CustomAlertDialog } from "@/components/ui/custom-alert";
@@ -66,7 +68,9 @@ type AdminItem = {
     category?: string;
     nickname?: string;
     contact?: string;
+    articleTitle?: string;
 };
+
 
 
 type StatusMessage = { text: string; isError: boolean };
@@ -252,11 +256,45 @@ export default function AdminPage() {
         }
     };
 
+    const handleReply = async (e: React.MouseEvent, item: AdminItem) => {
+        e.stopPropagation();
+        const reply = window.prompt(`Reply to @${item.nickname}:`);
+        if (!reply) return;
+
+        const parentId = `${(item as any).created_at}-${item.nickname}`;
+        setLoading(true);
+        try {
+            const adminKey = localStorage.getItem('admin_key') || '';
+            const res = await fetch('/api/comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    slug: item.slug,
+                    nickname: 'Admin',
+                    content: reply,
+                    parent_id: parentId,
+                    adminPassword: adminKey
+                }),
+            });
+            if (res.ok) {
+                setMessage({ text: 'SUCCESS: REPLY_SENT', isError: false });
+                fetchPosts();
+            } else {
+                setMessage({ text: 'ERROR: FAILED_TO_REPLY', isError: true });
+            }
+        } catch (error) {
+            console.error('Reply error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleDelete = (e: React.MouseEvent, targetType: AdminType, filename: string) => {
         e.stopPropagation();
         setDeleteTarget({ type: targetType, filename });
         setDeleteConfirmOpen(true);
     };
+
 
     const confirmDelete = async () => {
         if (!deleteTarget) return;
@@ -460,11 +498,12 @@ export default function AdminPage() {
                                                                 @{post.nickname} {post.contact && `(${post.contact})`}
                                                             </span>
                                                         )}
-                                                        {type === 'comment' && (post as any).slug && (
-                                                            <span className="text-[9px] font-mono text-blue-500/60 bg-blue-500/5 px-2 py-0.5 rounded border border-blue-500/10 uppercase tracking-tighter shrink-0">
-                                                                FROM: {(post as any).slug}
+                                                        {type === 'comment' && (post as any).articleTitle && (
+                                                            <span className="text-[9px] font-mono text-blue-500/60 bg-blue-500/5 px-2 py-0.5 rounded border border-blue-500/10 uppercase tracking-tighter shrink-0 truncate max-w-[200px]">
+                                                                FROM: {(post as any).articleTitle}
                                                             </span>
                                                         )}
+
                                                     </div>
                                                     <p className="text-xs text-neutral-500 truncate font-mono">
                                                         {type === 'post' ? (post.description || '...') : (type === 'comment' ? '' : (post.content ? post.content.substring(0, 60) : '...'))}
@@ -472,6 +511,15 @@ export default function AdminPage() {
 
                                                 </div>
                                                 <div className="flex items-center gap-3">
+                                                    {type === 'comment' && (
+                                                        <button
+                                                            onClick={(e) => handleReply(e, post)}
+                                                            className="p-2 text-neutral-600 hover:text-blue-400 hover:bg-blue-950/30 rounded-md transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+                                                            title="Reply"
+                                                        >
+                                                            <FiCornerUpLeft className="w-4 h-4" />
+                                                        </button>
+                                                    )}
                                                     <button
                                                         onClick={(e) => handleDelete(e, type, post.filename)}
                                                         className="p-2 text-neutral-600 hover:text-red-400 hover:bg-red-950/30 rounded-md transition-all opacity-0 group-hover:opacity-100 cursor-pointer"

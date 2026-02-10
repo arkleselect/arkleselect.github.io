@@ -52,13 +52,29 @@ export async function GET(req: NextRequest) {
                 results.sort((a: any, b: any) => b.filename.localeCompare(a.filename));
                 return NextResponse.json({ items: results });
             } else if (type === 'comment') {
-                const { results } = await db.prepare('SELECT * FROM comments').all();
+                const { results: comments } = await db.prepare('SELECT * FROM comments').all();
+                const { results: posts } = await db.prepare('SELECT slug, title FROM posts').all();
+                const { results: daily } = await db.prepare('SELECT filename as slug, date as title FROM daily').all();
+                const { results: moments } = await db.prepare('SELECT filename as slug, title FROM moments').all();
+
+                // 建立 slug -> title 映射
+                const titleMap: Record<string, string> = {};
+                [...posts, ...daily, ...moments].forEach((item: any) => {
+                    titleMap[item.slug.replace('.md', '')] = item.title;
+                });
+
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                const comments = results.map((r: any) => ({ ...r, filename: `comment-${r.created_at}-${r.nickname}` }));
+                const items = comments.map((r: any) => ({
+                    ...r,
+                    filename: `comment-${r.created_at}-${r.nickname}`,
+                    articleTitle: titleMap[r.slug] || r.slug
+                }));
+
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                comments.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-                return NextResponse.json({ items: comments });
+                items.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+                return NextResponse.json({ items });
             }
+
         }
 
         // --- 本地文件模式 (Node) ---

@@ -23,8 +23,9 @@ export async function GET(req: NextRequest) {
         }
 
         const { results } = await db.prepare(
-            'SELECT nickname, content, contact, created_at FROM comments WHERE slug = ? ORDER BY created_at DESC'
+            'SELECT nickname, content, contact, created_at, is_admin, parent_id FROM comments WHERE slug = ? ORDER BY created_at ASC'
         ).bind(slug).all();
+
 
 
         return NextResponse.json({ comments: results });
@@ -48,9 +49,12 @@ export async function POST(req: NextRequest) {
             nickname: string;
             contact?: string;
             content: string;
+            parent_id?: string;
+            adminPassword?: string;
         }
         const body = (await req.json()) as CommentBody;
-        const { slug, nickname, contact, content } = body;
+        const { slug, nickname, contact, content, parent_id, adminPassword } = body;
+
 
 
         if (!slug || !nickname || !content) {
@@ -63,9 +67,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Comment too long' }, { status: 400 });
         }
 
+        const isAdmin = adminPassword === (process.env.ADMIN_PASSWORD || 'admin');
+
         await db.prepare(
-            'INSERT INTO comments (slug, nickname, contact, content) VALUES (?, ?, ?, ?)'
-        ).bind(slug, nickname, contact || '', content).run();
+            'INSERT INTO comments (slug, nickname, contact, content, parent_id, is_admin) VALUES (?, ?, ?, ?, ?, ?)'
+        ).bind(slug, nickname, contact || '', content, parent_id || null, isAdmin ? 1 : 0).run();
+
 
 
         return NextResponse.json({ success: true });
