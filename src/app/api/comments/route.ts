@@ -23,8 +23,9 @@ export async function GET(req: NextRequest) {
         }
 
         const { results } = await db.prepare(
-            'SELECT nickname, content, created_at FROM comments WHERE slug = ? ORDER BY created_at DESC'
+            'SELECT nickname, content, contact, created_at FROM comments WHERE slug = ? ORDER BY created_at DESC'
         ).bind(slug).all();
+
 
         return NextResponse.json({ comments: results });
     } catch (error: any) {
@@ -45,13 +46,15 @@ export async function POST(req: NextRequest) {
         interface CommentBody {
             slug: string;
             nickname: string;
+            contact?: string;
             content: string;
         }
         const body = (await req.json()) as CommentBody;
-        const { slug, nickname, content } = body;
+        const { slug, nickname, contact, content } = body;
 
 
         if (!slug || !nickname || !content) {
+
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
@@ -61,8 +64,9 @@ export async function POST(req: NextRequest) {
         }
 
         await db.prepare(
-            'INSERT INTO comments (slug, nickname, content) VALUES (?, ?, ?)'
-        ).bind(slug, nickname, content).run();
+            'INSERT INTO comments (slug, nickname, contact, content) VALUES (?, ?, ?, ?)'
+        ).bind(slug, nickname, contact || '', content).run();
+
 
         return NextResponse.json({ success: true });
     } catch (error: any) {

@@ -17,8 +17,11 @@ interface CommentsProps {
 export default function Comments({ pageId }: CommentsProps) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [nickname, setNickname] = useState('');
+    const [contact, setContact] = useState('');
     const [content, setContent] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchComments = useCallback(async () => {
@@ -44,18 +47,24 @@ export default function Comments({ pageId }: CommentsProps) {
         e.preventDefault();
         if (!nickname || !content || isSubmitting) return;
 
+
         setIsSubmitting(true);
         try {
             const res = await fetch('/api/comments', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ slug: pageId, nickname, content }),
+                body: JSON.stringify({ slug: pageId, nickname, contact, content }),
             });
 
+
             if (res.ok) {
+                setNickname('');
+                setContact('');
                 setContent('');
                 fetchComments();
             }
+
+
         } catch (error) {
             console.error('Failed to post comment:', error);
         } finally {
@@ -75,7 +84,7 @@ export default function Comments({ pageId }: CommentsProps) {
 
             {/* Comment Form */}
             <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="relative group">
                         <span className="absolute left-3 top-2.5 text-[10px] font-mono text-white/20 group-focus-within:text-green-500/50 transition-colors">
                             &gt; NICKNAME:
@@ -91,18 +100,31 @@ export default function Comments({ pageId }: CommentsProps) {
                     </div>
                     <div className="relative group">
                         <span className="absolute left-3 top-2.5 text-[10px] font-mono text-white/20 group-focus-within:text-green-500/50 transition-colors">
-                            &gt; MESSAGE:
+                            &gt; CONTACT:
                         </span>
-                        <textarea
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            required
-                            rows={3}
-                            placeholder="输入评论内容..."
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-none px-3 py-2.5 pl-24 text-sm font-mono text-white/80 focus:outline-none focus:border-green-500/30 focus:bg-white/[0.04] transition-all placeholder:text-white/10 resize-none"
+                        <input
+                            type="text"
+                            value={contact}
+                            onChange={(e) => setContact(e.target.value)}
+                            placeholder="联系方式 (可选)..."
+                            className="w-full bg-white/[0.02] border border-white/5 rounded-none px-3 py-2.5 pl-24 text-sm font-mono text-white/80 focus:outline-none focus:border-green-500/30 focus:bg-white/[0.04] transition-all placeholder:text-white/10"
                         />
                     </div>
                 </div>
+                <div className="relative group">
+                    <span className="absolute left-3 top-2.5 text-[10px] font-mono text-white/20 group-focus-within:text-green-500/50 transition-colors">
+                        &gt; MESSAGE:
+                    </span>
+                    <textarea
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        required
+                        rows={3}
+                        placeholder="输入评论内容..."
+                        className="w-full bg-white/[0.02] border border-white/5 rounded-none px-3 py-2.5 pl-24 text-sm font-mono text-white/80 focus:outline-none focus:border-green-500/30 focus:bg-white/[0.04] transition-all placeholder:text-white/10 resize-none"
+                    />
+                </div>
+
                 <div className="flex justify-start">
                     <button
                         type="submit"

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getRequestContext } from '@cloudflare/next-on-pages';
 
-type AdminType = 'post' | 'daily' | 'moment';
+type AdminType = 'post' | 'daily' | 'moment' | 'comment';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
@@ -63,6 +63,14 @@ export async function DELETE(request: Request) {
                 await db.prepare('DELETE FROM daily WHERE filename = ?').bind(filename).run();
             } else if (type === 'moment') {
                 await db.prepare('DELETE FROM moments WHERE filename = ?').bind(filename).run();
+            } else if (type === 'comment') {
+                // filename 格式为 comment-${created_at}-${nickname}
+                const match = filename.match(/^comment-(.*?)-(.*)$/);
+                if (match) {
+                    const createdAt = match[1];
+                    const nickname = match[2];
+                    await db.prepare('DELETE FROM comments WHERE created_at = ? AND nickname = ?').bind(createdAt, nickname).run();
+                }
             }
         }
 

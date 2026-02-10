@@ -15,8 +15,10 @@ import {
     FiPlus,
     FiList,
     FiTrash2,
-    FiChevronRight
+    FiChevronRight,
+    FiMessageSquare
 } from "react-icons/fi";
+
 
 import { CustomAlertDialog } from "@/components/ui/custom-alert";
 
@@ -28,7 +30,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-type AdminType = 'post' | 'daily' | 'moment';
+type AdminType = 'post' | 'daily' | 'moment' | 'comment';
+
 
 type PostData = {
     title: string;
@@ -61,7 +64,10 @@ type AdminItem = {
     slug?: string;
     imageUrl?: string;
     category?: string;
+    nickname?: string;
+    contact?: string;
 };
+
 
 type StatusMessage = { text: string; isError: boolean };
 
@@ -356,7 +362,8 @@ export default function AdminPage() {
                         {!isSidebarCollapsed && (
                             <Label className="text-[9px] text-neutral-600 uppercase tracking-widest px-2 font-mono mb-2 block animate-in fade-in duration-300">Content Type</Label>
                         )}
-                        {(['post', 'daily', 'moment'] as const).map((t) => (
+                        {(['post', 'daily', 'moment', 'comment'] as const).map((t) => (
+
                             <button
                                 key={t}
                                 onClick={(e) => { e.stopPropagation(); setType(t); setViewMode('edit'); }}
@@ -369,7 +376,9 @@ export default function AdminPage() {
                                     {t === 'post' && <FiEdit3 className="w-3 h-3" />}
                                     {t === 'daily' && <FiTerminal className="w-3 h-3" />}
                                     {t === 'moment' && <FiImage className="w-3 h-3" />}
+                                    {t === 'comment' && <FiMessageSquare className="w-3 h-3" />}
                                 </span>
+
                                 {!isSidebarCollapsed && (
                                     <span className="font-medium capitalize tracking-wide truncate animate-in fade-in duration-300">{t}</span>
                                 )}
@@ -443,13 +452,24 @@ export default function AdminPage() {
                                                 >
                                                     <div className="flex items-center gap-3 mb-1.5">
                                                         <h3 className="text-sm font-bold text-neutral-200 truncate group-hover:text-white transition-colors">
-                                                            {type === 'daily' ? post.date : post.title}
+                                                            {type === 'daily' ? post.date : (type === 'comment' ? post.content : post.title)}
                                                         </h3>
-                                                        <span className="text-[10px] font-mono text-neutral-500 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800 uppercase tracking-tighter shrink-0">{post.date}</span>
+                                                        <span className="text-[10px] font-mono text-neutral-500 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800 uppercase tracking-tighter shrink-0">{post.date || (post as any).created_at}</span>
+                                                        {type === 'comment' && (
+                                                            <span className="text-[9px] font-mono text-green-500/60 bg-green-500/5 px-2 py-0.5 rounded border border-green-500/10 uppercase tracking-tighter shrink-0">
+                                                                @{post.nickname} {post.contact && `(${post.contact})`}
+                                                            </span>
+                                                        )}
+                                                        {type === 'comment' && (post as any).slug && (
+                                                            <span className="text-[9px] font-mono text-blue-500/60 bg-blue-500/5 px-2 py-0.5 rounded border border-blue-500/10 uppercase tracking-tighter shrink-0">
+                                                                FROM: {(post as any).slug}
+                                                            </span>
+                                                        )}
                                                     </div>
                                                     <p className="text-xs text-neutral-500 truncate font-mono">
-                                                        {type === 'post' ? (post.description || '...') : (post.content ? post.content.substring(0, 60) : '...')}
+                                                        {type === 'post' ? (post.description || '...') : (type === 'comment' ? '' : (post.content ? post.content.substring(0, 60) : '...'))}
                                                     </p>
+
                                                 </div>
                                                 <div className="flex items-center gap-3">
                                                     <button

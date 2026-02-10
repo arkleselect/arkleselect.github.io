@@ -51,6 +51,13 @@ export async function GET(req: NextRequest) {
                 const { results } = await db.prepare('SELECT * FROM moments').all();
                 results.sort((a: any, b: any) => b.filename.localeCompare(a.filename));
                 return NextResponse.json({ items: results });
+            } else if (type === 'comment') {
+                const { results } = await db.prepare('SELECT * FROM comments').all();
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                const comments = results.map((r: any) => ({ ...r, filename: `comment-${r.created_at}-${r.nickname}` }));
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                comments.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+                return NextResponse.json({ items: comments });
             }
         }
 
