@@ -75,64 +75,12 @@ export default async function PostPage({
               </div>
             ) : null}
           </div>
-
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* 本文信息 */}
-            <div className="p-6 bg-white/[0.02] border border-white/5 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-[2px] h-full bg-blue-500/30 group-hover:bg-blue-500 transition-colors duration-500" />
-              <h3 className="text-[11px] font-bold text-white/90 mb-4 flex items-center gap-2 font-mono uppercase tracking-[0.2em]">
-                <span className="w-1.5 h-3 bg-blue-500/80" />
-                Article_Info / 本文信息
-              </h3>
-              <ul className="space-y-3 text-[13px]">
-                <li className="flex gap-3">
-                  <span className="text-white/20 font-mono whitespace-nowrap w-20">作者 / AUTHOR</span>
-                  <span className="text-white/70 tracking-tight">arkleselect</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-white/20 font-mono whitespace-nowrap w-20">发布 / DATE</span>
-                  <span className="text-white/70 tracking-tight">{post.date}</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-white/20 font-mono whitespace-nowrap w-20">分类 / CAT</span>
-                  <span className="text-white/70 tracking-tight">{post.category || 'Undefined'}</span>
-                </li>
-                <li className="flex gap-3 overflow-hidden">
-                  <span className="text-white/20 font-mono whitespace-nowrap w-20 shrink-0">链接 / LINK</span>
-                  <a href={`https://arkleselect.github.io/posts/${slug}`} className="text-white/40 hover:text-blue-400/80 transition-colors break-all underline decoration-white/10 decoration-dotted tracking-tight">
-                    {`https://arkleselect.github.io/posts/${slug}`}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* 版权许可 */}
-            <div className="p-6 bg-white/[0.02] border border-white/5 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-[2px] h-full bg-orange-500/30 group-hover:bg-orange-500 transition-colors duration-500" />
-              <h3 className="text-[11px] font-bold text-white/90 mb-4 flex items-center gap-2 font-mono uppercase tracking-[0.2em]">
-                <span className="w-1.5 h-3 bg-orange-500/80" />
-                License / 版权许可
-              </h3>
-              <div className="space-y-3 text-[13px]">
-                <p className="text-white/60 leading-relaxed tracking-tight">
-                  本文所有内容（包括图片）均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans" target="_blank" className="text-orange-400/70 hover:text-orange-400 underline decoration-orange-400/20 transition-all font-bold">CC BY-SA 4.0</a> 协议授权。
-                </p>
-                <p className="text-white/20 text-[11px] font-mono italic leading-snug">
-                  * 转载请注明出处，并附上本声明内容。
-                </p>
-                <div className="pt-2 flex gap-3 opacity-20 grayscale brightness-200">
-                  <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg" alt="CC BY-SA" className="h-6" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <Comments
-            pageId={slug}
-            pageUrl={`https://arkleselect.github.io/posts/${slug}`}
-            pageTitle={post.title}
-          />
         </div>
+        <Comments
+          pageId={slug}
+          pageUrl={`https://arkleselect.github.io/posts/${slug}`}
+          pageTitle={post.title}
+        />
       </div>
     </div>
   );
