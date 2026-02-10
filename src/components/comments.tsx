@@ -23,6 +23,7 @@ export default function Comments({ pageId, pageTitle }: CommentsProps) {
     const [nickname, setNickname] = useState('');
     const [contact, setContact] = useState('');
     const [content, setContent] = useState('');
+    const [hpCheck, setHpCheck] = useState(''); // Honeypot state
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null);
@@ -70,7 +71,9 @@ export default function Comments({ pageId, pageTitle }: CommentsProps) {
                     nickname,
                     contact,
                     content,
-                    parent_id: replyTo?.id || null
+                    content,
+                    parent_id: replyTo?.id || null,
+                    hp_check: hpCheck // Send honeypot value
                 }),
             });
 
@@ -168,6 +171,18 @@ export default function Comments({ pageId, pageTitle }: CommentsProps) {
                         />
                     </div>
 
+                    <div className="hidden">
+                        <label htmlFor="hp_check">Do not fill this out if you are human</label>
+                        <input
+                            type="text"
+                            id="hp_check"
+                            name="hp_check"
+                            value={hpCheck}
+                            onChange={(e) => setHpCheck(e.target.value)}
+                            autoComplete="off"
+                            tabIndex={-1}
+                        />
+                    </div>
                     <div className="flex justify-start">
                         <button
                             type="submit"
