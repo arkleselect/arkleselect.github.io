@@ -87,19 +87,22 @@ export async function POST(req: NextRequest) {
 
         // 发送 Telegram 通知
         if (tgToken && tgChatId) {
-            const { sendTelegramNotification } = await import('@/lib/telegram');
-            const message = `<b>📬 新评论通知</b>\n\n` +
-                `<b>文章:</b> <code>${slug}</code>\n` +
-                `<b>来自:</b> ${nickname}${isAdmin ? ' (管理员)' : ''}\n` +
-                `<b>内容:</b>\n${content}\n\n` +
-                `<a href="https://arkleselect.github.io/posts/${slug}">点击查看详情</a>`;
+            try {
+                const { sendTelegramNotification } = await import('@/lib/telegram');
+                const message = `<b>📬 新评论通知</b>\n\n` +
+                    `<b>文章:</b> <code>${slug}</code>\n` +
+                    `<b>来自:</b> ${nickname}${isAdmin ? ' (管理员)' : ''}\n` +
+                    `<b>内容:</b>\n${content}\n\n` +
+                    `<a href="https://arkleselect.github.io/posts/${slug}">点击查看详情</a>`;
 
-            console.log('Sending TG notification to:', tgChatId);
+                console.log('Sending TG notification to:', tgChatId);
 
-            // 异步发送，不阻塞响应
-            sendTelegramNotification(tgToken, tgChatId, message)
-                .then(res => console.log('TG Send Success:', res))
-                .catch(err => console.error('TG Send Failed:', err));
+                // 使用 await 确保在 Edge Runtime 中发送完成
+                const result = await sendTelegramNotification(tgToken, tgChatId, message);
+                console.log('TG Send Result:', result);
+            } catch (err) {
+                console.error('TG Send Error (Outer):', err);
+            }
         } else {
             console.warn('TG Notification skipped: Missing Token or ChatID');
         }
