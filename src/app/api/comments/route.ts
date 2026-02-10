@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
 
         interface CommentBody {
             slug: string;
+            pageTitle?: string; // 新增
             nickname: string;
             contact?: string;
             content: string;
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest) {
             adminPassword?: string;
         }
         const body = (await req.json()) as CommentBody;
-        const { slug, nickname, contact, content, parent_id, adminPassword } = body;
+        const { slug, pageTitle, nickname, contact, content, parent_id, adminPassword } = body;
 
 
 

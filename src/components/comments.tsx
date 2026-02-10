@@ -18,7 +18,7 @@ interface CommentsProps {
     pageTitle: string;
 }
 
-export default function Comments({ pageId }: CommentsProps) {
+export default function Comments({ pageId, pageTitle }: CommentsProps) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [nickname, setNickname] = useState('');
     const [contact, setContact] = useState('');
@@ -66,6 +66,7 @@ export default function Comments({ pageId }: CommentsProps) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     slug: pageId,
+                    pageTitle, // 新增：传递文章标题
                     nickname,
                     contact,
                     content,
