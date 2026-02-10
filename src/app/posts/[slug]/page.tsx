@@ -1,5 +1,6 @@
 import { getPostBySlug, getPostSlugs } from "@/lib/content";
 import MarkdownContent from "@/components/markdown-content";
+import Comments from "@/components/comments";
 
 export const dynamicParams = true;
 export const dynamic = 'force-dynamic';
@@ -74,6 +75,12 @@ export default async function PostPage({
               </div>
             ) : null}
           </div>
+
+          <Comments
+            pageId={slug}
+            pageUrl={`https://arkleselect.github.io/posts/${slug}`}
+            pageTitle={post.title}
+          />
         </div>
       </div>
     </div>
