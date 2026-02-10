@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+
 
 interface Comment {
     nickname: string;
@@ -26,6 +27,8 @@ export default function Comments({ pageId }: CommentsProps) {
 
     const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const formRef = useRef<HTMLFormElement>(null);
+
 
 
     const fetchComments = useCallback(async () => {
@@ -104,7 +107,8 @@ export default function Comments({ pageId }: CommentsProps) {
                 {/* Vertical Axis Line */}
                 <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
 
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
+
                     {replyTo && (
                         <div className="flex items-center gap-2 mb-[-1.5rem] animate-in slide-in-from-left duration-300">
                             <span className="text-[9px] font-mono text-white/40 italic flex items-center gap-1">
@@ -213,8 +217,9 @@ export default function Comments({ pageId }: CommentsProps) {
                                                 <button
                                                     onClick={() => {
                                                         setReplyTo({ id: commentId, name: comment.nickname });
-                                                        window.scrollTo({ top: document.querySelector('form')?.offsetTop ? (document.querySelector('form')!.offsetTop - 150) : 0, behavior: 'smooth' });
+                                                        formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                                                     }}
+
                                                     className="text-[9px] font-mono text-white/10 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
                                                 >
                                                     [ REPLY ]

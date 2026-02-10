@@ -64,11 +64,15 @@ export async function GET(req: NextRequest) {
                 });
 
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                const items = comments.map((r: any) => ({
-                    ...r,
-                    filename: `comment-${r.created_at}-${r.nickname}`,
-                    articleTitle: titleMap[r.slug] || r.slug
-                }));
+                const items = comments.map((r: any) => {
+                    const cleanRSlog = r.slug.replace('.md', '');
+                    return {
+                        ...r,
+                        filename: `comment-${r.created_at}-${r.nickname}`,
+                        articleTitle: titleMap[cleanRSlog] || r.slug
+                    };
+                });
+
 
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                 items.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());

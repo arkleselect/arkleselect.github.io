@@ -506,10 +506,11 @@ export default function AdminPage() {
                                                             </span>
                                                         )}
                                                         {type === 'comment' && (post as any).articleTitle && (
-                                                            <span className="text-[9px] font-mono text-blue-500/60 bg-blue-500/5 px-2 py-0.5 rounded border border-blue-500/10 uppercase tracking-tighter shrink-0 truncate max-w-[200px]">
+                                                            <span className="text-[9px] font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase tracking-tighter shrink-0 truncate max-w-[250px]">
                                                                 FROM: {(post as any).articleTitle}
                                                             </span>
                                                         )}
+
 
                                                     </div>
                                                     <p className="text-xs text-neutral-500 truncate font-mono">
