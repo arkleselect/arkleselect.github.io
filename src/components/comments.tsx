@@ -71,7 +71,6 @@ export default function Comments({ pageId, pageTitle }: CommentsProps) {
                     nickname,
                     contact,
                     content,
-                    content,
                     parent_id: replyTo?.id || null,
                     hp_check: hpCheck // Send honeypot value
                 }),
