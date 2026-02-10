@@ -33,15 +33,21 @@ export default function Comments({ pageId, pageUrl, pageTitle }: CommentsProps) 
                 data-page-url={pageUrl}
                 data-page-title={pageTitle}
                 data-theme="dark"
-                className="cusdis-container"
+                data-minimal="1"
+                className="cusdis-container min-h-[400px]"
             />
 
             <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
             <style jsx global>{`
+        #cusdis_thread {
+          min-height: 400px;
+        }
         #cusdis_thread iframe {
           color-scheme: dark;
           filter: invert(0) !important;
+          min-height: 400px;
+          height: auto !important;
         }
       `}</style>
         </div>
