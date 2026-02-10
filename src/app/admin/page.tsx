@@ -99,10 +99,10 @@ export default function AdminPage() {
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
     // Delete Confirmation State
-    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-    const [deleteTarget, setDeleteTarget] = useState<{ type: AdminType; filename: string } | null>(null);
+    const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
     // Reply Dialog State
+
     const [replyTarget, setReplyTarget] = useState<AdminItem | null>(null);
     const [replyContent, setReplyContent] = useState('');
     const [replyModalOpen, setReplyModalOpen] = useState(false);
@@ -304,19 +304,13 @@ export default function AdminPage() {
     };
 
 
-    const handleDelete = (e: React.MouseEvent, targetType: AdminType, filename: string) => {
+    const handleDelete = (e: React.MouseEvent, filename: string) => {
         e.stopPropagation();
-        setDeleteTarget({ type: targetType, filename });
-        setDeleteConfirmOpen(true);
+        setDeleteTargetId(deleteTargetId === filename ? null : filename);
     };
 
-
-    const confirmDelete = async () => {
-        if (!deleteTarget) return;
-
+    const confirmDelete = async (targetType: AdminType, filename: string) => {
         setLoading(true);
-        setMessage(null);
-
         try {
             const adminKey = localStorage.getItem('admin_key') || '';
             const res = await fetch('/api/admin/delete', {
@@ -326,16 +320,15 @@ export default function AdminPage() {
                     'Authorization': adminKey
                 },
                 body: JSON.stringify({
-                    type: deleteTarget.type,
-                    filename: deleteTarget.filename
+                    type: targetType,
+                    filename: filename
                 })
             });
 
             if (res.ok) {
-                setExistingPosts(prev => prev.filter(p => p.filename !== deleteTarget.filename));
+                setExistingPosts(prev => prev.filter(p => p.filename !== filename));
                 setMessage({ text: 'SUCCESS: ITEM_DELETED', isError: false });
-                setDeleteConfirmOpen(false);
-                setDeleteTarget(null);
+                setDeleteTargetId(null);
             } else {
                 const err = await res.json() as { error?: string };
                 setMessage({ text: `ERROR: ${err.error || 'Failed to delete'}`, isError: true });
@@ -346,6 +339,7 @@ export default function AdminPage() {
             setLoading(false);
         }
     };
+
 
     if (checkingAuth) {
         return <div className="min-h-screen bg-black text-white flex items-center justify-center font-mono">Checking access...</div>;
@@ -543,13 +537,41 @@ export default function AdminPage() {
                                                             <FiCornerUpLeft className="w-4 h-4" />
                                                         </button>
                                                     )}
-                                                    <button
-                                                        onClick={(e) => handleDelete(e, type, post.filename)}
-                                                        className="p-2 text-neutral-600 hover:text-red-400 hover:bg-red-950/30 rounded-md transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
-                                                        title="Delete"
-                                                    >
-                                                        <FiTrash2 className="w-4 h-4" />
-                                                    </button>
+                                                    <div className="relative">
+                                                        <button
+                                                            onClick={(e) => handleDelete(e, post.filename)}
+                                                            className={`p-2 rounded-md transition-all cursor-pointer ${deleteTargetId === post.filename ? 'text-red-500 bg-red-500/10' : 'text-neutral-600 hover:text-red-400 hover:bg-red-950/30 opacity-0 group-hover:opacity-100'}`}
+                                                            title="Delete"
+                                                        >
+                                                            <FiTrash2 className="w-4 h-4" />
+                                                        </button>
+
+                                                        {/* Tactical Bubble Confirmation */}
+                                                        {deleteTargetId === post.filename && (
+                                                            <div
+                                                                className="absolute right-0 bottom-full mb-2 z-10 p-2 bg-neutral-900 border border-neutral-800 rounded-lg shadow-2xl animate-in fade-in slide-in-from-bottom-1 duration-200 min-w-[140px]"
+                                                                onClick={(e) => e.stopPropagation()}
+                                                            >
+                                                                <p className="text-[10px] font-mono uppercase tracking-tighter text-neutral-400 mb-2 px-1">Confirm_Purge?</p>
+                                                                <div className="flex gap-1">
+                                                                    <button
+                                                                        onClick={() => setDeleteTargetId(null)}
+                                                                        className="flex-1 py-1 text-[9px] font-mono uppercase bg-neutral-800 hover:bg-neutral-700 text-neutral-400 rounded transition-colors"
+                                                                    >
+                                                                        No
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => confirmDelete(type, post.filename)}
+                                                                        className="flex-1 py-1 text-[9px] font-mono uppercase bg-red-900/40 hover:bg-red-900/60 text-red-200 rounded transition-colors border border-red-900/50"
+                                                                    >
+                                                                        Yes
+                                                                    </button>
+                                                                </div>
+                                                                <div className="absolute top-full right-3 w-2 h-2 bg-neutral-900 border-r border-b border-neutral-800 rotate-45 -translate-y-1" />
+                                                            </div>
+                                                        )}
+                                                    </div>
+
                                                     <div
                                                         className="p-2 text-neutral-600 hover:text-white transition-colors"
                                                         onClick={() => handleEditPost(post)}
@@ -724,16 +746,8 @@ export default function AdminPage() {
                 </div>
             )}
 
-            {/* Delete Confirmation Dialog */}
+            {/* Delete Confirmation Dialog 已经移除，改为气泡式 */}
 
-            <CustomAlertDialog
-                isOpen={deleteConfirmOpen}
-                onClose={() => setDeleteConfirmOpen(false)}
-                onConfirm={confirmDelete}
-                title="Confirm Deletion"
-                description={`Are you sure you want to permanently delete "${deleteTarget?.filename}"? This action cannot be undone.`}
-                loading={loading}
-            />
         </div>
     );
 }
