@@ -82,7 +82,9 @@ export default function AdminPage() {
     const [checkingAuth, setCheckingAuth] = useState(true);
     const [type, setType] = useState<AdminType>('post');
     const [loading, setLoading] = useState(false);
+    const [listLoading, setListLoading] = useState(false);
     const [message, setMessage] = useState<StatusMessage | null>(null);
+
 
     // Form states
     const today = new Date().toISOString().split('T')[0];
@@ -144,6 +146,7 @@ export default function AdminPage() {
     const fetchPosts = useCallback(async (token?: string) => {
         try {
             const adminKey = token || localStorage.getItem('admin_key') || '';
+            setListLoading(true);
             const res = await fetch(`/api/admin/list?type=${type}`, {
                 headers: { 'Authorization': adminKey }
             });
@@ -155,7 +158,10 @@ export default function AdminPage() {
             }
         } catch (error) {
             console.error('Failed to fetch posts', error);
+        } finally {
+            setListLoading(false);
         }
+
     }, [type]);
 
     useEffect(() => {
@@ -472,29 +478,34 @@ export default function AdminPage() {
                             </h1>
                         </div>
                         <div className="flex items-center gap-3">
-                            {(type === 'post' || type === 'daily' || type === 'moment') && (
-                                <Button
-                                    onClick={() => setViewMode(viewMode === 'edit' ? 'list' : 'edit')}
-                                    variant="outline"
-                                    size="sm"
-                                    className="h-7 border-neutral-800 bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 font-mono text-[9px] uppercase tracking-widest px-3"
-                                >
-                                    {viewMode === 'edit' ? <FiList className="mr-2 w-3 h-3" /> : <FiPlus className="mr-2 w-3 h-3" />}
-                                    {viewMode === 'edit' ? 'Library' : `New_${type}`}
-                                </Button>
-                            )}
+                            <Button
+                                onClick={() => setViewMode(viewMode === 'edit' ? 'list' : 'edit')}
+                                variant="outline"
+                                size="sm"
+                                className="h-7 border-neutral-800 bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 font-mono text-[9px] uppercase tracking-widest px-3"
+                            >
+                                {viewMode === 'edit' ? <FiList className="mr-2 w-3 h-3" /> : <FiPlus className="mr-2 w-3 h-3" />}
+                                {viewMode === 'edit' ? 'Library' : (type === 'comment' ? 'Overview' : `New_${type}`)}
+                            </Button>
                         </div>
+
                     </div>
 
                     <div className="bg-neutral-950">
                         {viewMode === 'list' ? (
                             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
                                 <div className="grid grid-cols-1 gap-3">
-                                    {existingPosts.length === 0 ? (
+                                    {listLoading ? (
+                                        <div className="py-12 flex flex-col items-center gap-3 animate-pulse">
+                                            <div className="h-4 w-48 bg-neutral-900 rounded" />
+                                            <div className="h-3 w-32 bg-neutral-900 rounded" />
+                                        </div>
+                                    ) : existingPosts.length === 0 ? (
                                         <div className="py-12 text-center border border-dashed border-neutral-900 rounded-lg bg-neutral-900/20">
                                             <p className="text-neutral-600 font-mono text-xs uppercase tracking-widest">Empty_Registry</p>
                                         </div>
                                     ) : (
+
                                         existingPosts.map((post) => (
                                             <div
                                                 key={post.filename}

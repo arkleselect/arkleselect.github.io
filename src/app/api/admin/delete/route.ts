@@ -70,7 +70,11 @@ export async function DELETE(request: Request) {
                     const createdAt = match[1];
                     const nickname = match[2];
                     await db.prepare('DELETE FROM comments WHERE created_at = ? AND nickname = ?').bind(createdAt, nickname).run();
+                } else {
+                    // 兜底逻辑：如果正则没对上，尝试解析另一种可能的格式或记录日志
+                    console.error('Failed to parse comment filename for deletion:', filename);
                 }
+
             }
         }
 
