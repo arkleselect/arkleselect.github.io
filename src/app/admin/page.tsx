@@ -102,6 +102,12 @@ export default function AdminPage() {
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
     const [deleteTarget, setDeleteTarget] = useState<{ type: AdminType; filename: string } | null>(null);
 
+    // Reply Dialog State
+    const [replyTarget, setReplyTarget] = useState<AdminItem | null>(null);
+    const [replyContent, setReplyContent] = useState('');
+    const [replyModalOpen, setReplyModalOpen] = useState(false);
+
+
     // Helper to format date to slug
     const dateToSlug = (dateStr: string) => {
         return dateStr.replace(/-/g, '').slice(2);
@@ -256,13 +262,17 @@ export default function AdminPage() {
         }
     };
 
-    const handleReply = async (e: React.MouseEvent, item: AdminItem) => {
+    const handleReply = (e: React.MouseEvent, item: AdminItem) => {
         e.stopPropagation();
-        const reply = window.prompt(`Reply to @${item.nickname}:`);
-        if (!reply) return;
+        setReplyTarget(item);
+        setReplyContent('');
+        setReplyModalOpen(true);
+    };
 
-        const parentId = `${(item as any).created_at}-${item.nickname}`;
+    const submitAdminReply = async () => {
+        if (!replyTarget || !replyContent.trim()) return;
 
+        const parentId = `${(replyTarget as any).created_at}-${replyTarget.nickname}`;
         setLoading(true);
         try {
             const adminKey = localStorage.getItem('admin_key') || '';
@@ -270,15 +280,18 @@ export default function AdminPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    slug: item.slug,
+                    slug: replyTarget.slug,
                     nickname: 'Admin',
-                    content: reply,
+                    content: replyContent,
                     parent_id: parentId,
                     adminPassword: adminKey
                 }),
             });
             if (res.ok) {
                 setMessage({ text: 'SUCCESS: REPLY_SENT', isError: false });
+                setReplyModalOpen(false);
+                setReplyTarget(null);
+                setReplyContent('');
                 fetchPosts();
             } else {
                 setMessage({ text: 'ERROR: FAILED_TO_REPLY', isError: true });
@@ -289,6 +302,7 @@ export default function AdminPage() {
             setLoading(false);
         }
     };
+
 
     const handleDelete = (e: React.MouseEvent, targetType: AdminType, filename: string) => {
         e.stopPropagation();
@@ -407,6 +421,7 @@ export default function AdminPage() {
                                 key={t}
                                 onClick={(e) => {
                                     e.stopPropagation();
+                                    setExistingPosts([]); // 立即清空，防止闪烁
                                     setType(t);
                                     setViewMode(t === 'comment' ? 'list' : 'edit');
                                 }}
@@ -662,7 +677,55 @@ export default function AdminPage() {
                     </div>
                 </div>
             </main>
+            {/* Reply Dialog */}
+            {replyModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+                    <div className="w-full max-w-lg bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+                        <div className="p-4 border-b border-neutral-800 flex items-center justify-between">
+                            <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-400">Reply_Channel: [Admin]</h3>
+                            <div className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div className="bg-neutral-950 p-3 rounded border border-neutral-800/50">
+                                <p className="text-[10px] text-neutral-600 font-mono uppercase mb-1">Target_Signal:</p>
+                                <p className="text-xs text-neutral-400 italic">@{replyTarget?.nickname}: {replyTarget?.content}</p>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="reply-content" className="text-[10px] text-neutral-500 font-mono uppercase tracking-widest">Input_Message</Label>
+                                <Textarea
+                                    id="reply-content"
+                                    autoFocus
+                                    className="min-h-[120px] bg-neutral-950 border-neutral-800 text-xs font-mono text-neutral-300 focus:border-blue-500/50 resize-none"
+                                    placeholder="Enter response signals..."
+                                    value={replyContent}
+                                    onChange={(e) => setReplyContent(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="p-4 border-t border-neutral-800 bg-neutral-900/50 flex justify-end gap-3">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setReplyModalOpen(false)}
+                                className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest hover:text-white"
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                disabled={loading || !replyContent.trim()}
+                                size="sm"
+                                onClick={submitAdminReply}
+                                className="bg-white text-black hover:bg-neutral-200 text-[10px] font-mono uppercase tracking-widest px-6"
+                            >
+                                {loading ? 'Sending...' : 'Transmit_Signal'}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Delete Confirmation Dialog */}
+
             <CustomAlertDialog
                 isOpen={deleteConfirmOpen}
                 onClose={() => setDeleteConfirmOpen(false)}
