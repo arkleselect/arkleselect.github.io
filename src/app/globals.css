@@ -123,6 +123,10 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
+
+  p {
+    @apply text-base;
+  }
 }
 
 @layer utilities {
@@ -204,7 +208,7 @@
   }
 
   .prose p {
-    @apply text-white/70;
+    @apply text-white/70 text-base;
     white-space: pre-wrap;
   }
 
