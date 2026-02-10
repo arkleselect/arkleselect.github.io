@@ -262,6 +262,7 @@ export default function AdminPage() {
         if (!reply) return;
 
         const parentId = `${(item as any).created_at}-${item.nickname}`;
+
         setLoading(true);
         try {
             const adminKey = localStorage.getItem('admin_key') || '';
@@ -404,7 +405,12 @@ export default function AdminPage() {
 
                             <button
                                 key={t}
-                                onClick={(e) => { e.stopPropagation(); setType(t); setViewMode('edit'); }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setType(t);
+                                    setViewMode(t === 'comment' ? 'list' : 'edit');
+                                }}
+
                                 className={`w-full flex items-center gap-3 ${isSidebarCollapsed ? 'px-0 justify-center' : 'px-3'} py-2 rounded-md text-xs transition-all cursor-pointer ${type === t
                                     ? 'bg-neutral-900 text-white shadow-sm border border-neutral-800'
                                     : 'text-neutral-500 hover:text-neutral-300 hover:bg-neutral-900/50'
@@ -448,7 +454,8 @@ export default function AdminPage() {
                     <div className="mb-6 flex justify-between items-end border-b border-neutral-900 pb-4">
                         <div>
                             <h1 className="text-lg font-bold tracking-tight text-white mb-1 capitalize flex items-center gap-2">
-                                {isEditing && type === 'post' ? 'Edit Post' : `New ${type}`}
+                                {isEditing && type === 'post' ? 'Edit Post' : (type === 'comment' ? 'Comment Management' : `New ${type}`)}
+
                                 <span className="text-neutral-600 font-normal text-sm">/</span>
                                 <span className="text-neutral-500 font-mono text-xs uppercase normal-case tracking-wider font-normal">
                                     {type === 'post' && viewMode === 'list' ? 'Library' : 'Editor'}
