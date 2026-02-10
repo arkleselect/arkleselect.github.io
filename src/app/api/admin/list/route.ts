@@ -68,10 +68,11 @@ export async function GET(req: NextRequest) {
                     const cleanRSlog = r.slug.replace('.md', '');
                     return {
                         ...r,
-                        filename: `comment-${r.created_at}-${r.nickname}`,
+                        filename: `comment___${r.created_at}___${r.nickname}`,
                         articleTitle: titleMap[cleanRSlog] || r.slug
                     };
                 });
+
 
 
                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */

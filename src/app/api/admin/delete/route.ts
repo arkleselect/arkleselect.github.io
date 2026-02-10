@@ -64,17 +64,18 @@ export async function DELETE(request: Request) {
             } else if (type === 'moment') {
                 await db.prepare('DELETE FROM moments WHERE filename = ?').bind(filename).run();
             } else if (type === 'comment') {
-                // filename 格式为 comment-${created_at}-${nickname}
-                const match = filename.match(/^comment-(.*?)-(.*)$/);
-                if (match) {
-                    const createdAt = match[1];
-                    const nickname = match[2];
-                    await db.prepare('DELETE FROM comments WHERE created_at = ? AND nickname = ?').bind(createdAt, nickname).run();
+                console.log('Attempting to delete comment with identifier:', filename);
+                // filename 格式为 comment___${created_at}___${nickname}
+                const parts = filename.split('___');
+                if (parts.length === 3) {
+                    const createdAt = parts[1];
+                    const nickname = parts[2];
+                    console.log('Parsed deletion params:', { createdAt, nickname });
+                    const result = await db.prepare('DELETE FROM comments WHERE created_at = ? AND nickname = ?').bind(createdAt, nickname).run();
+                    console.log('D1 Delete Result:', JSON.stringify(result));
                 } else {
-                    // 兜底逻辑：如果正则没对上，尝试解析另一种可能的格式或记录日志
-                    console.error('Failed to parse comment filename for deletion:', filename);
+                    console.error('Failed to parse comment filename for deletion (invalid parts count):', filename);
                 }
-
             }
         }
 

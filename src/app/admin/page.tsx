@@ -473,21 +473,25 @@ export default function AdminPage() {
 
                                 <span className="text-neutral-600 font-normal text-sm">/</span>
                                 <span className="text-neutral-500 font-mono text-xs uppercase normal-case tracking-wider font-normal">
-                                    {type === 'post' && viewMode === 'list' ? 'Library' : 'Editor'}
+                                    {(type === 'post' || type === 'daily' || type === 'moment') && viewMode === 'list' ? 'Library' : (type === 'comment' ? 'Library' : 'Editor')}
                                 </span>
+
                             </h1>
                         </div>
                         <div className="flex items-center gap-3">
-                            <Button
-                                onClick={() => setViewMode(viewMode === 'edit' ? 'list' : 'edit')}
-                                variant="outline"
-                                size="sm"
-                                className="h-7 border-neutral-800 bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 font-mono text-[9px] uppercase tracking-widest px-3"
-                            >
-                                {viewMode === 'edit' ? <FiList className="mr-2 w-3 h-3" /> : <FiPlus className="mr-2 w-3 h-3" />}
-                                {viewMode === 'edit' ? 'Library' : (type === 'comment' ? 'Overview' : `New_${type}`)}
-                            </Button>
+                            {type !== 'comment' && (
+                                <Button
+                                    onClick={() => setViewMode(viewMode === 'edit' ? 'list' : 'edit')}
+                                    variant="outline"
+                                    size="sm"
+                                    className="h-7 border-neutral-800 bg-neutral-900 text-neutral-400 hover:text-white hover:bg-neutral-800 font-mono text-[9px] uppercase tracking-widest px-3"
+                                >
+                                    {viewMode === 'edit' ? <FiList className="mr-2 w-3 h-3" /> : <FiPlus className="mr-2 w-3 h-3" />}
+                                    {viewMode === 'edit' ? 'Library' : `New_${type}`}
+                                </Button>
+                            )}
                         </div>
+
 
                     </div>
 
