@@ -7,6 +7,8 @@ export const runtime = 'edge';
 export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const slug = searchParams.get('slug');
+    console.log('API: Fetching comments for slug:', slug);
+
 
     if (!slug) {
         return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
@@ -40,8 +42,14 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'D1 database not found' }, { status: 500 });
         }
 
-        const body = await req.json();
+        interface CommentBody {
+            slug: string;
+            nickname: string;
+            content: string;
+        }
+        const body = (await req.json()) as CommentBody;
         const { slug, nickname, content } = body;
+
 
         if (!slug || !nickname || !content) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
