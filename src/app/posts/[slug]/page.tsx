@@ -35,27 +35,31 @@ export default async function PostPage({
   }
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-10">
-      <div className="rounded border border-white/10 bg-white/[0.03] p-8">
-        <div className="flex items-center justify-between">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-white/40">
-            POST
+    <div className="max-w-3xl mx-auto pt-24 pb-32 px-6">
+      <div className="bg-transparent">
+        <header className="mb-12">
+          <div className="flex items-center gap-3 text-[10px] font-mono text-white/20 mb-4 uppercase tracking-[0.3em]">
+            <span>POST / {post.category || 'SECURITY'}</span>
+            <span className="h-[1px] w-8 bg-white/10"></span>
+            <span>{post.date}</span>
           </div>
-          <div className="text-[10px] font-mono uppercase tracking-widest text-white/30">
-            {post.date}
+          <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-6">
+            {post.title}
+          </h1>
+          <div className="flex items-center gap-2 text-xs text-white/30 font-mono italic">
+            <span className="opacity-50">AUTHOR: </span>
+            <span className="text-white/60 underline decoration-white/10 underline-offset-4">MortySmith</span>
           </div>
-        </div>
+        </header>
 
-        <h1 className="mt-6 text-2xl font-semibold text-white/80 md:text-3xl">
-          {post.title}
-        </h1>
+        <div className="mt-12 border-t border-white/5 pt-12">
 
-        <div className="mt-6 border-t border-white/10 pt-6">
           <div className="relative">
             <MarkdownContent
               html={post.html}
-              className="prose prose-invert max-w-none text-sm leading-relaxed"
+              className="prose prose-invert max-w-none text-sm leading-[1.8]"
             />
+
             {post.toc.length > 0 ? (
               <div className="toc-rail hidden md:flex">
                 <div className="toc-ticks">

@@ -28,10 +28,14 @@ export default function Comments({ pageId }: CommentsProps) {
         setIsLoading(true);
         try {
             const res = await fetch(`/api/comments?slug=${pageId}`);
-            const data = await res.json();
+            interface CommentsResponse {
+                comments?: Comment[];
+            }
+            const data = (await res.json()) as CommentsResponse;
             if (data.comments) {
                 setComments(data.comments);
             }
+
         } catch (error) {
             console.error('Failed to fetch comments:', error);
         } finally {
@@ -73,105 +77,115 @@ export default function Comments({ pageId }: CommentsProps) {
     };
 
     return (
-        <div className="mt-16 pt-8 border-t border-white/5 space-y-10">
+        <div className="mt-16 pt-8 border-t border-white/5 space-y-12">
             {/* Header */}
             <div className="flex items-center gap-2">
-                <div className="h-1 w-1 bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/40">
+                <div className="h-1 w-[1px] bg-white/20" />
+                <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/20">
                     Terminal_Comments / 终端评论系统
                 </span>
             </div>
 
-            {/* Comment Form */}
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="relative group">
-                        <span className="absolute left-3 top-2.5 text-[10px] font-mono text-white/20 group-focus-within:text-green-500/50 transition-colors">
-                            &gt; NICKNAME:
-                        </span>
-                        <input
-                            type="text"
-                            value={nickname}
-                            onChange={(e) => setNickname(e.target.value)}
+            {/* Comment Form - Tactical Style */}
+            <div className="pl-6 relative max-w-2xl">
+                {/* Vertical Axis Line */}
+                <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-white/10 via-white/5 to-transparent" />
+
+                <form onSubmit={handleSubmit} className="space-y-8">
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+                        <div className="flex-1 border-b border-white/10 pb-2 group focus-within:border-white/30 transition-colors">
+                            <label className="text-[8px] font-mono text-white/20 uppercase block mb-1 tracking-widest">
+                                Identity / 称呼
+                            </label>
+                            <input
+                                type="text"
+                                value={nickname}
+                                onChange={(e) => setNickname(e.target.value)}
+                                required
+                                placeholder="Nickname"
+                                className="bg-transparent w-full text-sm font-mono text-white/80 outline-none placeholder:text-white/5"
+                            />
+                        </div>
+                        <div className="flex-1 border-b border-white/10 pb-2 group focus-within:border-white/30 transition-colors">
+                            <label className="text-[8px] font-mono text-white/20 uppercase block mb-1 tracking-widest">
+                                Correspondence / 联系方式
+                            </label>
+                            <input
+                                type="text"
+                                value={contact}
+                                onChange={(e) => setContact(e.target.value)}
+                                placeholder="Optional"
+                                className="bg-transparent w-full text-sm font-mono text-white/80 outline-none placeholder:text-white/5"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="border-b border-white/10 pb-2 group focus-within:border-white/30 transition-colors">
+                        <label className="text-[8px] font-mono text-white/20 uppercase block mb-1 tracking-widest">
+                            Observation / 内容
+                        </label>
+                        <textarea
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
                             required
-                            placeholder="你的称呼..."
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-none px-3 py-2.5 pl-24 text-sm font-mono text-white/80 focus:outline-none focus:border-green-500/30 focus:bg-white/[0.04] transition-all placeholder:text-white/10"
+                            rows={2}
+                            placeholder="..."
+                            className="bg-transparent w-full text-sm font-mono text-white/80 outline-none resize-none placeholder:text-white/5"
                         />
                     </div>
-                    <div className="relative group">
-                        <span className="absolute left-3 top-2.5 text-[10px] font-mono text-white/20 group-focus-within:text-green-500/50 transition-colors">
-                            &gt; CONTACT:
-                        </span>
-                        <input
-                            type="text"
-                            value={contact}
-                            onChange={(e) => setContact(e.target.value)}
-                            placeholder="联系方式 (可选)..."
-                            className="w-full bg-white/[0.02] border border-white/5 rounded-none px-3 py-2.5 pl-24 text-sm font-mono text-white/80 focus:outline-none focus:border-green-500/30 focus:bg-white/[0.04] transition-all placeholder:text-white/10"
-                        />
+
+                    <div className="flex justify-start">
+                        <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="text-[10px] uppercase font-mono border border-white/10 px-8 py-2 text-white/40 hover:text-white hover:border-white/30 transition-all active:scale-95 disabled:opacity-20"
+                        >
+                            {isSubmitting ? 'TRANSMITTING...' : '[ CONFIRM_SIGNAL ]'}
+                        </button>
                     </div>
-                </div>
-                <div className="relative group">
-                    <span className="absolute left-3 top-2.5 text-[10px] font-mono text-white/20 group-focus-within:text-green-500/50 transition-colors">
-                        &gt; MESSAGE:
-                    </span>
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        required
-                        rows={3}
-                        placeholder="输入评论内容..."
-                        className="w-full bg-white/[0.02] border border-white/5 rounded-none px-3 py-2.5 pl-24 text-sm font-mono text-white/80 focus:outline-none focus:border-green-500/30 focus:bg-white/[0.04] transition-all placeholder:text-white/10 resize-none"
-                    />
-                </div>
+                </form>
+            </div>
 
-                <div className="flex justify-start">
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="relative px-6 py-2 border border-green-500/20 bg-green-500/5 text-green-500/80 font-mono text-[10px] uppercase tracking-widest hover:bg-green-500/10 hover:border-green-500/40 hover:text-green-500 active:scale-95 transition-all disabled:opacity-30 disabled:cursor-not-allowed group overflow-hidden"
-                    >
-                        <span className="relative z-10">{isSubmitting ? 'EXECUTING...' : '[ EXECUTE_COMMIT ]'}</span>
-                        <div className="absolute inset-x-0 bottom-0 h-[1px] bg-green-500/50 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
-                    </button>
-                </div>
-            </form>
-
-            {/* Comment List */}
-            <div className="space-y-6 max-w-3xl pt-4">
-                <div className="flex items-center gap-4 text-[9px] font-mono text-white/20 uppercase tracking-tighter">
-                    <span className="flex-shrink-0">Comment_Log_Output</span>
-                    <div className="h-[1px] w-full bg-white/5" />
+            {/* Comment List - Ghost Style */}
+            <div className="space-y-10 pt-4">
+                <div className="flex items-center gap-3">
+                    <div className="h-px flex-1 bg-white/5" />
+                    <span className="text-[9px] font-mono text-white/10 uppercase tracking-[0.4em]">Signals_Received</span>
+                    <div className="h-px flex-1 bg-white/5" />
                 </div>
 
                 {isLoading ? (
                     <div className="py-10 text-center">
-                        <span className="text-[10px] font-mono text-white/10 animate-pulse italic">
+                        <span className="text-[9px] font-mono text-white/10 animate-pulse italic">
                             CONNECTING_D1_INSTANCE...
                         </span>
                     </div>
                 ) : comments.length > 0 ? (
-                    <div className="space-y-4">
+                    <div className="space-y-12">
                         {comments.map((comment, i) => (
-                            <div key={i} className="group relative pl-4 border-l border-white/5 hover:border-green-500/40 transition-colors">
-                                <div className="flex items-baseline gap-3 mb-1">
-                                    <span className="text-[10px] font-mono text-green-500/60 uppercase">
-                                        @{comment.nickname}
-                                    </span>
-                                    <span className="text-[9px] font-mono text-white/10 italic">
-                                        [{new Date(comment.created_at).toLocaleString()}]
-                                    </span>
+                            <div key={i} className="flex gap-6 group">
+                                {/* Ghost Dot */}
+                                <div className="mt-1.5 w-1 h-1 rounded-full bg-white/10 group-hover:bg-white/40 transition-colors shadow-[0_0_8px_rgba(255,255,255,0)] group-hover:shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
+
+                                <div className="flex-1">
+                                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+                                        <span className="text-[11px] font-bold text-white/40 uppercase tracking-widest">
+                                            {comment.nickname}
+                                        </span>
+                                        <span className="text-[9px] text-white/10 font-mono italic">
+                                            {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </span>
+                                    </div>
+                                    <p className="text-[13px] text-white/50 font-mono leading-relaxed group-hover:text-white/70 transition-colors">
+                                        {comment.content}
+                                    </p>
                                 </div>
-                                <p className="text-[13px] text-white/60 leading-relaxed font-mono group-hover:text-white/80 transition-colors">
-                                    {comment.content}
-                                </p>
-                                <div className="absolute left-[-1px] top-0 w-[1px] h-3 bg-green-500/0 group-hover:bg-green-500 transition-colors" />
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <div className="py-10 border border-dashed border-white/5 text-center">
-                        <span className="text-[10px] font-mono text-white/10 uppercase tracking-widest italic">
+                    <div className="py-16 text-center">
+                        <span className="text-[9px] font-mono text-white/5 uppercase tracking-[0.5em] italic">
                             No_Input_Signals_Detected
                         </span>
                     </div>
@@ -179,4 +193,5 @@ export default function Comments({ pageId }: CommentsProps) {
             </div>
         </div>
     );
+
 }
