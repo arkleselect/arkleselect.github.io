@@ -74,8 +74,14 @@ export async function POST(req: NextRequest) {
         ).bind(slug, nickname, contact || '', content, parent_id || null, isAdmin ? 1 : 0).run();
 
         // 发送 Telegram 通知
-        const tgToken = (env as any).TELEGRAM_BOT_TOKEN;
-        const tgChatId = (env as any).TELEGRAM_CHAT_ID;
+        const tgToken = (env as any).TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
+        const tgChatId = (env as any).TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
+
+        console.log('TG Notification Debug:', {
+            hasToken: !!tgToken,
+            hasChatId: !!tgChatId,
+            tokenPrefix: tgToken ? `${tgToken.substring(0, 5)}...` : 'none'
+        });
 
         if (tgToken && tgChatId) {
             const { sendTelegramNotification } = await import('@/lib/telegram');
@@ -85,10 +91,14 @@ export async function POST(req: NextRequest) {
                 `<b>内容:</b>\n${content}\n\n` +
                 `<a href="https://arkleselect.github.io/posts/${slug}">点击查看详情</a>`;
 
+            console.log('Attempting to send TG notification to:', tgChatId);
+
             // 异步发送，不阻塞响应
-            sendTelegramNotification(tgToken, tgChatId, message).catch(err => {
-                console.error('Failed to send TG notification:', err);
-            });
+            sendTelegramNotification(tgToken, tgChatId, message)
+                .then(res => console.log('TG Notification Result:', res))
+                .catch(err => console.error('Failed to send TG notification:', err));
+        } else {
+            console.warn('TG Notification skipped: Missing Token or ChatID');
         }
 
         return NextResponse.json({ success: true });
