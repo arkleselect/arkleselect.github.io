@@ -13,14 +13,30 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Slug is required' }, { status: 400 });
     }
 
-    try {
-        const { env } = getRequestContext();
-        const db = (env as any).DB;
+    const isNode = typeof process.versions?.node !== 'undefined';
+    let db: any = null;
 
-        if (!db) {
-            return NextResponse.json({ error: 'D1 database not found' }, { status: 500 });
+    if (!isNode) {
+        try {
+            const { env } = getRequestContext();
+            db = (env as any).DB;
+        } catch (e) {
+            // Silence noisy logs in local development if needed, or log for debugging
+            console.warn('Failed to get D1 binding (expected in local dev):', e);
         }
+    }
 
+    // Local dev mock or error if needed. For now, we just return error if no DB and no local logic implemented here yet.
+    // The previous implementation tried to access DB directly.
+
+    if (!db) {
+        // If we are in node (local dev) and haven't set up a local mock, we can't really fetch comments from D1 easily without wrangler proxy.
+        // For now, returning empty list or error is better than crashing.
+        console.warn('No database binding found. Returning empty list for local dev safety.');
+        return NextResponse.json({ comments: [] });
+    }
+
+    try {
         const { results } = await db.prepare(
             'SELECT nickname, content, contact, created_at, is_admin, parent_id FROM comments WHERE slug = ? ORDER BY created_at ASC'
         ).bind(slug).all();
@@ -34,14 +50,25 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const { env } = getRequestContext();
-        const tgToken = (env as any).TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
-        const tgChatId = (env as any).TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
+        const isNode = typeof process.versions?.node !== 'undefined';
+        let env: any = {};
 
-        const db = (env as any).DB;
+        if (!isNode) {
+            try {
+                env = getRequestContext().env;
+            } catch (e) {
+                console.warn('Failed to get context env:', e);
+            }
+        }
+
+        const tgToken = env.TELEGRAM_BOT_TOKEN || process.env.TELEGRAM_BOT_TOKEN;
+        const tgChatId = env.TELEGRAM_CHAT_ID || process.env.TELEGRAM_CHAT_ID;
+
+        let db: any = env.DB;
 
         if (!db) {
-            return NextResponse.json({ error: 'D1 database not found' }, { status: 500 });
+            console.warn('No database binding found for POST.');
+            return NextResponse.json({ error: 'D1 database not found (local dev)' }, { status: 500 });
         }
 
         interface CommentBody {

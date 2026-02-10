@@ -69,9 +69,8 @@ type AdminItem = {
     nickname?: string;
     contact?: string;
     articleTitle?: string;
+    created_at?: string;
 };
-
-
 
 type StatusMessage = { text: string; isError: boolean };
 
@@ -222,6 +221,7 @@ export default function AdminPage() {
         setLoading(true);
         setMessage(null);
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let data: any = {};
         if (type === 'post') {
             data = { ...postData, filename: currentFilename };
@@ -278,7 +278,7 @@ export default function AdminPage() {
     const submitAdminReply = async () => {
         if (!replyTarget || !replyContent.trim()) return;
 
-        const parentId = `${(replyTarget as any).created_at}-${replyTarget.nickname}`;
+        const parentId = `${replyTarget.created_at}-${replyTarget.nickname}`;
         setLoading(true);
         try {
             const adminKey = localStorage.getItem('admin_key') || '';
@@ -523,15 +523,15 @@ export default function AdminPage() {
                                                         <h3 className="text-sm font-bold text-neutral-200 truncate group-hover:text-white transition-colors">
                                                             {type === 'daily' ? post.date : (type === 'comment' ? post.content : post.title)}
                                                         </h3>
-                                                        <span className="text-[10px] font-mono text-neutral-500 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800 uppercase tracking-tighter shrink-0">{post.date || (post as any).created_at}</span>
+                                                        <span className="text-[10px] font-mono text-neutral-500 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800 uppercase tracking-tighter shrink-0">{post.date || post.created_at}</span>
                                                         {type === 'comment' && (
                                                             <span className="text-[9px] font-mono text-green-500/60 bg-green-500/5 px-2 py-0.5 rounded border border-green-500/10 uppercase tracking-tighter shrink-0">
                                                                 @{post.nickname} {post.contact && `(${post.contact})`}
                                                             </span>
                                                         )}
-                                                        {type === 'comment' && (post as any).articleTitle && (
+                                                        {type === 'comment' && post.articleTitle && (
                                                             <span className="text-[9px] font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase tracking-tighter shrink-0 truncate max-w-[250px]">
-                                                                FROM: {(post as any).articleTitle}
+                                                                FROM: {post.articleTitle}
                                                             </span>
                                                         )}
 
