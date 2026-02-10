@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
                 const message = `<b>📬 新评论通知</b>\n\n` +
                     `<b>文章:</b> <code>${displayTitle}</code>\n` +
                     `<b>来自:</b> ${nickname}${isAdmin ? ' (管理员)' : ''}\n` +
+                    `<b>联系方式:</b> ${contact || '无'}\n` +
                     `<b>内容:</b>\n${content}\n\n` +
                     `<a href="https://miniload.top/posts/${slug}">点击查看详情</a>`;
 
