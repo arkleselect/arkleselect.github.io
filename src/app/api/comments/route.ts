@@ -73,7 +73,23 @@ export async function POST(req: NextRequest) {
             'INSERT INTO comments (slug, nickname, contact, content, parent_id, is_admin) VALUES (?, ?, ?, ?, ?, ?)'
         ).bind(slug, nickname, contact || '', content, parent_id || null, isAdmin ? 1 : 0).run();
 
+        // 发送 Telegram 通知
+        const tgToken = (env as any).TELEGRAM_BOT_TOKEN;
+        const tgChatId = (env as any).TELEGRAM_CHAT_ID;
 
+        if (tgToken && tgChatId) {
+            const { sendTelegramNotification } = await import('@/lib/telegram');
+            const message = `<b>📬 新评论通知</b>\n\n` +
+                `<b>文章:</b> <code>${slug}</code>\n` +
+                `<b>来自:</b> ${nickname}${isAdmin ? ' (管理员)' : ''}\n` +
+                `<b>内容:</b>\n${content}\n\n` +
+                `<a href="https://arkleselect.github.io/posts/${slug}">点击查看详情</a>`;
+
+            // 异步发送，不阻塞响应
+            sendTelegramNotification(tgToken, tgChatId, message).catch(err => {
+                console.error('Failed to send TG notification:', err);
+            });
+        }
 
         return NextResponse.json({ success: true });
     } catch (error: any) {
