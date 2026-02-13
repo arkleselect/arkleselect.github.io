@@ -14,7 +14,7 @@ export default async function DailyPage() {
         {dailyPosts.map((post: any, index: number) => (
           <article key={`${post.date}-${index}`} className="relative group">
             {/* Command Line Prompt - Refined Circle style */}
-            <div className="flex items-center gap-4 text-xs font-mono mb-4 relative z-10">
+            <div className="flex items-center gap-4 text-[15px] font-mono mb-4 relative z-10">
               <div className="w-[15px] h-[15px] rounded-full bg-black border border-white/20 flex items-center justify-center">
                 <span className="text-[8px] text-white/40">➜</span>
               </div>
@@ -45,12 +45,12 @@ export default async function DailyPage() {
               {/* Text Content */}
               <div className="space-y-3">
                 {post.title && (
-                  <div className="text-sm font-bold text-white/90 font-mono uppercase tracking-tight">
+                  <div className="text-xs font-bold text-white/90 font-mono uppercase tracking-tight">
                     {post.title}
                   </div>
                 )}
                 <div
-                  className="prose prose-invert max-w-none text-sm leading-relaxed font-sans text-white/70"
+                  className="prose prose-invert max-w-none text-xs leading-relaxed font-sans text-white/70"
                   dangerouslySetInnerHTML={{ __html: post.html }}
                 />
               </div>
@@ -67,7 +67,7 @@ export default async function DailyPage() {
 
         {/* Terminal Footer Indicator */}
         <div className="relative group">
-          <div className="flex items-center gap-4 text-xs font-mono relative z-10">
+          <div className="flex items-center gap-4 text-[10px] font-mono relative z-10">
             <div className="w-[15px] h-[15px] rounded-full bg-black border border-white/20 flex items-center justify-center">
               <span className="text-[8px] text-white/40">➜</span>
             </div>

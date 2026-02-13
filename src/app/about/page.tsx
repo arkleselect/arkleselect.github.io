@@ -153,7 +153,7 @@ function AboutSection({ section }: { section: AboutSectionData }) {
           <div className="text-white/40 group-hover:text-white transition-colors">
             {section.icon}
           </div>
-          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-neutral-200 font-mono">
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-neutral-200 font-mono">
             {section.title}
           </h2>
         </div>
@@ -162,7 +162,7 @@ function AboutSection({ section }: { section: AboutSectionData }) {
         </span>
       </div>
 
-      <div className="space-y-4 text-sm text-white/60 leading-relaxed font-sans">
+      <div className="space-y-4 text-xs text-white/60 leading-relaxed font-sans">
         {section.content?.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
@@ -171,7 +171,7 @@ function AboutSection({ section }: { section: AboutSectionData }) {
             {section.items.map((item, i) => (
               <div key={i} className="flex items-center justify-between group/line">
                 <span className="text-[9px] font-mono text-white/30 uppercase tracking-widest">{item.label}</span>
-                <span className="text-[11px] font-mono text-white/60 group-hover/line:text-white transition-colors">{item.value}</span>
+                <span className="text-[10px] font-mono text-white/60 group-hover/line:text-white transition-colors">{item.value}</span>
               </div>
             ))}
           </div>
