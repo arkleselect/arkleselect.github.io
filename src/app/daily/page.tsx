@@ -45,12 +45,12 @@ export default async function DailyPage() {
               {/* Text Content */}
               <div className="space-y-3">
                 {post.title && (
-                  <div className="text-xs font-bold text-white/90 font-mono uppercase tracking-tight">
+                  <div className="text-[14px] font-bold text-white/90 font-mono uppercase tracking-tight">
                     {post.title}
                   </div>
                 )}
                 <div
-                  className="prose prose-invert max-w-none text-xs leading-relaxed font-sans text-white/70"
+                  className="prose prose-[14px] prose-invert max-w-none text-[14px] leading-relaxed font-sans text-white/70"
                   dangerouslySetInnerHTML={{ __html: post.html }}
                 />
               </div>

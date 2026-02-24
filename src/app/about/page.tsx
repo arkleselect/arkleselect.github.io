@@ -162,7 +162,7 @@ function AboutSection({ section }: { section: AboutSectionData }) {
         </span>
       </div>
 
-      <div className="space-y-4 text-xs text-white/60 leading-relaxed font-sans">
+      <div className="space-y-4 text-[14px] text-white/60 leading-relaxed font-sans">
         {section.content?.map((p, i) => (
           <p key={i}>{p}</p>
         ))}

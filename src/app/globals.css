@@ -125,7 +125,7 @@
   }
 
   p {
-    @apply text-base;
+    @apply text-[14px];
   }
 }
 
@@ -208,7 +208,7 @@
   }
 
   .prose p {
-    @apply text-white/70 text-base;
+    @apply text-white/70 text-[14px];
     white-space: pre-wrap;
   }
 
