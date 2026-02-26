@@ -76,7 +76,7 @@ export function Header() {
 
             <div className="flex items-center gap-6">
               {/* Layout Switcher */}
-              <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-white/5 border border-white/5">
+              <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-white/5 border border-white/5 cursor-pointer">
                 {[2, 4, 6].map((cols) => (
                   <button
                     key={cols}
