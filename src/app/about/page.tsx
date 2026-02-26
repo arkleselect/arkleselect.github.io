@@ -63,7 +63,7 @@ export default function AboutPage() {
       title: "通信协议",
       icon: <FiMessageCircle className="w-4 h-4" />,
       items: [
-        { label: "EMAIL", value: "wa1ybzg@duck.com" },
+        { label: "EMAIL", value: "wpprqi@duck.com" },
         { label: "X_PLATFORM", value: "@warsixsixsix" },
         { label: "TG_PLATFORM", value: "@hyfffmi" }
       ]
