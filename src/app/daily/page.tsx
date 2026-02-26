@@ -12,13 +12,13 @@ export default async function DailyPage() {
         <div className="absolute left-[7px] top-2 bottom-0 w-px border-l border-dashed border-white/10 pointer-events-none"></div>
 
         {dailyPosts.map((post: any, index: number) => (
-          <article key={`${post.date}-${index}`} className="relative group">
+          <article key={`${post.date}-${index}`} className="relative group mb-[24px]">
             {/* Command Line Prompt - Refined Circle style */}
             <div className="flex items-center gap-4 text-[15px] font-mono mb-4 relative z-10">
               <div className="w-[15px] h-[15px] rounded-full bg-black border border-white/20 flex items-center justify-center">
                 <span className="text-[8px] text-white/40">➜</span>
               </div>
-              <span className="text-white/40 group-hover:text-white/80 transition-colors uppercase tracking-widest">
+              <span className="text-white/40 group-hover:text-white/80 transition-colors uppercase tracking-widest text-[10px]">
                 cat log_{post.date}.txt
               </span>
             </div>
@@ -66,7 +66,7 @@ export default async function DailyPage() {
         ))}
 
         {/* Terminal Footer Indicator */}
-        <div className="relative group">
+        <div className="relative group mb-[24px]">
           <div className="flex items-center gap-4 text-[10px] font-mono relative z-10">
             <div className="w-[15px] h-[15px] rounded-full bg-black border border-white/20 flex items-center justify-center">
               <span className="text-[8px] text-white/40">➜</span>
