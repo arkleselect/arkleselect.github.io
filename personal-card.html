@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>高宗垚 Personal Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #fcfcfa;
+      --ink: #333333;
+      --soft: rgba(51, 51, 51, 0.68);
+      --faint: rgba(51, 51, 51, 0.12);
+      --charcoal: #1f201d;
+      --charcoal-soft: #2a2b27;
+      --cream: #ece8df;
+      --card-width: 90mm;
+      --card-height: 54mm;
+      --radius: 3.2mm;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --shadow: 0 38px 90px rgba(15, 15, 15, 0.12);
+      --tilt-x: -5deg;
+      --tilt-y: 7deg;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Manrope", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.95), transparent 32%),
+        linear-gradient(180deg, #f3f2ee 0%, #ecebe6 100%);
+      padding: 28px 16px 40px;
+    }
+
+    .stage {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .export-button {
+      appearance: none;
+      border: 1px solid var(--faint);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--ink);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition:
+        transform 0.35s var(--ease),
+        box-shadow 0.35s var(--ease),
+        background 0.35s var(--ease),
+        border-color 0.35s var(--ease);
+      box-shadow: 0 10px 28px rgba(15, 15, 15, 0.06);
+    }
+
+    .export-button:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.96);
+      border-color: rgba(51, 51, 51, 0.2);
+      box-shadow: 0 16px 34px rgba(15, 15, 15, 0.08);
+    }
+
+    .viewer-shell {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 84px minmax(0, 1fr) 84px;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .variant-nav {
+      appearance: none;
+      width: 58px;
+      height: 58px;
+      justify-self: center;
+      border-radius: 999px;
+      border: 1px solid var(--faint);
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--ink);
+      font: inherit;
+      font-size: 24px;
+      cursor: pointer;
+      transition:
+        transform 0.35s var(--ease),
+        box-shadow 0.35s var(--ease),
+        background 0.35s var(--ease);
+      box-shadow: 0 14px 30px rgba(15, 15, 15, 0.07);
+    }
+
+    .variant-nav:hover {
+      transform: scale(1.04);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 20px 42px rgba(15, 15, 15, 0.1);
+    }
+
+    .variant-stack {
+      width: 100%;
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+    }
+
+    .variant-stack.is-hidden {
+      display: none;
+    }
+
+    .face-block {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .face-title {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .tips {
+      width: min(820px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .tip {
+      position: relative;
+      padding: 16px 18px 15px;
+      border: 1px solid rgba(51, 51, 51, 0.08);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.5));
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(15, 15, 15, 0.045);
+      overflow: hidden;
+    }
+
+    .tip::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(51, 51, 51, 0.16);
+    }
+
+    .tip-label {
+      margin: 0 0 8px 18px;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(51, 51, 51, 0.48);
+    }
+
+    .tip-value {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+
+    .card-shell {
+      width: var(--card-width);
+      height: var(--card-height);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.99)),
+        var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+      transform-style: preserve-3d;
+      transition:
+        transform 0.7s var(--ease),
+        box-shadow 0.7s var(--ease),
+        opacity 0.45s var(--ease);
+    }
+
+    .card-shell:hover {
+      transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+      box-shadow: 0 52px 110px rgba(15, 15, 15, 0.16);
+    }
+
+    .card-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.8), transparent 40%),
+        linear-gradient(180deg, transparent, rgba(51, 51, 51, 0.015));
+      pointer-events: none;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      padding: 6.2mm 7mm;
+    }
+
+    .front-face {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+      gap: 2mm;
+    }
+
+    .front-kicker,
+    .back-kicker,
+    .ref-subtitle,
+    .info-label,
+    .qr-caption,
+    .corner-note {
+      margin: 0;
+      font-size: 2.2mm;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .logo-panel {
+      width: 18mm;
+      height: 18mm;
+      display: grid;
+      place-items: center;
+    }
+
+    .logo-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0.18);
+    }
+
+    .front-card-dark {
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.03), transparent 28%),
+        linear-gradient(160deg, var(--charcoal-soft) 0%, var(--charcoal) 100%);
+    }
+
+    .front-card-dark::before {
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.06), transparent 40%),
+        linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02));
+    }
+
+    .front-card-dark .front-kicker,
+    .front-card-dark .corner-note {
+      color: rgba(236, 232, 223, 0.72);
+    }
+
+    .front-card-dark .logo-panel {
+      width: 26mm;
+      height: 26mm;
+    }
+
+    .front-card-dark .logo-panel img {
+      filter: brightness(0) saturate(100%) invert(92%) sepia(11%) saturate(186%) hue-rotate(351deg) brightness(101%) contrast(92%);
+    }
+
+    .front-footer {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: end;
+      padding-top: 2.2mm;
+      margin-top: auto;
+    }
+
+    .corner-note {
+      letter-spacing: 0.16em;
+    }
+
+    .back-face {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 23mm;
+      gap: 6mm;
+      align-items: start;
+      height: 100%;
+    }
+
+    .back-main {
+      display: grid;
+      gap: 2.4mm;
+      align-content: start;
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 0;
+    }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 12mm minmax(0, 1fr);
+      gap: 3mm;
+      padding: 2.25mm 0;
+      align-items: baseline;
+    }
+
+    .info-value {
+      margin: 0;
+      font-size: 2.55mm;
+      line-height: 1.45;
+      color: var(--ink);
+      word-break: break-word;
+    }
+
+    .qr-panel {
+      justify-self: end;
+      display: grid;
+      gap: 2.2mm;
+      justify-items: center;
+      align-content: start;
+      padding-top: 6mm;
+    }
+
+    .qr-frame {
+      width: 20mm;
+      height: 20mm;
+      padding: 1.1mm;
+      background: #ffffff;
+      border: 1px solid rgba(51, 51, 51, 0.08);
+      display: grid;
+      place-items: center;
+    }
+
+    .qr-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .reference-front {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      justify-items: center;
+      align-items: center;
+      text-align: center;
+      gap: 3mm;
+      padding-top: 7.2mm;
+      padding-bottom: 6.2mm;
+    }
+
+    .reference-front .logo-panel {
+      width: 21mm;
+      height: 21mm;
+      grid-column: auto;
+      grid-row: auto;
+      justify-self: center;
+      align-self: center;
+    }
+
+    .ref-brand {
+      display: grid;
+      gap: 0.9mm;
+      justify-items: center;
+    }
+
+    .ref-title {
+      margin: 0;
+      font-size: 3.7mm;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .ref-subtitle {
+      font-size: 2.15mm;
+      letter-spacing: 0.16em;
+      color: var(--soft);
+    }
+
+    .ref-site {
+      margin: 0;
+      font-size: 2.1mm;
+      letter-spacing: 0.12em;
+      color: var(--soft);
+      text-transform: uppercase;
+    }
+
+    .reference-back {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 28mm;
+      gap: 8mm;
+      align-items: center;
+      height: 100%;
+    }
+
+    .reference-back-left {
+      display: grid;
+      gap: 1.9mm;
+      align-content: center;
+    }
+
+    .reference-name {
+      margin: 0 0 0.6mm;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 5.6mm;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+    }
+
+    .reference-role {
+      margin: 0 0 1.4mm;
+      font-size: 3.5mm;
+      color: var(--ink);
+    }
+
+    .reference-contact {
+      margin: 0;
+      font-size: 2.45mm;
+      line-height: 1.7;
+      color: var(--soft);
+    }
+
+    .reference-back-right {
+      display: grid;
+      gap: 2.2mm;
+      justify-items: center;
+      align-content: center;
+      text-align: center;
+    }
+
+    .reference-back-right .logo-panel {
+      width: 18mm;
+      height: 18mm;
+      grid-column: auto;
+      grid-row: auto;
+      justify-self: center;
+      align-self: center;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 20px 10px 28px;
+      }
+
+      .tips {
+        grid-template-columns: 1fr;
+      }
+
+      .viewer-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .variant-nav {
+        display: none;
+      }
+
+      .card-shell {
+        width: min(100%, 94vw);
+        height: auto;
+        aspect-ratio: 90 / 54;
+      }
+    }
+
+    @media print {
+      @page {
+        size: 90mm 54mm;
+        margin: 0;
+      }
+
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .toolbar,
+      .variant-nav {
+        display: none !important;
+      }
+
+      .stage {
+        width: auto;
+        margin: 0;
+        display: block;
+      }
+
+      .card-shell {
+        width: 90mm;
+        height: 54mm;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .face-block {
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .face-block:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <div class="toolbar">
+      <button class="export-button" type="button" onclick="window.print()">导出 PDF</button>
+    </div>
+
+    <div class="viewer-shell">
+      <button class="variant-nav" type="button" aria-label="切换到上一套方案" data-nav="-1">‹</button>
+
+      <section class="variant-stack" data-stack="original" aria-label="方案一名片预览">
+        <div class="face-block">
+          <p class="face-title">Front</p>
+          <section class="card-shell front-card-dark" aria-label="方案一正面">
+            <article class="card front-face">
+              <p class="front-kicker">Adult Education</p>
+
+              <div class="logo-panel">
+                <img src="public/icon3.svg" alt="Logo" />
+              </div>
+
+              <footer class="front-footer">
+                <p class="corner-note">Personal Card</p>
+                <p class="corner-note">Gao Zongyao</p>
+              </footer>
+            </article>
+          </section>
+        </div>
+
+        <div class="face-block">
+          <p class="face-title">Back</p>
+          <section class="card-shell" aria-label="方案一背面">
+            <article class="card back-face">
+              <section class="back-main">
+                <p class="back-kicker">Personal Information</p>
+
+                <div class="info-grid">
+                  <div class="info-item">
+                    <p class="info-label">Name</p>
+                    <p class="info-value">高宗垚</p>
+                  </div>
+                  <div class="info-item">
+                    <p class="info-label">Field</p>
+                    <p class="info-value">成人教育 / 学士学位</p>
+                  </div>
+                  <div class="info-item">
+                    <p class="info-label">WeChat</p>
+                    <p class="info-value">catcatdown</p>
+                  </div>
+                  <div class="info-item">
+                    <p class="info-label">Mail</p>
+                    <p class="info-value">wa1ybzg@gmail.com</p>
+                  </div>
+                </div>
+              </section>
+
+              <aside class="qr-panel">
+                <div class="qr-frame">
+                  <img src="file:///Users/mortysmith/Desktop/QR.jpg" alt="WeChat QR code" />
+                </div>
+                <p class="qr-caption">WeChat QR</p>
+              </aside>
+            </article>
+          </section>
+        </div>
+      </section>
+
+      <section class="variant-stack is-hidden" data-stack="reference" aria-label="方案二名片预览">
+        <div class="face-block">
+          <p class="face-title">Front</p>
+          <section class="card-shell" aria-label="方案二正面">
+            <article class="card reference-front">
+              <div class="logo-panel">
+                <img src="public/icon3.svg" alt="Logo" />
+              </div>
+
+              <div class="ref-brand">
+                <h2 class="ref-title">让成长更有方向</h2>
+                <p class="ref-subtitle">成人教育 / 长期成长</p>
+              </div>
+
+              <p class="ref-site">catcatdown / wa1ybzg@gmail.com</p>
+            </article>
+          </section>
+        </div>
+
+        <div class="face-block">
+          <p class="face-title">Back</p>
+          <section class="card-shell" aria-label="方案二背面">
+            <article class="card reference-back">
+              <section class="reference-back-left">
+                <h3 class="reference-name">高宗垚</h3>
+                <p class="reference-role">成人教育</p>
+                <p class="reference-contact">微信：catcatdown</p>
+                <p class="reference-contact">邮箱：wa1ybzg@gmail.com</p>
+              </section>
+
+              <aside class="reference-back-right">
+                <div class="qr-frame">
+                  <img src="file:///Users/mortysmith/Desktop/QR.jpg" alt="WeChat QR code" />
+                </div>
+              </aside>
+            </article>
+          </section>
+        </div>
+      </section>
+
+      <button class="variant-nav" type="button" aria-label="切换到下一套方案" data-nav="1">›</button>
+    </div>
+
+    <div class="tips" aria-label="打印信息">
+      <div class="tip">
+        <p class="tip-value">印刷尺寸：90mm × 54mm</p>
+      </div>
+      <div class="tip">
+        <p class="tip-value">推荐纸张：细纹纸或高级哑粉纸</p>
+      </div>
+      <div class="tip">
+        <p class="tip-value">建议导出 PDF 后再送印</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const variants = ["original", "reference"];
+    let currentVariantIndex = 0;
+    const variantStacks = Array.from(document.querySelectorAll("[data-stack]"));
+
+    function updateVariant(index) {
+      currentVariantIndex = (index + variants.length) % variants.length;
+      const activeVariant = variants[currentVariantIndex];
+      variantStacks.forEach((stack) => {
+        stack.classList.toggle("is-hidden", stack.dataset.stack !== activeVariant);
+      });
+    }
+
+    document.querySelectorAll("[data-nav]").forEach((button) => {
+      button.addEventListener("click", () => {
+        updateVariant(currentVariantIndex + Number(button.dataset.nav));
+      });
+    });
+  </script>
+</body>
+</html>

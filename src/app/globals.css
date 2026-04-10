@@ -234,7 +234,7 @@
   }
 
   .prose p {
-    @apply text-white/70 text-[14px];
+    @apply text-white/70 text-[15px];
     white-space: pre-wrap;
   }
 

@@ -57,7 +57,7 @@ export default async function PostPage({
           <div className="relative">
             <MarkdownContent
               html={post.html}
-              className="prose prose-invert max-w-none text-sm leading-[1.8]"
+              className="prose prose-invert max-w-none text-[15px] leading-[1.8]"
             />
 
             {post.toc.length > 0 ? (
