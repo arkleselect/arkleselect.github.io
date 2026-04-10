@@ -415,42 +415,44 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+    gap: 4px;
   }
 
   .toc-tick {
-    width: 40px;
-    height: 16px;
+    width: 240px;
+    height: 22px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding: 0 10px;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0 8px;
     position: relative;
     text-decoration: none;
   }
 
   .toc-label {
-    position: absolute;
-    right: 44px;
-    top: 50%;
-    transform: translateY(-50%) translateX(4px);
+    position: static;
+    transform: translateX(4px);
     color: rgba(255, 255, 255, 0.78);
     padding: 0;
     font-size: 12px;
     white-space: nowrap;
     line-height: 1.2;
     opacity: 0;
-    pointer-events: none;
     transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
   }
 
   .toc-tick.is-visible .toc-label,
   .toc-rail:hover .toc-label {
     opacity: 1;
-    transform: translateY(-50%) translateX(0);
+    transform: translateX(0);
   }
 
   .toc-tick.is-active .toc-label {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .toc-tick:hover .toc-label {
     color: rgba(255, 255, 255, 0.95);
   }
 

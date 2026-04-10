@@ -99,8 +99,8 @@ export default function TocRail({ toc }: TocRailProps) {
               data-depth={item.depth}
               aria-label={`${index + 1}. ${item.text}`}
             >
-              <span className="toc-label">{item.text}</span>
               <span className="toc-line" />
+              <span className="toc-label">{item.text}</span>
             </a>
           );
         })}
