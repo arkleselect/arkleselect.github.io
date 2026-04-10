@@ -426,10 +426,10 @@
     justify-content: flex-end;
     padding: 0 10px;
     position: relative;
+    text-decoration: none;
   }
 
-  .toc-tick::before {
-    content: attr(data-title);
+  .toc-label {
     position: absolute;
     right: 44px;
     top: 50%;
@@ -447,7 +447,8 @@
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
   }
 
-  .toc-tick:hover::before {
+  .toc-tick.is-visible .toc-label,
+  .toc-rail:hover .toc-label {
     opacity: 1;
     transform: translateY(-50%) translateX(0);
   }
@@ -486,6 +487,12 @@
 
   .toc-tick:hover .toc-line {
     background-color: rgba(255, 255, 255, 0.9);
+    width: 18px;
+    opacity: 1;
+  }
+
+  .toc-tick.is-active .toc-line {
+    background-color: rgba(255, 255, 255, 0.95);
     width: 18px;
     opacity: 1;
   }

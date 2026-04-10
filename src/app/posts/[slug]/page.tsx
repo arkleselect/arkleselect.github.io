@@ -1,6 +1,7 @@
 import { getPostBySlug, getPostSlugs } from "@/lib/content";
 import MarkdownContent from "@/components/markdown-content";
 import Comments from "@/components/comments";
+import TocRail from "@/components/toc-rail";
 
 export const dynamicParams = true;
 export const dynamic = 'force-dynamic';
@@ -60,24 +61,7 @@ export default async function PostPage({
               className="prose prose-invert max-w-none text-[15px] leading-[1.8]"
             />
 
-            {post.toc.length > 0 ? (
-              <div className="toc-rail hidden md:flex">
-                <div className="toc-ticks">
-                  {post.toc.map((item, index) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      className="toc-tick"
-                      data-title={item.text}
-                      data-depth={item.depth}
-                      aria-label={`${index + 1}. ${item.text}`}
-                    >
-                      <span className="toc-line" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ) : null}
+            {post.toc.length > 0 ? <TocRail toc={post.toc} /> : null}
           </div>
         </div>
         <Comments
