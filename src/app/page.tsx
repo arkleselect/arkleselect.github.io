@@ -27,7 +27,7 @@ const tools = [
 const books = [
   {
     title: "Elon Musk",
-    cover: "/books/Elon%20Musk.jpg",
+    cover: "https://raw.githubusercontent.com/arkleselect/blog/main/img/Elon%20Musk.jpg",
     hoverText: "ELON MUSK"
   },
 ];
@@ -205,6 +205,7 @@ export default function Home() {
           </div>
 
         </section>
+
       </div>
     </div>
   );
