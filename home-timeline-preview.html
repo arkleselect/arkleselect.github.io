@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>网站大事记 - 时间线预览</title>
+  <style>
+    :root {
+      --bg: #07090d;
+      --panel: rgba(255, 255, 255, 0.03);
+      --line: rgba(255, 255, 255, 0.12);
+      --line-soft: rgba(255, 255, 255, 0.06);
+      --text-main: rgba(255, 255, 255, 0.88);
+      --text-soft: rgba(255, 255, 255, 0.56);
+      --text-faint: rgba(255, 255, 255, 0.35);
+      --accent: #93c5fd;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "SF Mono", "Overpass Mono", "Menlo", "Consolas", monospace;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 35%),
+        radial-gradient(circle at 80% 10%, rgba(96,165,250,0.12), transparent 40%),
+        linear-gradient(180deg, #0b0f16 0%, #07090d 60%, #040507 100%);
+      padding: 48px 20px;
+    }
+
+    .wrap {
+      width: min(980px, 100%);
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ffffff;
+      box-shadow: 0 0 12px rgba(255,255,255,0.55);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .title {
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    .sub {
+      margin: 0 0 34px;
+      color: var(--text-faint);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 14px;
+      padding-left: 36px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.22), rgba(255,255,255,0.05));
+    }
+
+    .item {
+      position: relative;
+      margin-bottom: 26px;
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      border-radius: 14px;
+      padding: 16px 18px 14px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+
+    .item:hover {
+      transform: translateX(4px);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      left: -39px;
+      top: 22px;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.08), 0 0 14px rgba(147,197,253,0.45);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .date {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border: 1px solid rgba(147,197,253,0.35);
+      border-radius: 999px;
+      background: rgba(147,197,253,0.08);
+    }
+
+    .tag {
+      font-size: 10px;
+      color: var(--text-faint);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .event-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.35;
+      color: var(--text-main);
+      letter-spacing: .02em;
+    }
+
+    .event-desc {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      text-align: right;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .5; transform: scale(.9); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 28px 14px; }
+      .timeline { margin-left: 4px; padding-left: 26px; }
+      .item::before { left: -28px; }
+      .event-title { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="header">
+      <span class="dot"></span>
+      <h1 class="title">Milestone / 网站大事记</h1>
+    </header>
+
+    <p class="sub">System Log · Evolution Timeline · Personal Website</p>
+
+    <section class="timeline" aria-label="网站发展时间线">
+      <article class="item">
+        <div class="meta">
+          <span class="date">2026-04-12</span>
+          <span class="tag">feature</span>
+        </div>
+        <h2 class="event-title">首页加入书架模块</h2>
+        <p class="event-desc">新增可展示封面图的书架卡片，支持 hover 毛玻璃遮罩与自定义文案，完成视觉风格统一。</p>
+      </article>
+
+      <article class="item">
+        <div class="meta">
+          <span class="date">2026-03-27</span>
+          <span class="tag">ui refine</span>
+        </div>
+        <h2 class="event-title">首页 HUD 视觉结构调整</h2>
+        <p class="event-desc">强化状态栏、足迹区与工具区的层级，整体转向更克制的暗色科技感与轻量边框语言。</p>
+      </article>
+
+      <article class="item">
+        <div class="meta">
+          <span class="date">2026-02-06</span>
+          <span class="tag">content</span>
+        </div>
+        <h2 class="event-title">文章与 Moments 内容架构稳定</h2>
+        <p class="event-desc">完善内容目录结构与页面路由，沉淀为可持续维护的内容发布流程。</p>
+      </article>
+
+      <article class="item">
+        <div class="meta">
+          <span class="date">2026-02-05</span>
+          <span class="tag">bootstrap</span>
+        </div>
+        <h2 class="event-title">项目初始化上线</h2>
+        <p class="event-desc">完成 Next.js 项目基础搭建，建立全局样式与初始页面布局，开始持续演进。</p>
+      </article>
+    </section>
+
+    <div class="footer">DATA STREAM / VERIFIED</div>
+  </main>
+</body>
+</html>

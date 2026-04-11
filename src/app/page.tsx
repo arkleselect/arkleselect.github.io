@@ -1,6 +1,7 @@
 import { HeroTitle, HeroSubtitle } from "@/components/hero-title";
-import { FiFileText, FiLayers, FiRefreshCw, FiMapPin, FiMusic, FiCommand } from "react-icons/fi";
+import { FiFileText, FiLayers, FiRefreshCw, FiMapPin, FiMusic, FiCommand, FiBookOpen } from "react-icons/fi";
 import Dither from "@/components/dither/Dither";
+import Image from "next/image";
 
 const tools = [
   {
@@ -20,6 +21,14 @@ const tools = [
     description: "内网传输工具",
     link: "https://github.com/arkleselect/sync_tool",
     icon: <FiRefreshCw className="w-6 h-6" />
+  },
+];
+
+const books = [
+  {
+    title: "Elon Musk",
+    cover: "/books/Elon%20Musk.jpg",
+    hoverText: "ELON MUSK"
   },
 ];
 
@@ -100,7 +109,6 @@ export default function Home() {
         {/* 方案4: GitHub Contribution 模拟贡献墙 - HUD 风格 - 去边框去背景 */}
         <section className="relative group">
           <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-2">
-            <div className="h-1 w-1 bg-white animate-pulse"></div>
             <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">足迹</h2>
           </div>
 
@@ -123,7 +131,6 @@ export default function Home() {
         {/* 工具集 Section - HUD 风格 - 去边框去背景 */}
         <section className="relative">
           <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-2">
-            <div className="h-1 w-1 bg-white animate-pulse"></div>
             <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">工具</h2>
           </div>
 
@@ -164,6 +171,39 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* 书架模块 */}
+        <section className="relative">
+          <div className="flex items-center gap-3 mb-6 border-b border-white/5 pb-2">
+            <h2 className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">书架</h2>
+          </div>
+
+          <div className="flex justify-start">
+            {books.map((book) => (
+              <article key={book.title} className="group/book relative w-[170px] sm:w-[190px]">
+                <div className="relative overflow-hidden rounded-sm bg-white/[0.02] aspect-[3/4]">
+                  <Image
+                    src={book.cover}
+                    alt={book.title}
+                    width={480}
+                    height={640}
+                    className="h-full w-full object-contain object-left brightness-[0.82] saturate-[0.86] contrast-[0.94] transition-transform duration-500 group-hover/book:scale-105"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-black/18 transition-colors duration-300 group-hover/book:bg-black/8"></div>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/28 via-black/12 to-transparent opacity-80"></div>
+                  <div className="absolute inset-0 opacity-0 group-hover/book:opacity-100 transition-opacity duration-300 bg-black/25 backdrop-blur-md flex items-center justify-center p-4">
+                    <p className="text-[11px] leading-relaxed text-center text-white/90 font-mono">{book.hoverText}</p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center gap-2 text-white/55">
+                  <FiBookOpen className="w-3.5 h-3.5 text-white/30" />
+                  <h3 className="text-[11px] tracking-wide font-mono uppercase">{book.title}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+
         </section>
       </div>
     </div>
