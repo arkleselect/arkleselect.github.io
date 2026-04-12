@@ -407,8 +407,10 @@
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
-    height: fit-content;
+    width: 260px;
     justify-content: center;
+    padding: 14px 0;
+    overflow: visible;
   }
 
   .toc-ticks {
@@ -416,6 +418,12 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 4px;
+    max-height: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 2px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .toc-tick {
@@ -435,8 +443,12 @@
     transform: translateX(4px);
     color: rgba(255, 255, 255, 0.78);
     padding: 0;
+    display: block;
     font-size: 12px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 198px;
     line-height: 1.2;
     opacity: 0;
     transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
@@ -489,14 +501,42 @@
   }
 
   .toc-tick:hover .toc-line {
-    background-color: rgba(255, 255, 255, 0.9);
-    width: 18px;
-    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.72);
+    opacity: 0.9;
   }
 
   .toc-tick.is-active .toc-line {
     background-color: rgba(255, 255, 255, 0.95);
     width: 18px;
     opacity: 1;
+  }
+
+  .toc-ticks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toc-scroll-hint {
+    position: absolute;
+    right: 8px;
+    width: 240px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.38);
+    pointer-events: none;
+    z-index: 2;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
+  }
+
+  .toc-scroll-hint-top {
+    top: -2px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.45), transparent 80%);
+  }
+
+  .toc-scroll-hint-bottom {
+    bottom: -2px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent 80%);
   }
 }

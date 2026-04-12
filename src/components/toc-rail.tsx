@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type TocItem = {
   depth: number;
@@ -50,6 +50,9 @@ function buildVisibleSet(items: TocItem[], activeId: string | null) {
 
 export default function TocRail({ toc }: TocRailProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(false);
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (toc.length === 0) return;
@@ -81,13 +84,48 @@ export default function TocRail({ toc }: TocRailProps) {
     };
   }, [toc]);
 
+  useEffect(() => {
+    const listEl = listRef.current;
+    if (!listEl) return;
+
+    const updateHints = () => {
+      const overflow = listEl.scrollHeight > listEl.clientHeight + 1;
+      if (!overflow) {
+        setCanScrollUp(false);
+        setCanScrollDown(false);
+        return;
+      }
+
+      const top = listEl.scrollTop;
+      const maxTop = listEl.scrollHeight - listEl.clientHeight;
+      setCanScrollUp(top > 2);
+      setCanScrollDown(top < maxTop - 2);
+    };
+
+    updateHints();
+
+    const onScroll = () => updateHints();
+    listEl.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    const observer = new ResizeObserver(() => updateHints());
+    observer.observe(listEl);
+
+    return () => {
+      listEl.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      observer.disconnect();
+    };
+  }, [toc]);
+
   const visibleSet = useMemo(() => buildVisibleSet(toc, activeId), [toc, activeId]);
 
   if (toc.length === 0) return null;
 
   return (
     <nav className="toc-rail hidden md:flex" aria-label="文章目录">
-      <div className="toc-ticks">
+      {canScrollUp ? <div className="toc-scroll-hint toc-scroll-hint-top" aria-hidden>▲</div> : null}
+      <div ref={listRef} className="toc-ticks">
         {toc.map((item, index) => {
           const isActive = item.id === activeId;
           const isVisible = visibleSet.has(item.id);
@@ -105,6 +143,7 @@ export default function TocRail({ toc }: TocRailProps) {
           );
         })}
       </div>
+      {canScrollDown ? <div className="toc-scroll-hint toc-scroll-hint-bottom" aria-hidden>▼</div> : null}
     </nav>
   );
 }
