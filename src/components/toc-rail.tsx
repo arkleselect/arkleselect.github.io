@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 type TocItem = {
   depth: number;
@@ -124,7 +125,11 @@ export default function TocRail({ toc }: TocRailProps) {
 
   return (
     <nav className="toc-rail hidden md:flex" aria-label="文章目录">
-      {canScrollUp ? <div className="toc-scroll-hint toc-scroll-hint-top" aria-hidden>▲</div> : null}
+      {canScrollUp ? (
+        <div className="toc-scroll-hint toc-scroll-hint-top" aria-hidden>
+          <ChevronUp className="h-3.5 w-3.5 text-white/20" />
+        </div>
+      ) : null}
       <div ref={listRef} className="toc-ticks">
         {toc.map((item, index) => {
           const isActive = item.id === activeId;
@@ -143,7 +148,11 @@ export default function TocRail({ toc }: TocRailProps) {
           );
         })}
       </div>
-      {canScrollDown ? <div className="toc-scroll-hint toc-scroll-hint-bottom" aria-hidden>▼</div> : null}
+      {canScrollDown ? (
+        <div className="toc-scroll-hint toc-scroll-hint-bottom" aria-hidden>
+          <ChevronDown className="h-3.5 w-3.5 text-white/20" />
+        </div>
+      ) : null}
     </nav>
   );
 }
