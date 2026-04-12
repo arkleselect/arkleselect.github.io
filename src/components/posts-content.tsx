@@ -72,9 +72,9 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
                                         </CardDescription>
                                     </div>
                                     <div className="flex flex-col items-end gap-1">
-                                        <span className="text-[9px] font-mono text-white/10 group-hover:text-white/30 transition-colors">
+                                        {/* <span className="text-[9px] font-mono text-white/10 group-hover:text-white/30 transition-colors">
                                             {post.date}
-                                        </span>
+                                        </span> */}
                                     </div>
                                 </div>
                                 <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
