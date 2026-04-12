@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from "react";
+import { ChevronRight } from "lucide-react";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Post {
@@ -53,7 +54,7 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
                     <a key={post.slug} href={`/posts/${post.slug}`} className="block group">
                         <Card className="rounded-none border-white/5 bg-transparent hover:bg-white/[0.02] transition-all duration-500 relative overflow-hidden p-1">
 
-                            <CardHeader className="gap-2 px-6 py-4">
+                            <CardHeader className="gap-2 px-6 py-4 pr-12">
                                 <div className="flex items-start justify-between">
                                     <div className="flex flex-col gap-3 flex-1">
                                         <div className="flex items-center gap-4">
@@ -74,11 +75,11 @@ export function PostsContent({ initialPosts }: PostsContentProps) {
                                         <span className="text-[9px] font-mono text-white/10 group-hover:text-white/30 transition-colors">
                                             {post.date}
                                         </span>
-                                        <span className="text-[8px] font-mono text-white/[0.03] group-hover:text-white/10 transition-colors tracking-tighter">
-                                            HASH_{post.slug.slice(0, 8).toUpperCase()}
-                                        </span>
                                     </div>
                                 </div>
+                                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                                    <ChevronRight className="h-3.5 w-3.5 text-white/15 group-hover:text-white/45 transition-colors duration-300" />
+                                </span>
                             </CardHeader>
                         </Card>
                     </a>
