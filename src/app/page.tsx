@@ -188,7 +188,7 @@ export default function Home() {
                     alt={book.title}
                     width={480}
                     height={640}
-                    className="h-full w-full object-contain object-left brightness-[0.82] saturate-[0.86] contrast-[0.94] transition-transform duration-500 group-hover/book:scale-105"
+                    className="h-full w-full object-contain object-left brightness-[0.82] saturate-[0.86] contrast-[0.94]"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-black/18 transition-colors duration-300 group-hover/book:bg-black/8"></div>
                   <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-black/28 via-black/12 to-transparent opacity-80"></div>
